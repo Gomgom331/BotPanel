@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+@media(max-width: 768px){
+    .large{
+        height: 40px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1023px){
+    .large{
+        height: 40px;
+    }
+}
+
+@media (min-width: 1024px){
+    .large{
+        height: 30px;
+    }
+}
+
+
+/* 버튼 형태 스타일 */
+.button{
+    border-radius: 0.35rem ;
+    transition: 0.3s ease;
+}
+
+.fullWidth{
+    width: 100%;
+}
+
+.large{
+    font-size: 1.0769rem;
+    font-weight: 500;
+}
+
+/* 버튼 색상 스타일 보더 + 배경색 + 호버 */
+
+.primary{
+    background-color: var(--color-primary);
+    color: var(--text-wh);
+}
+.primary:hover{
+    background-color: var(--color-primary-dark);
+}
+
+.ghost{
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+}
+.ghost:hover{
+    background-color: var(--button-ghost-hover);
+    border: 1px solid var(--button-ghost-hover);
+}

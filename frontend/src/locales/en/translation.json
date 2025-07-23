@@ -1,0 +1,46 @@
+{
+    "welcome": "Welcome",
+    "greeting": "Hello, {{name}}!",
+
+    "login": {
+      "title": "Login Page"
+    },
+
+    "signup": {
+      "title": "Sign Up"
+    },
+
+    "form": {
+      "username": "Username",
+      "password": "Password",
+      "login": "Login"
+    },
+
+    "main": {
+        "welcome": "Welcome!",
+        "admin": "Admin Page",
+        "user": "User Page"
+    },
+
+    "error": {
+        "required": {
+          "username": "Please enter your username.",
+          "password": "Please enter your password.",
+          "email": "Please enter your email."
+        },
+        "invalid": {
+          "email": "Please enter a valid email address.",
+          "password": {
+            "length": "Password must be at least 8 characters."
+          }
+        },
+        "duplicate": {
+          "username": "This username is already taken.",
+          "email": "This email is already registered."
+        }
+    },
+
+    "common": {
+      "loading": "Loading..."
+    }
+}

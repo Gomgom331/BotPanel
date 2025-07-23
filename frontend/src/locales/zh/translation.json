@@ -1,0 +1,44 @@
+{
+    "welcome": "Welcome",
+    "greeting": "Hello, {{name}}!",
+
+    "login": {
+      "title": "登录页面"
+    },
+    "signup": {
+      "title": "注册"
+    },
+    "form": {
+      "username": "用户名",
+      "password": "密码",
+      "login": "登录"
+    },
+    
+    "main": {
+        "welcome": "欢迎！",
+        "admin": "管理员页面",
+        "user": "用户页面"
+    },
+
+    "error": {
+        "required": {
+          "username": "请输入用户名。",
+          "password": "请输入密码。",
+          "email": "请输入电子邮件。"
+        },
+        "invalid": {
+          "email": "请输入有效的电子邮件地址。",
+          "password": {
+            "length": "密码长度必须至少为8个字符。"
+          }
+        },
+        "duplicate": {
+          "username": "该用户名已被使用。",
+          "email": "该电子邮件已注册。"
+        }
+      },
+
+    "common": {
+      "loading": "加载中..."
+    }
+}

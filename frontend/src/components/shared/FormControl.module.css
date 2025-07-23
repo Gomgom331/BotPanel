@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+/* 반흥형 별 크기 사이즈 */
+@media(max-width: 768px){
+    .input{
+        height: 40px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1023px){
+    .input{
+        height: 40px;
+    }
+}
+
+@media (min-width: 1024px){
+    .input{
+        height: 30px;
+    }
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.6rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+/* 라벨 */
+.label{
+    font-weight: 600;
+}
+/* 인풋 */
+.input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    width: 100%;
+    border-radius: 0.35rem;
+    padding: 0rem 0.5rem;
+    color: var(--text-body);
+    font-size: 0.9rem;
+}
+.input:disabled{
+    border: 1px solid var(--input-disabled-border);
+    background-color: var(--input-disabled-bg);
+}
+.input:focus{
+    outline: 1.5px solid var(--input-focus-border);
+    outline-offset: 1px;
+}
+.input.error{
+    border: 1px solid var(--error-ipnut);
+}
+
+/* 중요도 */
+.required{
+    color: var(--color-required);
+}
+/* 에러문 */
+.errorText{
+    width: 100%;
+    color: var(--error-font);
+    text-align: end;
+}

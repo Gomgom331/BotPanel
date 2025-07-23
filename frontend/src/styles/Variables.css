@@ -1,0 +1,121 @@
+
+@charset "utf-8";
+
+:root{
+  /* 브랜드 컬러 (Primary Theme Colors) */
+  --color-primary: #CC53A3;         /* 메인 컬러 */
+  --color-primary-dark: #B3207E;    /* 메인 컬러 딥 */
+  --color-primary-light: #FFEBF8;   /* 메인 컬러 라이트 */
+  --color-primary-gradient: linear-gradient(90deg, #B3207E, #CC53A3, #D986BB);
+
+  /* 중립 색상 (Neutral Colors) */        
+  --color-white: #ffffff;           
+  --color-grey-light: #f8f8f8;      
+  --color-red: #ED0000;             
+  --color-red-light: #FFECEC;
+  --color-blue: #0087FF;
+  --color-blue-light: #F1F8FF;
+  
+  --bg-base: var(--color-white);         /* 전체 페이지 기본 배경 */
+  --bg-surface: var(--color-grey-light); /* 카드, 섹션, 박스 등 내부 서브 배경 */
+
+  /* 라인, 그림자 */
+  --color-border: #D9D9D9;          /* 경계선, 구분선 */
+  --color-shadow: #0000002b;        /* 그림자 */
+
+  /* 기본 아이콘 컬러 */
+  --icon-color: #999999;
+
+  /* 인풋 색상 */
+  --input-border: #EAEAEC;    /* 인풋 보더 */
+  --input-bg: var(--color-white); /* 인풋 배경 */
+
+  --input-disabled-border: #D9D9D9; /* 인풋 비활성화 보더 */
+  --input-disabled-bg: #F8F8F8;  /* 인풋 비활성화 배경 */
+
+
+  --color-required: var(--color-red); /* 인풋 필수값 */
+  --input-focus-border: var(--color-primary); /*인풋 포커스*/ 
+
+  /* 스크롤 */
+  --color-scroll-thumb: #D9D9D9;
+
+  /* 텍스트 색상 */
+  --text-body: #333333;             /* 기본 본문 텍스트 */
+  --text-heading: #111111;          /* 제목 */
+  --text-sub: #666666;              /* 서브 텍스트 */
+  --text-placeholder: #999999;      /* 입력창 placeholder */
+  --text-wh: #ffffff;
+
+  /* 에러 색상 */
+  --error-ipnut: var(--color-red);
+  --error-font: var(--color-red);
+  --error-bg: var(--color-red-light);
+
+  /* 버튼 컬러 */
+  --button-ghost-hover: #F1F1F1;
+
+
+
+}
+
+/* 반흥형 별 크기 사이즈 */
+@media(max-width: 768px){
+    html{
+        font-size: 14px;   
+        font-weight: 500;
+    }
+    textarea{
+        font-size: 14px;   
+        font-weight: 500;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1023px){
+    html{
+        font-size: 14px;
+        font-weight: 500;
+    }
+    textarea{
+        font-size: 14px;   
+        font-weight: 500;
+    }
+}
+
+@media (min-width: 1024px){
+    html{
+        font-size: 13px;   
+        font-weight: 500;
+    }
+    textarea{
+        font-size: 13px;   
+        font-weight: 500;
+    }
+}
+
+
+html{
+    color: var(--text-body);
+}
+
+textarea{
+    color: var(--text-body);
+}
+
+/* font */
+h1{
+    font-weight: 700;
+    font-size: 1.4rem;
+    display:inline-block;
+    color: var(--text-heading);
+}
+h2{ 
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: inline-block;
+}
+h3{
+    font-size: 1rem;
+    font-weight: 600;
+}
+

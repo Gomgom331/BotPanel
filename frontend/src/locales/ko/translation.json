@@ -1,0 +1,46 @@
+{
+    "welcome": "환영합니다",
+    "greeting": "{{name}}님, 안녕하세요!",
+
+    "login": {
+      "title": "로그인 페이지 입니다"
+    },
+
+    "signup": {
+      "title": "회원가입"
+    },
+
+    "form": {
+      "username": "아이디",
+      "password": "비밀번호",
+      "login": "로그인"
+    },
+
+    "main": {
+      "welcome": "환영합니다!",
+      "admin": "관리자 페이지",
+      "user": "사용자 페이지"
+    },
+
+    "error": {
+      "required": {
+        "username": "이름을 입력해주세요.",
+        "password": "비밀번호를 입력해주세요.",
+        "email": "이메일을 입력해주세요."
+      },
+      "invalid": {
+        "email": "유효한 이메일 주소를 입력해주세요.",
+        "password": {
+          "length": "비밀번호는 최소 8자 이상이어야 합니다."
+        }
+      },
+      "duplicate": {
+        "username": "이미 사용 중인 아이디입니다.",
+        "email": "이미 등록된 이메일입니다."
+      }
+    },
+
+    "common": {
+      "loading": "로딩중..."
+    }
+}
