@@ -142,7 +142,6 @@ env.bak/
 venv.bak/
 
 .env
-.env.*
 
 # Spyder project settings
 .spyderproject
@@ -508,3 +507,9 @@ $RECYCLE.BIN/
 /frontend/.env.development
 /frontend/.env.production
 /frontend/.env.local
+
+
+# Docker 성공시 제외함 (임시로 올리지 않기)
+docker-compose.yml
+**/Dockerfile
+**/.dockerignore
