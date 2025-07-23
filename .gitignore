@@ -496,17 +496,15 @@ $RECYCLE.BIN/
 /backend/django/.env.development
 /backend/django/.env.production
 /backend/django/.env.local
-/backend/django/.env.example
 
 /backend/fastapi/.env
 /backend/fastapi/.env.development
 /backend/fastapi/.env.production
 /backend/fastapi/.env.local
-/backend/fastapi/.env.example
+
 
 # Frontend
 /frontend/.env
 /frontend/.env.development
 /frontend/.env.production
 /frontend/.env.local
-/frontend/.env.example
