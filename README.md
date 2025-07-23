@@ -1,4 +1,4 @@
-# 전체 셋팅
+# 전체 환경 셋팅
 
 ## 패키지 저장 ---------------
 파이썬 패키지를 설정 후 `requirements.txt` 에 저장해주기
@@ -57,3 +57,25 @@ Django 유저 DB, ORM 그대로 유지 및 활용을 하고
  - uvicorn : 9000
     `uvicorn main:app --reload --port 9000`
     
+
+
+# 도커 셋팅 (Compose V2 사용)
+
+## 설치방법 ---------------
+
+Docker Desktop 실행 → ⚙️ Settings → General
+“Use Docker Compose V2” 체크!
+
+- docker desktop 설치 
+- docker desktop을 실행 후 build 하기
+    => backend 에만 requirements.txt 있기 때문에 아래 명령어로 실행시켜주기 (복사해주기..)
+    ```
+        cp backend/requirements.txt backend/django/requirements.txt
+        cp backend/requirements.txt backend/fastapi/requirements.txt
+        docker compose up --build
+    ```
+- React 프로젝트 충돌 (peer dependency 충돌) react-scripts@5.0.1과 typescript@5.x의 버전 불일치
+    => peer dependency 충돌을 무시하고 설치해주는 옵션 (react-scripts@5에서 이 옵션은 거의 필수)
+    ```
+    RUN npm install --legacy-peer-deps
+    ```
