@@ -79,3 +79,17 @@ Docker Desktop 실행 → ⚙️ Settings → General
     ```
     RUN npm install --legacy-peer-deps
     ```
+
+
+# Mac 설정
+
+## 환경 설정 명령어
+```
+git clone <your-repo>
+cd your-repo
+
+cp .env.example .env
+
+docker-compose down --volumes --remove-orphans
+docker-compose up --build
+```
