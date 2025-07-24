@@ -24,7 +24,6 @@ services:
       - "9000:9000"
     volumes:
       - ./backend/fastapi_app:/app
-      - ./backend/django_app:/app/django_app  # Django 프로젝트 공유
     working_dir: /app
     command: >
       sh -c "uvicorn main:app --port 9000 --reload"

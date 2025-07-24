@@ -500,6 +500,7 @@ $RECYCLE.BIN/
 /backend/fastapi_app/.env.development
 /backend/fastapi_app/.env.production
 /backend/fastapi_app/.env.local
+backend/fastapi_app/.env.development
 
 
 # Frontend
