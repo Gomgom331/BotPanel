@@ -24,7 +24,7 @@ def main():
     """Run administrative tasks."""
     os.environ.setdefault(
         'DJANGO_SETTINGS_MODULE',
-        os.getenv("DJANGO_SETTINGS_MODULE", "config.settings.base")  # 기본값 지정
+        os.getenv("DJANGO_SETTINGS_MODULE", "django_app.config.settings.base")  # 기본값 지정
     )
     try:
         from django.core.management import execute_from_command_line
