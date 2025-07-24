@@ -511,6 +511,6 @@ backend/fastapi_app/.env.development
 
 
 # Docker 성공시 제외함 (임시로 올리지 않기)
-docker-compose.yml
-**/Dockerfile
-**/.dockerignore
+# docker-compose.yml
+# **/Dockerfile
+# **/.dockerignore
