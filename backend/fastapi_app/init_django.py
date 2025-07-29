@@ -6,15 +6,39 @@ from pathlib import Path
 
 def init_django():
     BASE_DIR = Path(__file__).resolve().parent
-    FASTAPI_DIR = BASE_DIR
-    DJANGO_DIR = (BASE_DIR / "django_app").resolve()  # 
-
-    print("DJANGO_DIR:", DJANGO_DIR)
-    print("FASTAPI_DIR:", FASTAPI_DIR)
-    print("Django module path:", django.__file__)
-
-    # 핵심 포인트: 'config' 폴더가 포함된 경로를 sys.path 에 넣음
-    sys.path.insert(0, str(DJANGO_DIR))  # /app/django_app/config 를 import 가능하게
+    DJANGO_DIR = (BASE_DIR / "django_app").resolve()  
+    
+    # 도커와 로컬 둘 다 실행 가능하게 하고 싶어서 이벤트 작업중
+    
+    # 경로 인식 분기점
+    # docker_path = (BASE_DIR / "django_app")
+    # local_path = (BASE_DIR / "../django_app")
+    
+    # 입력 명령어 감지
+    # is_local = "--local" in sys.argv or "uvicorn" in " ".join(sys.argv)
+    # print(is_local)
+    
+    
+    # if docker_path.exists():
+    #     DJANGO_DIR = (BASE_DIR / "django_app").resolve()  
+    # else:
+    #     DJANGO_DIR = local_path.resolve()
+    
+    # 로컬 / 도커 분기점
+    # if is_local:
+    #     # 로컬 환경
+    #     DJANGO_DIR = (BASE_DIR / "../django_app").resolve()
+    #     print("로컬 환경 감지됨 (uvicorn 명령어)")
+    # else:
+    #     # Docker 환경
+    #     DJANGO_DIR = (BASE_DIR / "django_app").resolve()
+    #     print("Docker 환경 감지됨")
+    
+    # print(f"Django 디렉토리: {DJANGO_DIR}")
+    # print(f"Django 디렉토리 존재: {DJANGO_DIR.exists()}")
+    
+    # 핵심 포인트: Django 프로젝트 루트를 sys.path에 추가
+    sys.path.insert(0, str(DJANGO_DIR))# Django 프로젝트 루트 추가
 
     # 기본 .env 파일
     load_dotenv(DJANGO_DIR / ".env", override=False)
