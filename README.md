@@ -70,8 +70,8 @@ Docker Desktop 실행 → ⚙️ Settings → General
 - docker desktop을 실행 후 build 하기
     => backend 에만 requirements.txt 있기 때문에 아래 명령어로 실행시켜주기 (복사해주기..)
     ```
-        cp backend/requirements.txt backend/django/requirements.txt
-        cp backend/requirements.txt backend/fastapi/requirements.txt
+        cp backend/requirements.txt backend/django_app/requirements.txt
+        cp backend/requirements.txt backend/fastapi_app/requirements.txt
         docker compose up --build
     ```
 - React 프로젝트 충돌 (peer dependency 충돌) react-scripts@5.0.1과 typescript@5.x의 버전 불일치
@@ -79,6 +79,14 @@ Docker Desktop 실행 → ⚙️ Settings → General
     ```
     RUN npm install --legacy-peer-deps
     ```
+
+- 실행 명령어
+    -- 일반 실행
+    `docker-compose up`
+    -- 빌드 실행
+    `docker-compose up --build`
+    -- 만약 오류가 나 해당 컨테이너를 삭제 해야될시
+    `docker rm 컨테이너명`
 
 
 # Mac 설정
@@ -93,3 +101,31 @@ cp .env.example .env
 docker-compose down --volumes --remove-orphans
 docker-compose up --build
 ```
+
+
+# Git 설정
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

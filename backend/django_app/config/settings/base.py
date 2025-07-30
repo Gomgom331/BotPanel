@@ -25,6 +25,7 @@ SYSTEM_APPS = [
 CUSTOM_APPS = [
     'corsheaders',
     'api',
+    'users',
 ]
 
 INSTALLED_APPS = SYSTEM_APPS + CUSTOM_APPS
@@ -74,21 +75,8 @@ DATABASES = {
 }
 
 
-# auth
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# auth / 비밀번호 제약조건 제거
+AUTH_PASSWORD_VALIDATORS = []
 
 # static
 STATIC_URL = 'static/'
@@ -102,3 +90,6 @@ CORS_ALLOWED_ORIGINS = [
     origin for origin in os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",") if origin
 ]
 CORS_ALLOW_ALL_ORIGINS = os.getenv('DJANGO_CORS_ALLOW_ALL_ORIGINS') == 'True'
+
+# 커스텀 모델 등록
+AUTH_USER_MODEL = 'users.CustomUser'

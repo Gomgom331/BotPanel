@@ -7,11 +7,11 @@ from pathlib import Path
 def init_django():
     BASE_DIR = Path(__file__).resolve().parent
     FASTAPI_DIR = BASE_DIR
-    DJANGO_DIR = (BASE_DIR / "django_app").resolve()  # 
+    DJANGO_DIR = (BASE_DIR / "django_app").resolve()
 
-    print("DJANGO_DIR:", DJANGO_DIR)
-    print("FASTAPI_DIR:", FASTAPI_DIR)
-    print("Django module path:", django.__file__)
+    # print("DJANGO_DIR:", DJANGO_DIR)
+    # print("FASTAPI_DIR:", FASTAPI_DIR)
+    # print("Django module path:", django.__file__)
 
     # 핵심 포인트: 'config' 폴더가 포함된 경로를 sys.path 에 넣음
     sys.path.insert(0, str(DJANGO_DIR))  # /app/django_app/config 를 import 가능하게
