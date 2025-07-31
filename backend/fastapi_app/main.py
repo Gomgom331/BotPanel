@@ -18,7 +18,10 @@ os.environ.setdefault("ENV", "development")
 settings = get_settings()
 
 # FastAPI 앱 생성
-app = FastAPI(title="FastAPI + Django")
+app = FastAPI(
+    title="FastAPI + Django",
+    root_path="/fastapi",
+)
 
 # CORS 설정 (React 3000번 포트와 통신 허용)
 app.add_middleware(
@@ -30,5 +33,4 @@ app.add_middleware(
 )
 
 # 라우터 등록 (기능별 prefix 구분)
-# app.include_router(auth.router, prefix="/api", tags=["Auth"])
 app.include_router(emotion.router, prefix="/test", tags=["Emotion"])

@@ -17,6 +17,7 @@
             팀원 전체가 공유하는 개발용
         - .env.production : 운영서버
             사용자에게 노출이 되는 진짜 배포서버용 (DB/결제/인증 등)
+        `도커를 도입하면서 가상환경에서 실행하기 위해 개발은 도커 나머지는 로컬용으로 지정`         
     3. .env : 기본값
     4. .env.example: 환경변수에 들어가는 변수 명 저장
 
@@ -137,8 +138,8 @@ volume 마운트로 해당 구조를 만들어 줌
 - docker desktop을 실행 후 build 하기
     => backend 에만 requirements.txt 있기 때문에 아래 명령어로 실행시켜주기 (복사해주기..)
     ```
-        cp backend/requirements.txt backend/django/requirements.txt
-        cp backend/requirements.txt backend/fastapi/requirements.txt
+        cp backend/requirements.txt backend/django_app/requirements.txt
+        cp backend/requirements.txt backend/fastapi_app/requirements.txt
         docker compose up --build
     ```
 - React 프로젝트 충돌 (peer dependency 충돌) react-scripts@5.0.1과 typescript@5.x의 버전 불일치
@@ -146,6 +147,14 @@ volume 마운트로 해당 구조를 만들어 줌
     ```
     RUN npm install --legacy-peer-deps
     ```
+
+- 실행 명령어
+    -- 일반 실행
+    `docker-compose up`
+    -- 빌드 실행
+    `docker-compose up --build`
+    -- 만약 오류가 나 해당 컨테이너를 삭제 해야될시
+    `docker rm 컨테이너명`
 
 
 # Mac 설정
@@ -160,3 +169,40 @@ cp .env.example .env
 docker-compose down --volumes --remove-orphans
 docker-compose up --build
 ```
+
+
+# Git 설정
+
+
+
+
+# docker / fastapi url 파라미터 설정
+- django api : 사용자 인증 / 로그인 / 게시판
+- fast api : LLM / 다량의 데이터 리스트 / 외부 api
+
+=> 클라이언트측 (프론트에서) 해당 url을 전송하면 Axios.py 에서 구분
+    djangoAPI : `fetch("api/login?source=djangapi")`
+    fastAPI : `fetch("api/test?source=fastapi")`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

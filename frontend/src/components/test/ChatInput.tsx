@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import axiosInstance from "../../api/axiosFastapi";
 
 const ChatInput: React.FC = () => {
   const [message, setMessage] = useState("");
   const [result, setResult] = useState("");
 
+  // 메세지 호출
   const sendMessage = async () => {
-    const res = await fetch("http://localhost:9000/test/", {
+    const res = await fetch("http://127.0.0.1:9000/fastapi/test/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

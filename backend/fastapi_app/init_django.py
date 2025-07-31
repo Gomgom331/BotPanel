@@ -60,4 +60,7 @@ def init_django():
     print("DJANGO_SETTINGS_MODULE:", settings_module)
 
     # Django 초기화
-    django.setup()
+    try: 
+        django.setup()
+    except Exception as e:
+        print(f"Django 초기화 중 에러 발생: {e}")

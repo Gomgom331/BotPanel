@@ -1,10 +1,11 @@
+
 // pages
 import Login from "../pages/Login/Login";
 import Main from "../pages/Main/Main";
 import Chat from "../components/test/ChatInput";
 
 // components
-import NotFound from "../pages/Error/NotFound"
+// import NotFound from "../pages/Error/NotFound"
 
 // hook & function
 import HomeRedirect from "../routes/HomeRedirect";
@@ -19,7 +20,6 @@ export interface AppRoute {
     component: ComponentType<any>; // 컴포넌트만 받고 렌더링은 라우터에서
     requiredRole?: UserRole;
 }
-
 
 // 공개 라우터
 export const publicRoutes: AppRoute[] = [
