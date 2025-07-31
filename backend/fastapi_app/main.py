@@ -20,7 +20,7 @@ settings = get_settings()
 # FastAPI 앱 생성
 app = FastAPI(
     title="FastAPI + Django",
-    root_path="/fastapi"    
+    root_path="/fastapi",
 )
 
 # CORS 설정 (React 3000번 포트와 통신 허용)

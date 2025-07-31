@@ -17,6 +17,7 @@
             팀원 전체가 공유하는 개발용
         - .env.production : 운영서버
             사용자에게 노출이 되는 진짜 배포서버용 (DB/결제/인증 등)
+        `도커를 도입하면서 가상환경에서 실행하기 위해 개발은 도커 나머지는 로컬용으로 지정`         
     3. .env : 기본값
     4. .env.example: 환경변수에 들어가는 변수 명 저장
 
@@ -106,6 +107,15 @@ docker-compose up --build
 # Git 설정
 
 
+
+
+# docker / fastapi url 파라미터 설정
+- django api : 사용자 인증 / 로그인 / 게시판
+- fast api : LLM / 다량의 데이터 리스트 / 외부 api
+
+=> 클라이언트측 (프론트에서) 해당 url을 전송하면 Axios.py 에서 구분
+    djangoAPI : `fetch("api/login?source=djangapi")`
+    fastAPI : `fetch("api/test?source=fastapi")`
 
 
 

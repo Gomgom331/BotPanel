@@ -7,7 +7,12 @@ from pathlib import Path
 def init_django():
     BASE_DIR = Path(__file__).resolve().parent
     FASTAPI_DIR = BASE_DIR
-    DJANGO_DIR = (BASE_DIR / "django_app").resolve()
+    # DJANGO_DIR = (BASE_DIR / "django_app").resolve()
+    # DJANGO_DIR = Path(os.getenv("DJANGO_DIR", BASE_DIR / "../django_app")).resolve()
+    
+    
+    # local 전용
+    DJANGO_DIR = (BASE_DIR / "../django_app").resolve()
 
     # print("DJANGO_DIR:", DJANGO_DIR)
     # print("FASTAPI_DIR:", FASTAPI_DIR)
@@ -36,4 +41,7 @@ def init_django():
     print("DJANGO_SETTINGS_MODULE:", settings_module)
 
     # Django 초기화
-    django.setup()
+    try: 
+        django.setup()
+    except Exception as e:
+        print(f"Django 초기화 중 에러 발생: {e}")
