@@ -10,8 +10,8 @@ services:
     working_dir: /app
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
-    env_file:
-      - ./backend/django_app/.env
+    environment:
+      - ENV=development 
     container_name: django_app
 
   fastapi:
@@ -26,8 +26,8 @@ services:
     working_dir: /app
     command: >
       sh -c "uvicorn main:app --host 0.0.0.0 --port 9000 --reload"
-    env_file:
-      - ./backend/fastapi_app/.env
+    environment:
+      - ENV=development 
     depends_on:
       - django
     container_name: fastapi_app
@@ -39,5 +39,8 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/app
+      - ./frontend/.env.dev:/app/.env.development # .env 로 마운트해서 적용
     working_dir: /app
+    environment:
+      - ENV=development
     command: npm start

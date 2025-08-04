@@ -3,37 +3,46 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
-# env load  
-load_dotenv(".env", override=False)
+# 공통 환경 변수 로드
+common_env = BASE_DIR / ".env.common"
+if common_env.exists():
+    load_dotenv(common_env, override=False)
+    
+# 환경 변수 설정 (기본 값 local)
+env = os.getenv("ENV","local")
+env_to_settings = {
+    "local":"local",
+    "development":"dev",
+    "production":"prod",
+}
+env_file = BASE_DIR / f".env.{env}"
 
-env = os.getenv("ENV", "development")
-env_file = f".env.{env}"
-
-
-if os.path.exists(env_file):
+# 선택된 환경에 맞는 .env 파일 로드
+if env_file.exists():
     load_dotenv(env_file, override=True)
+else:
+    raise FileNotFoundError(f"지정된 환경 파일이 없습니다: {env_file}")
 
-# 로컬 파일이 있으면 실행
-if os.path.exists(".env.local"):
-    load_dotenv(".env.local", override=True)
+# setting 값 설정
+setting_key = env_to_settings.get(env, "local")
+setting_file = f"django_app.config.settings.{setting_key}"
 
+# django 세팅 등록
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    f"django_app.config.settings.{setting_key}"
+)
 
 def main():
-    """Run administrative tasks."""
-    os.environ.setdefault(
-        'DJANGO_SETTINGS_MODULE',
-        os.getenv("DJANGO_SETTINGS_MODULE", "django_app.config.settings.base")  # 기본값 지정
-    )
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
-        raise ImportError(
-            "django - manage.py error"
-        ) from exc
+        raise ImportError("manage.py error") from exc_info()
+    
     execute_from_command_line(sys.argv)
+    
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,29 +1,89 @@
 import React, { useState } from "react";
-import axiosInstance from "../../api/axiosFastapi";
+import { useBackendSenderWithCSRF } from "../../hooks/useBackendUrl"
 
 const ChatInput: React.FC = () => {
+
   const [message, setMessage] = useState("");
   const [result, setResult] = useState("");
 
-  // 메세지 호출
+  const sendToBackend = useBackendSenderWithCSRF({
+    source: "fastapi",             // 여기서 source 분기
+    parameterPath: "/test",
+  })
+
   const sendMessage = async () => {
-    const res = await fetch("http://127.0.0.1:9000/fastapi/test/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: message }),
-    });
+    try {
+      const response = await sendToBackend({ text: message });
 
-    const data = await res.json();
-    const topEmotion = data.result?.[0];
+      // 체크 후 삭제
+      console.log("응답 전체", response); 
+      console.log("response.data", response);  
 
-    if (topEmotion) {
-      setResult(`${topEmotion.label} (${(topEmotion.score * 100).toFixed(1)}%)`);
-    } else {
-      setResult("감정을 분석할 수 없습니다.");
+      const topEmotion = response.result?.[0];
+
+      if (topEmotion) {
+        setResult(`${topEmotion.label} (${(topEmotion.score * 100).toFixed(1)}%)`);
+      } else {
+        setResult("감정을 분석할 수 없습니다.");
+      }
+
+    } catch (error: any) {
+      console.error("❗ FastAPI 응답 에러", error);
+      setResult("에러가 발생했습니다.");
     }
-  };
+  }
+
+
+
+  // api 호출
+  // const api = useApi();
+
+
+  // 메세지 호출
+  // const sendMessage = async () => {
+  //   const res = await api.post("/fastapi/test?soucr", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ text: message }),
+  //   });
+
+  //   const data = await res.json();
+  //   const topEmotion = data.result?.[0];
+
+  //   if (topEmotion) {
+  //     setResult(`${topEmotion.label} (${(topEmotion.score * 100).toFixed(1)}%)`);
+  //   } else {
+  //     setResult("감정을 분석할 수 없습니다.");
+  //   }
+  // };
+
+
+
+
+
+  // const sendMessage = async () => {
+  //   try {
+  //     const response = await api.post("/fastapi/test", { text: message }, {
+  //       params: { source: "fastapi" },
+  //     });
+  
+  //     console.log("응답 전체", response);         // 응답 구조 확인
+  //     console.log("response.data", response.data); // 실제 JSON 본문
+  
+  //     const topEmotion = response.data.result?.[0];
+  
+  //     if (topEmotion) {
+  //       setResult(`${topEmotion.label} (${(topEmotion.score * 100).toFixed(1)}%)`);
+  //     } else {
+  //       setResult("감정을 분석할 수 없습니다.");
+  //     }
+  //   } catch (error: any) {
+  //     console.error("❗ FastAPI 응답 에러", error);
+  //     setResult("에러가 발생했습니다.");
+  //   }
+  // };
 
   return (
     <div>

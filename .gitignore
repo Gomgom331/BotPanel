@@ -287,6 +287,7 @@ web_modules/
 .env.production.local
 .env.local
 .env.production
+.env.common
 # parcel-bundler cache (https://parceljs.org/)
 .parcel-cache
 
@@ -495,12 +496,14 @@ $RECYCLE.BIN/
 /backend/django_app/.env.development
 /backend/django_app/.env.production
 /backend/django_app/.env.local
+/backend/django_app/.env.common
 
 /backend/fastapi_app/.env
 /backend/fastapi_app/.env.development
 /backend/fastapi_app/.env.production
 /backend/fastapi_app/.env.local
 backend/fastapi_app/.env.development
+backend/fastapi_app/.env.common
 
 
 # Frontend
@@ -508,6 +511,7 @@ backend/fastapi_app/.env.development
 /frontend/.env.development
 /frontend/.env.production
 /frontend/.env.local
+/frontend/.env.common
 
 
 # Docker 성공시 제외함 (임시로 올리지 않기)

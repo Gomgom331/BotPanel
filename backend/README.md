@@ -24,3 +24,8 @@ API 엔드포인트로 api에서 관리하지만 각 모델들은 기능별로 A
 - django_app/api # api 앤드포인트
 - django_app/users # users 앱 (기능별로 생성)
 
+## 환경변수 설정
+`FastAPI의 경우 환경변수를 사용할려면 "fastapi_config.py" 파일에 정의를 해주어야함`
+ - Pydantic의 Settings는 정의된 필드만 허용합니다(extra = "forbid"일 때)
+.env나 환경변수에 값이 있어도, Settings 클래스에 필드가 없으면 "허용되지 않은 값"으로 에러가 남
+
