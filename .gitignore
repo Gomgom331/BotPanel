@@ -502,8 +502,8 @@ $RECYCLE.BIN/
 /backend/fastapi_app/.env.development
 /backend/fastapi_app/.env.production
 /backend/fastapi_app/.env.local
-backend/fastapi_app/.env.development
-backend/fastapi_app/.env.common
+/backend/fastapi_app/.env.development
+/backend/fastapi_app/.env.common
 
 
 # Frontend
@@ -517,4 +517,5 @@ backend/fastapi_app/.env.common
 # Docker 성공시 제외함 (임시로 올리지 않기)
 # docker-compose.yml
 # **/Dockerfile
-# **/.dockerignore
+# **/.dockerignoreb a c k e n d / f a s t a p i _ a p p / . e n v . c o m m o n  
+ 
