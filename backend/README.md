@@ -29,3 +29,5 @@ API 엔드포인트로 api에서 관리하지만 각 모델들은 기능별로 A
  - Pydantic의 Settings는 정의된 필드만 허용합니다(extra = "forbid"일 때)
 .env나 환경변수에 값이 있어도, Settings 클래스에 필드가 없으면 "허용되지 않은 값"으로 에러가 남
 
+## CSRF 토큰
+- django : api 앱폴더 뷰에 제작

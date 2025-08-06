@@ -141,14 +141,15 @@ const Login: React.FC = () => {
     createChangeHandler,
   } = useCommonForm<LoginFormInputs>(["username", "password"]);
 
-  // ✅ CSRF + 서버 분기 훅 사용 (반드시 컴포넌트 함수 안에서!)
+  // CSRF + 서버 분기 훅 사용 (반드시 컴포넌트 함수 안에서!)
   const sendToBackend = useBackendSenderWithCSRF({
     source: "django",
-    parameterPath: "/auth/login",
+    parameterPath: "/auth/login/",
   });
 
-  // ✅ 폼 제출 시 처리
+  // 폼 제출 시 처리
   const onSubmit = async (data: LoginFormInputs) => {
+    console.log('123')
     try {
       console.log("로그인 시도:", data);
 

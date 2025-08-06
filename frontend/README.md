@@ -28,6 +28,12 @@
 - hooks/useUser.ts (현 사용자 정보를 가져옴 "사용자 정보 훅") => localStorage.getItem() 으로 꺼내면 반복적이지만 해당 방법으로 호출하면 모든 컴포넌트에서 동일한 방법으로 사용자 정보를 조회할 수 있음
 
 
+## CSRF 토큰
+리액트 입장시 자동으로 발급하게 끔 작성 
+- hooks/useInitCsrf.ts
+
+
+
 ## Input components
 
 보통의 폼에 들어가는 인풋의 경우 스타일과 이벤트 에러처리는 동일하지만

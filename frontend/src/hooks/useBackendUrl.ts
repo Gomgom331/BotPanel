@@ -39,8 +39,10 @@ export function useBackendSenderWithCSRF({ source, parameterPath }: UseBackendUr
     // 전송
     const send = useCallback(
         async (data: any) => {
+            console.log(data)
             // csrf 토큰 가져오기
-            const csrfToken = getCookie("csrftoken");
+            const csrfToken = getCookie("csrftoken")
+            console.log("csrfToken",csrfToken)
 
             if (!csrfToken){
                 console.warn("csrf 토큰이 없습니다. 확인해주세요")
@@ -50,7 +52,7 @@ export function useBackendSenderWithCSRF({ source, parameterPath }: UseBackendUr
                 const response = await axios.post(fullUrl, data, {
                     headers: {
                         "X-CSRFToken": csrfToken ?? "",
-                        "content-Type": "application/json",
+                        "Content-Type": "application/json",
                     },
                     withCredentials: true,
                 });

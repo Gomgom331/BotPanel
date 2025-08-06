@@ -8,10 +8,12 @@ const ChatInput: React.FC = () => {
 
   const sendToBackend = useBackendSenderWithCSRF({
     source: "fastapi",             // 여기서 source 분기
-    parameterPath: "/test",
+    parameterPath: "/test/",
   })
 
   const sendMessage = async () => {
+    console.log('메세지 발송');
+
     try {
       const response = await sendToBackend({ text: message });
 
