@@ -9,6 +9,7 @@ const FASTAPI_URL = process.env.REACT_APP_API_FASTAPI_URL;
 const DJANGO_URL = process.env.REACT_APP_API_DJANGO_URL;
 
 
+
 // 타입 오류를 없애기 위해 먼저 체크
 if (!FASTAPI_URL || !DJANGO_URL) {
     throw new Error("필수 환경변수 누락: FASTAPI_URL 또는 DJANGO_URL");

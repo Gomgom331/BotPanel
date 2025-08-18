@@ -1,4 +1,17 @@
 services:
+  db:
+    image: postgres:15
+    restart: always
+    env_file:
+      - .env.docker
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
   django:
     platform: linux/amd64        # Mac M1 대응
     build:
@@ -39,8 +52,10 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/app
-      - ./frontend/.env.dev:/app/.env.development # .env 로 마운트해서 적용
+      - ./frontend/.env.dev:/app/.env.dev # .env 로 마운트해서 적용
     working_dir: /app
     environment:
       - ENV=development
     command: npm start
+
+

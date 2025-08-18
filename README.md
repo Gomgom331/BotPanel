@@ -14,7 +14,8 @@
 .env / .env.local / .env.dev /.env.production
 
     - local : .env / .env.local 
-    - docker : .env / .env.dev 
+    - docker : .env / .env.dev (.env.development)
+    => fronend(react)의 경우 자동으로 로컬파일을 읽어오기 때문에
     - prod : .env / .env.production
 
 ```
