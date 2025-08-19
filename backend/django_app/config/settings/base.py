@@ -62,17 +62,34 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# database
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DJANGO_DB_ENGINE'),
-        'NAME': BASE_DIR / os.getenv('DJANGO_DB_NAME'),
-        'USER': os.getenv('DJANGO_DB_USER', ''),
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', ''),
-        'HOST': os.getenv('DJANGO_DB_HOST', ''),
-        'PORT': os.getenv('DJANGO_DB_PORT', ''),
+
+# 도커에서 Path 가 들어갈 경우 오류가 생겨 USE_SQLITE를 통해 구분지어서 나눔
+USE_SQLITE = os.getenv("USE_SQLITE", "false").lower() == "true"
+if USE_SQLITE:
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv('DJANGO_DB_ENGINE'),
+            'NAME': BASE_DIR / os.getenv('DJANGO_DB_NAME'),
+            'USER': os.getenv('DJANGO_DB_USER', ''),
+            'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', ''),
+            'HOST': os.getenv('DJANGO_DB_HOST', ''),
+            'PORT': os.getenv('DJANGO_DB_PORT', ''),
+        }
     }
-}
+    
+else:
+    # database
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv('DJANGO_DB_ENGINE'),
+            'NAME': os.getenv('DJANGO_DB_NAME'),
+            'USER': os.getenv('DJANGO_DB_USER', ''),
+            'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', ''),
+            'HOST': os.getenv('DJANGO_DB_HOST', ''),
+            'PORT': os.getenv('DJANGO_DB_PORT', ''),
+        }
+    }
+
 
 
 # auth / 비밀번호 제약조건 제거

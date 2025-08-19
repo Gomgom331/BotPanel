@@ -1,17 +1,19 @@
 services:
+  # 목적 실시간 코드 동기화 + DB 데이터 지속성
   db:
     image: postgres:15
+    container_name: postgresql_db
     restart: always
-    env_file:
-      - .env.docker
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - purgo_net
   django:
     platform: linux/amd64        # Mac M1 대응
     build:
@@ -26,6 +28,10 @@ services:
     environment:
       - ENV=development 
     container_name: django_app
+    networks:
+      - purgo_net
+    depends_on:           # 의존성 관리
+      - db
 
   fastapi:
     platform: linux/amd64        # Mac M1 대응
@@ -37,15 +43,18 @@ services:
       - ./backend/fastapi_app:/app
       - ./backend/django_app:/app/django_app
     working_dir: /app
-    command: >
+    command: 
       sh -c "uvicorn main:app --host 0.0.0.0 --port 9000 --reload"
     environment:
       - ENV=development 
-    depends_on:
+    depends_on:               # 의존성 관리
+      - db
       - django
     container_name: fastapi_app
+    networks:
+      - purgo_net
 
-  frontend:
+  react:
     platform: linux/amd64        # Mac M1 대응
     build: ./frontend
     ports:
@@ -57,5 +66,14 @@ services:
     environment:
       - ENV=development
     command: npm start
+    container_name: react_app
+    networks:
+      - purgo_net
 
+networks:
+  purgo_net:
+    external: true
 
+volumes:
+  # 설정을 해줘야 데이터를 저장해줌
+  db_data:
