@@ -17,7 +17,7 @@ class LoginView(View):
     
     def post(self, request, *args, **kwargs):
         """
-        POST 요청 처리 - 로그인
+        POST 요청 처리 - 로그인    
         """
         try:
             print("로그인 요청 받음")
@@ -64,6 +64,7 @@ class LoginView(View):
                 }, status=401)
             
             print(f'로그인 성공: {username}')
+            
             # 로그인 성공 응답
             return JsonResponse({
                 'success': True,

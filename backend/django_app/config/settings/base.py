@@ -104,7 +104,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # hosts
 ALLOWED_HOSTS = [host for host in os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",") if host]
 
-# 
+# csrf 주소 허용
 CORS_ALLOW_CREDENTIALS = True
 
 # origins
@@ -115,3 +115,12 @@ CORS_ALLOW_ALL_ORIGINS = os.getenv('DJANGO_CORS_ALLOW_ALL_ORIGINS') == 'True'
 
 # 커스텀 모델 등록
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# 세션 / 쿠키 (개발 기본값)
+SESSION_COOKIE_SAMESITE = os.getenv("SESSION_COOKIE_SAMESITE")
+CSRF_COOKIE_SAMESITE = os.getenv("CSRF_COOKIE_SAMESITE")
+SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE")
+CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE")
+
+# SPA에서 csrftoken을 js로 읽어 헤더에  실어보내야 하므로 HttpOnly는 False를 해주는게 좋음
+CSRF_COOKIE_HTTPONLY = os.getenv("CSRF_COOKIE_HTTPONLY")

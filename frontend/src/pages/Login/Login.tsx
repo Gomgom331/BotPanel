@@ -115,6 +115,7 @@
 
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useCommonForm } from "../../hooks/useCommonForm";
 import { FieldConfig } from "../../types/form";
 
@@ -126,6 +127,7 @@ import AutoFormField from "../../components/Form/AutoFormField";
 import Language from "../../components/LanguageSelector/LanguageSelector";
 import Button from "../../components/Button/Button";
 
+
 // 폼 타입 정의
 interface LoginFormInputs {
   username: string;
@@ -133,6 +135,8 @@ interface LoginFormInputs {
 }
 
 const Login: React.FC = () => {
+
+  const navigate = useNavigate();
   const {
     t,
     control,
@@ -149,17 +153,20 @@ const Login: React.FC = () => {
 
   // 폼 제출 시 처리
   const onSubmit = async (data: LoginFormInputs) => {
-    console.log('123')
     try {
       console.log("로그인 시도:", data);
-
       const response = await sendToBackend(data); // 기존 api.post → sendToBackend
 
       console.log("로그인 응답:", response);
 
       if (response.success) {
-        alert("로그인 성공!\n" + JSON.stringify(response, null, 2));
-        // TODO: 토큰 저장, 페이지 이동 등 추가 작업
+        const { token, user } = response.data;
+
+
+        alert("로그인 성공123!\n" + JSON.stringify(response, null, 2));
+        console.log('확인용')
+        navigate("/")
+
       } else {
         alert("로그인 실패: " + response.error);
       }
