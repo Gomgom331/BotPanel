@@ -61,6 +61,7 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/app
+      - /app/node_modules  # Docker 컨테이너 내의 node_modules 폴더를 보호
       - ./frontend/.env.dev:/app/.env.dev # .env 로 마운트해서 적용
     working_dir: /app
     environment:
@@ -72,8 +73,7 @@ services:
 
 networks:
   purgo_net:
-    external: true
-
+    driver: bridge
 volumes:
   # 설정을 해줘야 데이터를 저장해줌
   db_data:
