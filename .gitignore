@@ -181,7 +181,6 @@ cython_debug/
 .LSOverride
 
 # Icon must end with two \r
-Icon
 
 
 # Thumbnails
@@ -495,6 +494,7 @@ $RECYCLE.BIN/
 # Backend
 /backend/django_app/.env
 /backend/django_app/.env.development
+/backend/django_app/.env.dev
 /backend/django_app/.env.production
 /backend/django_app/.env.local
 /backend/django_app/.env.common
