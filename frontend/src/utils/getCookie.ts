@@ -1,4 +1,3 @@
-
 // CSRF 토큰 가져오기
 export function getCookie(name: string): string | undefined {
     console.log('name',name)
@@ -8,6 +7,5 @@ export function getCookie(name: string): string | undefined {
     if (parts.length === 2) {
         return parts.pop()?.split(';').shift();
     }
-    
     return undefined;
 }

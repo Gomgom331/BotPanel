@@ -1,6 +1,17 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from corsheaders.defaults import default_headers
+
+
+# env 셋팅
+def env_bool(name, default=False):
+    return os.getenv(name, str(default)).lower() in ("1", "true", "yes", "on")
+
+def env_list(name, default=""):
+    raw = os.getenv(name, default)
+    return [x.strip() for x in raw.split(",") if x.strip()]
+
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 
@@ -24,6 +35,8 @@ SYSTEM_APPS = [
 
 CUSTOM_APPS = [
     'corsheaders',
+    'rest_framework',
+    'rest_framework_simplejwt',
     'api',
     'users',
 ]
@@ -99,6 +112,12 @@ AUTH_PASSWORD_VALIDATORS = []
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# rest franework
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "api.authentication.CookieJWTAuthentication",
+    )
+}
 
 
 # hosts
@@ -108,19 +127,34 @@ ALLOWED_HOSTS = [host for host in os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",
 CORS_ALLOW_CREDENTIALS = True
 
 # origins
-CORS_ALLOWED_ORIGINS = [
-    origin for origin in os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",") if origin
+# CORS_ALLOWED_ORIGINS = [
+#     origin for origin in os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",") if origin
+# ]
+
+CORS_ALLOWED_ORIGINS = env_list("DJANGO_CORS_ALLOWED_ORIGINS","")
+CORS_ALLOW_ALL_ORIGINS = os.getenv('DJANGO_CORS_ALLOW_ALL_ORIGINS') == 'False'
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'x-csrftoken',
 ]
-CORS_ALLOW_ALL_ORIGINS = os.getenv('DJANGO_CORS_ALLOW_ALL_ORIGINS') == 'True'
+
 
 # 커스텀 모델 등록
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # 세션 / 쿠키 (개발 기본값)
-SESSION_COOKIE_SAMESITE = os.getenv("SESSION_COOKIE_SAMESITE")
-CSRF_COOKIE_SAMESITE = os.getenv("CSRF_COOKIE_SAMESITE")
-SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE")
-CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE")
+SESSION_COOKIE_SAMESITE = os.getenv("SESSION_COOKIE_SAMESITE","Lax")
+SESSION_COOKIE_SECURE = env_bool("SESSION_COOKIE_SECURE", False)
 
-# SPA에서 csrftoken을 js로 읽어 헤더에  실어보내야 하므로 HttpOnly는 False를 해주는게 좋음
-CSRF_COOKIE_HTTPONLY = os.getenv("CSRF_COOKIE_HTTPONLY")
+CSRF_COOKIE_SAMESITE = os.getenv("CSRF_COOKIE_SAMESITE", "Lax")
+CSRF_COOKIE_SECURE = env_bool("CSRF_COOKIE_SECURE", False)
+# CSRF_TRUSTED_ORIGINS  = [
+#     origin for origin in os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",") if origin
+# ]
+CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CORS_ALLOWED_ORIGINS","")
+print("CSRF_TRUSTED_ORIGINS",CSRF_TRUSTED_ORIGINS)
+
+
+# SPA에서 csrftoken을 js로 읽어 헤더에  실어보내야 하므로 HttpOnly는 False를 해주는게 좋아도 보안에 안 좋음
+CSRF_COOKIE_HTTPONLY = env_bool("CSRF_COOKIE_HTTPONLY", False)
+print("CSRF_COOKIE_HTTPONLY",CSRF_COOKIE_HTTPONLY)
