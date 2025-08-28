@@ -61,17 +61,29 @@ const Login: React.FC = () => {
         const meRes = await fetchMe({ method: "get" });
 
         if (meRes?.success) {
-          console.log("로그인 후 사용자:", meRes.user);
+          console.log(`로그인 후 사용자: ${meRes.user}`);
+          console.log("유저정보 OK, 로그인값도 OK");
+          
+          // 로그인 인증을 위한 유저 정보 저장하기
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              id: meRes.user.id,
+              username: meRes.user.username,
+              role: meRes.user.role ?? "user",   // 기본값 보정
+              email: meRes.user.email ?? "",
+              full_name: meRes.user.full_name ?? "",
+            })
+          );
+          
+          // 홈으로 이동하기
           navigate("/");
         } else {
           // /me 실패 시 처리(토스트/알럿 등)
           alert(t("login.failed") + ": cannot fetch me");
         }
 
-        alert("로그인 성공123!" );
-        console.log('확인용')
-        console.log('로그인 후 사용자:', meRes);
-        navigate("/")
+        
 
       } else {
         alert(`${t("login.failed")}: ${loginRes?.error || "unknown"}`);

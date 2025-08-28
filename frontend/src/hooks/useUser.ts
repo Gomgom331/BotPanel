@@ -9,7 +9,7 @@ export const useUser = () => {
   // 사용자 정보 가여오기
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
-    console.log(savedUser)
+    console.log("savedUser",savedUser)
     if (savedUser) {
       const parsed = JSON.parse(savedUser);
       setRole(parsed.role);

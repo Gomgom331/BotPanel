@@ -27,13 +27,10 @@ class LoginView(View):
     """
 
     def post(self, request, *args, **kwargs):
-        print('222')
         try:
-            print('11')
-            # 1) JSON 파싱
+            # JSON 파싱
             try:
                 data = json.loads(request.body or "{}")
-                print("data",data)
             except json.JSONDecodeError:
                 return JsonResponse({"success": False, "error": "INVALID_JSON"}, status=400)
 
@@ -42,31 +39,31 @@ class LoginView(View):
 
             print(f"[LOGIN] username={username}, password={'*' * len(password) if password else 'None'}")
 
-            # 2) 필수 검증
+            # 필수 검증
             if not username or not password:
                 return JsonResponse({
                     "success": False,
                     "error": "아이디와 비밀번호를 모두 입력해주세요."
                 }, status=400)
 
-            # 3) 사용자 존재 여부 (삭제 제외)
+            # 사용자 존재 여부 (삭제 제외)
             try:
                 user_obj = CustomUser.objects.get(username=username, is_deleted=False)
             except CustomUser.DoesNotExist:
                 return JsonResponse({"success": False, "error": "존재하지 않는 사용자입니다."}, status=401)
 
-            # 4) 비밀번호 검증 (또는 authenticate 사용 가능)
+            # 비밀번호 검증 (또는 authenticate 사용 가능)
             if not user_obj.check_password(password):
                 return JsonResponse({"success": False, "error": "비밀번호가 올바르지 않습니다."}, status=401)
 
-            # 5) 활성 상태 확인
+            # 활성 상태 확인
             if not user_obj.is_active:
                 return JsonResponse({
                     "success": False,
                     "error": "승인되지 않은 계정입니다. 관리자에게 문의하세요."
                 }, status=401)
 
-            # 6) 토큰 발급 → HttpOnly 쿠키 저장
+            # 토큰 발급 → HttpOnly 쿠키 저장
             refresh = RefreshToken.for_user(user_obj)
             access  = str(refresh.access_token)
 

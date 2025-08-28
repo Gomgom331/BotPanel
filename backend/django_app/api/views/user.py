@@ -7,7 +7,6 @@ def _public_user_payload(user):
     full_name = getattr(user, "full_name", None) \
         or (getattr(user, "get_full_name", lambda: "")() or "").strip() \
         or user.get_username()
-
     return {
         "id": user.id,
         "username": user.get_username(),
