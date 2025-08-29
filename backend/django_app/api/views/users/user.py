@@ -7,6 +7,7 @@ def _public_user_payload(user):
     full_name = getattr(user, "full_name", None) \
         or (getattr(user, "get_full_name", lambda: "")() or "").strip() \
         or user.get_username()
+        # 회사별 어드민을 구분하기 위해 is_staff 포함시키기
     return {
         "id": user.id,
         "username": user.get_username(),
@@ -16,6 +17,7 @@ def _public_user_payload(user):
         "position": getattr(user, "position", None),
         "role": getattr(user, "role", None) or "user",
         "is_active": bool(getattr(user, "is_active", True)),
+        "is_staff": bool(getattr(user, "is_staff", False)),
     }
     
 class MeView(APIView):

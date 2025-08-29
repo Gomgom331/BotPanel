@@ -1,16 +1,19 @@
 from django.urls import path, include
-from . import views
 
 # class views
-from .views.login_user import LoginView
+from .views.auth.login import LoginView
+from .views.auth.logout import LogoutView
+from .views.auth.refresh_cookie import RefreshCookieView
 from .views.csrf import csrf_view
-from .views.user import MeView
+from .views.users.user import MeView
 
 
 urlpatterns = [
     # 사용자 인증 관련 API
     path('auth/', include([
         path('login/', LoginView.as_view(), name='login'),
+        path('logout/', LogoutView.as_view(), name='logout'),
+        path('refresh-cookie/', RefreshCookieView.as_view, name='refresh_cookie'),
     ])),
     path('csrf/', csrf_view, name="csrf"),
     path('user/', include([

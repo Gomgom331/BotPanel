@@ -492,6 +492,7 @@ $RECYCLE.BIN/
 
 
 # Backend
+/backend/django_app/.env.*
 /backend/django_app/.env
 /backend/django_app/.env.development
 /backend/django_app/.env.dev

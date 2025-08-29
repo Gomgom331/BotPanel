@@ -6,17 +6,11 @@ from django.conf import settings
 from rest_framework_simplejwt.tokens import RefreshToken
 import json
 
+# 모델
 from users.models import CustomUser
 
-# 쿠키 공통 옵션 (크로스 도메인 전송용)
-ACCESS_MAX_AGE  = 60 * 30          # 30분
-REFRESH_MAX_AGE = 60 * 60 * 24 * 7 # 7일
-COOKIE_COMMON = {
-    "httponly": True,
-    "samesite": settings.SESSION_COOKIE_SAMESITE,           # 프론트/백 도메인/포트 다르면 None
-    "secure": settings.SESSION_COOKIE_SECURE, # dev=False, prod=True(HTTPS)
-    "path": "/",
-}
+# 쿠키
+from api.utils.cookie import COOKIE_COMMON, ACCESS_MAX_AGE, REFRESH_MAX_AGE
 
 class LoginView(View):
     """
