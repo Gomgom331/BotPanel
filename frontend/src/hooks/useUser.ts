@@ -1,40 +1,32 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-// any 는 user admin 포함
-export type UserRole = "guest" | "user" | "admin" | "any";
+// none 은 인증 및 권한이 없음
+export type UserRole = "none" | "guest" | "user" | "admin";
 
-function getInitialRole(): UserRole {
+function readRole(): UserRole {
   try {
-    // 유저값을 불러와 권한 체크하기
     const raw = localStorage.getItem("user");
-    if (!raw) return "guest";
-    const parsed = JSON.parse(raw);
-    const role = parsed?.role as UserRole | undefined;
-    return role === "admin" || role === "user" ? role : "guest";
+    if (!raw) return "none";
+    const role = JSON.parse(raw)?.role as UserRole | undefined;
+    return role === "guest" || role === "user" || role === "admin" ? role : "none";
   } catch {
-    return "guest";
+    return "none";
   }
 }
 
 export const useUser = () => {
-  // 초기 렌더에localStorage에서 읽어 권한 반영
-  const [role, setRole] = useState<UserRole>(getInitialRole);
+  const [role, setRole] = useState<UserRole>(readRole); // ⬅ 동기 초기화
 
-  // 로그인/로그아웃 등으로 값이 바뀐 뒤 새로고침했을 때도 안전
   useEffect(() => {
-    const raw = localStorage.getItem("user");
-    if (raw) {
-      try {
-        const parsed = JSON.parse(raw);
-        const next = parsed?.role as UserRole | undefined;
-        if (next && next !== role) setRole(next);
-      } catch {/* 무시 */}
-    } else if (role !== "guest") {
-      setRole("guest");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // 최초 마운트 때 한 번 동기화
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "user") setRole(readRole());
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
 
-  const isAuthenticated = role !== "guest";
-  return { role, isAuthenticated };
+  const isAuthenticated = role === "user" || role === "admin";
+  const isTrial = role === "guest";
+  const hasRole = role !== "none";
+  return { role, isAuthenticated, isTrial, hasRole };
 };

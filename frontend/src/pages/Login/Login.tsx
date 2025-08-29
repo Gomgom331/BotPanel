@@ -46,14 +46,10 @@ const Login: React.FC = () => {
 
   // 폼 제출 시 처리
   const onSubmit = async (form: LoginFormInputs) => {
-    console.log('폼제출:',form)
     try {
       // 나중에 로딩 추가하기
       setLoading(true);
-      console.log("로그인 시도");
       const loginRes = await sendLogin({ method: "post", data: form }); // 기존 api.post → sendToBackend
-
-      console.log("로그인 응답:", loginRes);
 
       if (loginRes?.success) {
         console.log('로그인 성공 - 유저 불러오기 X')
@@ -63,19 +59,18 @@ const Login: React.FC = () => {
         if (meRes?.success) {
           console.log(`로그인 후 사용자: ${meRes.user}`);
           console.log("유저정보 OK, 로그인값도 OK");
-          
           // 로그인 인증을 위한 유저 정보 저장하기
           localStorage.setItem(
             "user",
             JSON.stringify({
-              id: meRes.user.id,
               username: meRes.user.username,
               role: meRes.user.role ?? "user",   // 기본값 보정
               email: meRes.user.email ?? "",
               full_name: meRes.user.full_name ?? "",
             })
           );
-          
+          // 같은 탭에서도 userUser (route) 가 곧바로 반응하도록 신호 보내기
+          window.dispatchEvent(new StorageEvent("storage", { key: "user" }));
           // 홈으로 이동하기
           navigate("/");
         } else {
