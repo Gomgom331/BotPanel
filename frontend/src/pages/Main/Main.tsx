@@ -26,6 +26,7 @@ const Main: React.FC = () => {
                 onClick={logout}
                 loading={loading}
             />
+            
             <div style={{ margin: "20px" }}>⚠️ 공사중</div>
             <div style={{ margin: "20px" }}>
                 {role === "admin" && <AdminDashboard />}
