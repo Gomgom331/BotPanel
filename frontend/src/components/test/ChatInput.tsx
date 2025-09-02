@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useBackendSenderWithCSRF } from "../../hooks/useBackendUrl"
+import { useApi } from "../../hooks/useApi"
+
 
 const ChatInput: React.FC = () => {
 
   const [message, setMessage] = useState("");
   const [result, setResult] = useState("");
 
-  const sendToBackend = useBackendSenderWithCSRF({
-    source: "fastapi",             // 여기서 source 분기
-    parameterPath: "/test/",
-  })
+  const sendToBackend = useApi("TEST_API")
 
   const sendMessage = async () => {
     console.log('메세지 발송');

@@ -35,6 +35,13 @@ djangoClient.interceptors.request.use((config) => {
     return config;
 });
 
+// // 자동 리프레시 : 중복 방지 + 재시도 + 실패 시 재로그인 
+// const SKIP_REFRESH_PATHS = new Set<string>([
+//     "/auth/login/"
+// ])
+
+
+
 // 서버로부터 응답을 받은 후, 전달되기 전에 처리
 djangoClient.interceptors.response.use(
     (res) => res,

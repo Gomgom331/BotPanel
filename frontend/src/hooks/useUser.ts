@@ -1,8 +1,10 @@
+// 역활 권한 구분짓기
 import { useEffect, useState } from "react";
 
 // none 은 인증 및 권한이 없음
 export type UserRole = "none" | "guest" | "user" | "admin";
 
+// 권한이 없으면 None
 function readRole(): UserRole {
   try {
     const raw = localStorage.getItem("user");
@@ -14,6 +16,7 @@ function readRole(): UserRole {
   }
 }
 
+// 권한 상태 체크
 export const useUser = () => {
   const [role, setRole] = useState<UserRole>(readRole); // ⬅ 동기 초기화
 
@@ -30,3 +33,5 @@ export const useUser = () => {
   const hasRole = role !== "none";
   return { role, isAuthenticated, isTrial, hasRole };
 };
+
+

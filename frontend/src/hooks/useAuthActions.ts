@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useBackendSenderWithCSRF } from "./useBackendUrl";
+import { useApi } from "./useApi";
 
 type LoginForm = { username: string; password: string };
 
@@ -9,21 +9,11 @@ export function useAuthActions(){
     // 로딩
     const [loading, setLoading] = useState(false);
 
-    // 로그인 요청 훅
-    const sendLogin = useBackendSenderWithCSRF({
-        source: "django",
-        parameterPath: "/auth/login/",
-    })
-    // 로그아웃 요청 훅
-    const sendLogout = useBackendSenderWithCSRF({
-        source: "django",
-        parameterPath: "/auth/logout/",
-    })
-    // 내정보 요청 훅
-    const fetchMe = useBackendSenderWithCSRF({
-        source: "django",
-        parameterPath: "/user/me/",
-    })
+    // 인증
+    const sendLogin = useApi("AUTH_LOGIN"); //로그인
+    const sendLogout = useApi("AUTH_LOGOUT"); //로그아웃
+    const fetchMe = useApi("USER_ME"); // 내정보
+
 
     // 공통 유저 스냅샷 저장 브로드 퀘스트 (세션 유지)
     const applyUserSnapshot = (raw: any) => {
