@@ -37,8 +37,8 @@ CUSTOM_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
-    'api',
-    'users',
+    'accounts',
+    'rbac',
 ]
 
 INSTALLED_APPS = SYSTEM_APPS + CUSTOM_APPS
@@ -115,7 +115,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # rest franework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "api.authentication.CookieJWTAuthentication",
+        "accounts.authentication.CookieJWTAuthentication",
     )
 }
 
@@ -135,7 +135,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 
 
 # 커스텀 모델 등록
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # 세션 / 쿠키 (개발 기본값)
 SESSION_COOKIE_SAMESITE = os.getenv("SESSION_COOKIE_SAMESITE","Lax")

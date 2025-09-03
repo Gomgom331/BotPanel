@@ -1,11 +1,11 @@
 from django.urls import path, include
 
 # class views
-from .views.auth.login import LoginView
-from .views.auth.logout import LogoutView
-from .views.auth.refresh_cookie import RefreshCookieView
+from .views.auth import LoginView
+from .views.auth import LogoutView
+from .views.refresh_cookie import RefreshCookieView
 from .views.csrf import csrf_view
-from .views.users.user import MeView
+from .views.profile import MeView
 
 
 urlpatterns = [
@@ -13,7 +13,7 @@ urlpatterns = [
     path('auth/', include([
         path('login/', LoginView.as_view(), name='login'),
         path('logout/', LogoutView.as_view(), name='logout'),
-        path('refresh-cookie/', RefreshCookieView.as_view, name='refresh_cookie'),
+        path('refresh-cookie/', RefreshCookieView.as_view(), name='refresh_cookie'),
     ])),
     path('csrf/', csrf_view, name="csrf"),
     path('user/', include([

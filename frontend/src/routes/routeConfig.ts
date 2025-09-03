@@ -45,11 +45,11 @@ import type { ComponentType } from "react";
 import Chat from "../components/test/ChatInput";
 import Login from "../pages/Login/Login";
 import Main from "../pages/Main/Main";
-import AdminDashboard from "../pages/Admin/Dashboard";
+import EditorDashboard from "../pages/Editor/Dashboard";
 
 import HomeRedirect from "../routes/HomeRedirect";
 
-export type UserRole = "none" | "guest" | "user" | "admin";
+export type UserRole = "none" | "guest" | "user" | "admin" | "editor";
 export interface AppRoute {
     path: string;
     component: ComponentType<any>;
@@ -60,14 +60,14 @@ export interface AppRoute {
 
 // 게스트도 입장 가능한 공개/체험 페이지
 export const publicRoutes: AppRoute[] = [
-    { path: "/chat", component: Chat, roles: ["none","guest","user","admin"] }, 
+    { path: "/chat", component: Chat, roles: ["none","guest","user","admin","editor"] }, 
     { path: "/login", component: Login, roles: ["none"] },
 ];
 
 // 보호 라우트
 export const protectedRoutes: AppRoute[] = [
-    { path: "/",         component: Main,          roles: ["guest","user","admin"] }, // 게스트도 입장, 내부는 역할별 스위치        // 유저/관리자만
-    { path: "/admin",    component: AdminDashboard,roles: ["admin"] },                // 관리자만
+    { path: "/",         component: Main,          roles: ["guest","user","admin","editor"] }, // 게스트도 입장, 내부는 역할별 스위치        // 유저/관리자만
+    { path: "/admin",    component: EditorDashboard,roles: ["editor"] },                // 관리자만
 ];
 
 // fallback

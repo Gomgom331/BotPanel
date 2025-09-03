@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.views import View
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from api.utils.cookie import COOKIE_COMMON, ACCESS_MAX_AGE
+from ..utils.cookie import COOKIE_COMMON, ACCESS_MAX_AGE
 
 class RefreshCookieView(View):
     def post(self, request, *args, **kwargs):

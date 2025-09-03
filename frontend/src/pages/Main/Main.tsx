@@ -3,7 +3,7 @@ import { useUser } from "../../hooks/useUser"
 
 // 페이지 컴포넌트
 import UserDashboard from "../User/Dashboard";
-import AdminDashboard from "../Admin/Dashboard";
+import EditorDashboard from "../Editor/Dashboard";
 import GuestDashboard from "../Guest/Dashboard";
 
 import Button from "../../components/Button/Button"
@@ -29,8 +29,8 @@ const Main: React.FC = () => {
             
             <div style={{ margin: "20px" }}>⚠️ 공사중</div>
             <div style={{ margin: "20px" }}>
-                {role === "admin" && <AdminDashboard />}
-                {role === "user" && <UserDashboard />}
+                {role === "editor" && <EditorDashboard />}
+                {(role === "user" || role === "admin") && <UserDashboard />}
                 {role === "guest" && <GuestDashboard />}
             </div>
         </>

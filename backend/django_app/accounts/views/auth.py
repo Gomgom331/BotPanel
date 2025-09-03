@@ -7,11 +7,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 import json
 
 # 모델
-from users.models import CustomUser
+from accounts.models import CustomUser
 
 # 쿠키
-from api.utils.cookie import COOKIE_COMMON, ACCESS_MAX_AGE, REFRESH_MAX_AGE
+from ..utils.cookie import COOKIE_COMMON, ACCESS_MAX_AGE, REFRESH_MAX_AGE
 
+
+# 로그인 뷰
 class LoginView(View):
     """
     POST /auth/login/
@@ -82,3 +84,12 @@ class LoginView(View):
 
     def delete(self, request, *args, **kwargs):
         return JsonResponse({"success": False, "error": "DELETE 메서드는 지원하지 않습니다."}, status=405)
+
+
+# 로그아웃 뷰
+class LogoutView(View):
+    def post(self, request, *args, **kwargs):
+        resp = JsonResponse({"success": True, "message": "LOGOUT_OK"}, status=200)
+        resp.delete_cookie("access", path="/")
+        resp.delete_cookie("refresh", path="/")
+        return resp
