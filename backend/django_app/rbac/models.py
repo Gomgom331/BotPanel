@@ -12,17 +12,18 @@ class Scope(models.Model):
     key = models.CharField(
         max_length=100, 
         unique=True,
-        help_text='"entry.read", "entry.write", "user.manage", "llm.chat" 등'
+        help_text="권한 스코프의 고유 키"
     )
     desc = models.CharField(
         max_length=200,
-        black=True,
+        blank=True,
         help_text="권한 설명"   
     )
     
     class Meta:
         db_table = "rbac_scope"
-        help_text = "스코프(세부 권한)"
+        verbose_name = "스코프(세부 권한)"
+        verbose_name_plural = "스코프(세부권한)"
         
     def __str__(self) -> str:
         return self.key
@@ -46,7 +47,8 @@ class Group(models.Model):
     
     class Meta:
         db_table = "rbac_group"
-        help_text = "그룹 (조직 단위)"
+        verbose_name = "그룹 (조직 단위)"
+        verbose_name_plural = "그룹 (조직 단위)"
         indexes = [
             models.Index(fields=["name"], name="idx_rbac_group_name"),
         ]

@@ -8,6 +8,7 @@ import json
 
 # 모델
 from accounts.models import CustomUser
+from rbac.models import GroupMembership
 
 # 쿠키
 from ..utils.cookie import COOKIE_COMMON, ACCESS_MAX_AGE, REFRESH_MAX_AGE
@@ -58,12 +59,43 @@ class LoginView(View):
                     "success": False,
                     "error": "승인되지 않은 계정입니다. 관리자에게 문의하세요."
                 }, status=401)
+            
+            # # 나중에 비밀번호 초기화 (비밀번호 바꾸기) 기능 만들기------
+            # if user_obj.reset_token:
+            #     return JsonResponse({
+            #         "success": False,
+            #         "error": "비밀번호 초기화"
+            # })
+            # ----------------------------------------------------------
+
+            # 그룹 및 권한 확인
+            is_guest = False
+            is_editor = False
+
+            try:
+                user_group = GroupMembership.objects.get(user=user_obj.pk)
+                # 그룹이 있으면 user
+                role = "user"
+            except GroupMembership.DoesNotExist:
+                # 그룹이 없으면 staff/superuser 체크
+                if user_obj.is_staff or user_obj.is_superuser:
+                    is_editor = True
+                    role = "editor"
+                else:
+                    is_guest = True
+                    role = "guest"
 
             # 토큰 발급 → HttpOnly 쿠키 저장
             refresh = RefreshToken.for_user(user_obj)
             access  = str(refresh.access_token)
 
-            resp = JsonResponse({"success": True, "message": "LOGIN_OK"}, status=200)
+            response_data = {"success": True, "message": "LOGIN_OK", "role": role}
+            if is_guest:
+                response_data["is_guest"] = True
+            if is_editor:
+                response_data["is_editor"] = True
+
+            resp = JsonResponse(response_data, status=200)
             resp.set_cookie("access",  access,        max_age=ACCESS_MAX_AGE,  **COOKIE_COMMON)
             resp.set_cookie("refresh", str(refresh),  max_age=REFRESH_MAX_AGE, **COOKIE_COMMON)
             return resp

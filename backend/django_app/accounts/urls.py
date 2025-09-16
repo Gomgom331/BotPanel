@@ -5,7 +5,7 @@ from .views.auth import LoginView
 from .views.auth import LogoutView
 from .views.refresh_cookie import RefreshCookieView
 from .views.csrf import csrf_view
-from .views.profile import MeView
+from .views.me import MeView
 
 
 urlpatterns = [

@@ -35,11 +35,9 @@ class CustomUser(AbstractUser):
     username = models.CharField(unique=True, max_length=20) #아이디
     full_name = models.CharField(max_length=30) #유저이름
     email = models.EmailField(unique=True) # 중복제거
-    company = models.CharField(max_length=100) #회사
-    position = models.CharField(max_length=100) #직급
-    role = models.CharField(max_length=20, choices=[("user", "유저"), ("admin", "관리자"), ('guest', '게스트'), ("editor", "시스템관리자")], default="user")
     is_active = models.BooleanField(default=False)  # 승인되기 전에는 False (승인시 True)
-    is_staff = models.BooleanField(default=False)   # admin 접근 권한
+    is_staff = models.BooleanField(default=False)   # admin 접근 권한 (view)
+    is_superuser = models.BooleanField(default=False) # admin 접근 권한 (수정자)
     approved_by = models.ForeignKey("self", null=True, blank=True, on_delete=models.SET_NULL) # 사용자를 승인한 관리자 참조
     date_joined = models.DateTimeField(auto_now_add=True)  # 접근일자
     reset_token = models.CharField(max_length=255, null=True, blank=True, default=False) # 비밀번호 초기화 토큰
@@ -53,7 +51,3 @@ class CustomUser(AbstractUser):
     
     def __str__(self):
         return self.username
-    
-    
-
-    

@@ -1,15 +1,15 @@
 import React from "react";
-import { useCommonForm } from "../../hooks/useCommonForm";
-import { FieldConfig } from "../../types/form";
+import { useCommonForm } from "../../../hooks/useCommonForm";
+import { FieldConfig } from "../../../types/form";
 
 
 // components
-import AutoFormField from "../../components/Form/AutoFormField";
-import Language from "../../components/LanguageSelector/LanguageSelector";
-import Button from "../../components/Button/Button";
+import AutoFormField from "../../../components/Form/AutoFormField";
+import Language from "../../../components/LanguageSelector/LanguageSelector";
+import Button from "../../../components/Button/Button";
 
 // hooks
-import { useAuthActions } from "../../hooks/useAuthActions";
+import { useAuthActions } from "../../../hooks/useAuthActions";
 
 
 // 폼 타입 정의
