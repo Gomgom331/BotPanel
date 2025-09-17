@@ -5,10 +5,15 @@
 # user: 로그인 O, group_memberships ≥ 1 이고 is_staff=False & is_superuser=False
 # admin: 로그인 O, is_staff=True 또는 is_superuser=True
 
-def derive_persona(user) -> str:
-    if not user or not user.is_authenticated:
-        return "anon"  # 로그인 요구 화면 등에 활용
-    if getattr(user, "is_staff", False) or getattr(user, "is_superuser", False):
-        return "admin"  # is_superuser 또는 is_staff 둘 중 하나라도 있으면 editor
+from typing import Literal
+
+Persona = Literal["admin","user","guest","anon"]
+
+
+def  derive_persona(user) -> Persona:
+    if not user or not getattr(user, "is_authenticated", False):
+        return "anon"
+    if getattr(user, "is_staff", False)or getattr(user, "is_superuser", False):
+        return "admin"
     has_group = user.group_memberships.exists()
     return "user" if has_group else "guest"

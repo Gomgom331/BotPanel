@@ -14,6 +14,11 @@ class Scope(models.Model):
         unique=True,
         help_text="권한 스코프의 고유 키"
     )
+    slug = models.SlugField(
+        max_length=120, 
+        unique=True,
+        help_text="권한 스코프의 URL-friendly 슬러그 (영문, 숫자, 하이픈만 사용)"
+    )
     desc = models.CharField(
         max_length=200,
         blank=True,
@@ -64,6 +69,7 @@ class GroupMembership(models.Model):
     OWNER = "owner"
     ADMIN = "admin"
     MEMBER = "member"
+    
     ROLE_CHOICES = [
         (OWNER, "Owner"),
         (ADMIN, "Admin"),
@@ -88,33 +94,62 @@ class GroupMembership(models.Model):
         default=MEMBER,
         help_text="그룹 내 역할 (Owner, Admin, Member)"
     )
+    is_default = models.BooleanField(
+        default=False
+    )
     
     class Meta:
         db_table = "rbac_group_membership"
         verbose_name = "그룹 소속(멤버십)"
-        unique_together = ("user", "group") # 한 유저가 같은 그룹에 중복 등록 불가
+        # 한 유저가 같은 그룹에 중복 등록 불가
         # 바로 위치를 찾아 레코드를 읽어줘서 조회가 빨라지지만 쓰기 비용이 늘어남
+        constraints = [
+            UniqueConstraint(fields=["group", "scope"], name="uniq_rbac_group_scope"),
+        ]
         indexes = [
-            models.Index(fields=["user"], name="idx_rgm_user"), # user 검색 최적화
-            models.Index(fields=["group"], name="idx_rgm_group"), # group 검색 최적화
+            models.Index(fields=["group", "scope"], name="idx_rbac_group_scope"),
+            models.Index(fields=["is_active"], name="idx_rgs_active"),
+            models.Index(fields=["created_at"], name="idx_rgs_created_at"),
         ]
     def __str__(self) -> str:
-        return f"{self.user} * {self.group} ({self.role_in_group})"
+        # 운영자가 리스트에서 한눈에 보기 쉽게
+        status = "ON" if self.is_active else "OFF"
+        return f"[{status}] {self.group.name} → {self.scope.key}"
     
 class GroupScope(models.Model):
     """
-    그룹이 부여하는 스코프
+    그룹에 부여하는 스코프
     """
     group = models.ForeignKey(
         Group, 
         on_delete=models.CASCADE,
-        help_text="그룹"
+        help_text="스코프를 부여하는 그룹",
     )
     scope = models.ForeignKey(
         Scope, 
         on_delete=models.CASCADE,
-        help_text="스코프"
+        help_text='부여할 권한 단위(예: "entry.read", "user.manage")',
     )
+    is_active = models.BooleanField(
+        default=True,
+        help_text="OFF면 임시 비활성화, 서비스 레이어는 True만 반영"
+    )
+    desc = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="부여 이유/메모 (선택)"
+    )
+    granted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text="권한을 부여한 운영자 (선택).",
+    )
+    
+    #  타임스탬프
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="생성일")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="수정일")
     
     class Meta:
         db_table = "rbac_group_scope"
@@ -123,6 +158,7 @@ class GroupScope(models.Model):
         indexes = [
             models.Index(fields=["group", "scope"], name="idx_rbac_group_scope"),
         ]
+        
         
     def __str__(self) -> str:
         return f"{self.group.name} - {self.scope.key}"
