@@ -1,6 +1,5 @@
-from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 # 유저 생성 매니저
 class UserManager(BaseUserManager):
@@ -51,3 +50,8 @@ class CustomUser(AbstractUser):
     
     def __str__(self):
         return self.username
+    
+    # 전역관리자 여부 ((시스템 레벨)
+    @property
+    def is_global_admin(self) -> bool:
+        return bool(self.is_staff or self.is_superuser)
