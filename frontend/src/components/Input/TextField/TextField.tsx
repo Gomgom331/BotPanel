@@ -55,7 +55,7 @@ const TextField: React.FC<TextFieldProps> = ({
       />
       {error && (
         <p id={`${name}-error`} className={styles.errorText}>
-          {error}
+          <span>ⓘ</span> {error}
         </p>
       )}
     </div>

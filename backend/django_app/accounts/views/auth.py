@@ -5,6 +5,10 @@ from django.contrib.auth import authenticate
 from django.conf import settings
 from rest_framework_simplejwt.tokens import RefreshToken
 import json
+import logging, traceback, uuid
+
+# 로거
+logger = logging.getLogger(__name__)
 
 # 모델
 from accounts.models import CustomUser
@@ -25,40 +29,53 @@ class LoginView(View):
 
     def post(self, request, *args, **kwargs):
         try:
-            # JSON 파싱
+            # JSON 파싱 옳은 데이터 값인지--------------
             try:
                 data = json.loads(request.body or "{}")
             except json.JSONDecodeError:
-                return JsonResponse({"success": False, "error": "INVALID_JSON"}, status=400)
+                return JsonResponse({"success": False, "formError": "INVALID_REQUEST"}, status=400)
 
             username = (data.get("username") or "").strip()
             password = data.get("password") or ""
 
             print(f"[LOGIN] username={username}, password={'*' * len(password) if password else 'None'}")
+            
 
-            # 필수 검증
-            if not username or not password:
-                return JsonResponse({
-                    "success": False,
-                    "error": "아이디와 비밀번호를 모두 입력해주세요."
-                }, status=400)
+            # 필드 검증 (프론트에도 있으나 2중검사) --------------
+            field_errors = {}
+            # 둘 다 값이 없을 경우
+            if not username and not password:
+                return JsonResponse({"success": False, "formError":"INVALID_INPUT"}, status=400)
+                
+            if not username:
+                return JsonResponse({"success": False, "error":"REQUIRED_USERNAME"}, status=400)
+            if not password:
+                return JsonResponse({"success": False, "error":"REQUIRED_PASSWORD"}, status=400)
 
-            # 사용자 존재 여부 (삭제 제외)
+            # 사용자 존재 여부 (삭제 제외) --------------
             try:
                 user_obj = CustomUser.objects.get(username=username, is_deleted=False)
             except CustomUser.DoesNotExist:
-                return JsonResponse({"success": False, "error": "존재하지 않는 사용자입니다."}, status=401)
+                return JsonResponse({"success": False, "error": "ERR_NO_SUCH_USER"}, status=401)
 
             # 비밀번호 검증 (또는 authenticate 사용 가능)
             if not user_obj.check_password(password):
-                return JsonResponse({"success": False, "error": "비밀번호가 올바르지 않습니다."}, status=401)
+                return JsonResponse({"success": False, "error": "ERR_BAD_PASSWORD"}, status=401)
 
-            # 활성 상태 확인
+            # 활성 상태 확인 ----------------------------
             if not user_obj.is_active:
                 return JsonResponse({
                     "success": False,
-                    "error": "승인되지 않은 계정입니다. 관리자에게 문의하세요."
+                    "formError": "ERR_AUTH_INACTIVE"
                 }, status=401)
+                
+            # 탈퇴 확인 ----------------------------
+            if user_obj.is_deleted:
+                return JsonResponse({
+                    "success": False,
+                    "formError": "ERR_AUTH_DELETED_USER"
+                }, status=401)
+                
             
             # # 나중에 비밀번호 초기화 (비밀번호 바꾸기) 기능 만들기------
             # if user_obj.reset_token:
@@ -68,7 +85,7 @@ class LoginView(View):
             # })
             # ----------------------------------------------------------
 
-            # 그룹 및 권한 확인
+            # 그룹 및 권한 확인 ----------------------------
             is_guest = False
             is_editor = False
 
@@ -82,10 +99,10 @@ class LoginView(View):
                     is_editor = True
                     role = "editor"
                 else:
-                    is_guest = True
+                    is_guest = True 
                     role = "guest"
 
-            # 토큰 발급 → HttpOnly 쿠키 저장
+            # 토큰 발급 → HttpOnly 쿠키 저장 ----------------------------
             refresh = RefreshToken.for_user(user_obj)
             access  = str(refresh.access_token)
 
@@ -101,21 +118,26 @@ class LoginView(View):
             return resp
 
         except Exception as e:
-            # 예기치 못한 에러 캡처
-            print(f"[LOGIN][ERROR] {e}")
+            # 예기치 못한 에러 캡처 ----------------------------
+            rid = uuid.uuid4().hex[:12]
+            logger.error("[LOGIN][%s] %s\n%s", rid, str(e), traceback.format_exc())
+            print("[LOGIN][ERROR] :",rid, str(e))
             return JsonResponse({
                 "success": False,
-                "error": f"로그인 처리 중 오류가 발생했습니다: {str(e)}"
+                "status": 500,
+                "formError": "SERVER_ERROR",
+                "meta":f"requestId: {rid}"
+                
             }, status=500)
 
     def get(self, request, *args, **kwargs):
-        return JsonResponse({"success": False, "error": "POST 요청으로 로그인해주세요."}, status=405)
+        return JsonResponse({"success": False, "formError": "ERROR_METHOD_INVALID_GET"}, status=405)
 
     def put(self, request, *args, **kwargs):
-        return JsonResponse({"success": False, "error": "PUT 메서드는 지원하지 않습니다."}, status=405)
+        return JsonResponse({"success": False, "formError": "ERROR_METHOD_INVALID_PUT"}, status=405)
 
     def delete(self, request, *args, **kwargs):
-        return JsonResponse({"success": False, "error": "DELETE 메서드는 지원하지 않습니다."}, status=405)
+        return JsonResponse({"success": False, "formError": "ERROR_METHOD_INVALID_DELETE"}, status=405)
 
 
 # 로그아웃 뷰

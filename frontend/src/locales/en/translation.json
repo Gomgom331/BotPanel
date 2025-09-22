@@ -23,7 +23,24 @@
     },
 
     "error": {
+        "server":{
+          "generic":"A server error occurred. Please try again later."
+        },
+        "method":{
+          "generic": "Invalid request method.",
+          "get": "The GET method is not supported.",
+          "post": "The POST method is not supported.",
+          "put": "The PUT method is not supported.",
+          "delete": "The DELETE method is not supported."
+        },
         "required": {
+          "credentials":{
+            "both": "Please enter both username and password.",
+            "no_such_user": "This account does not exist.",
+            "bad_password": "The password you entered is incorrect.",
+            "inactive":"Your account is not approved. Please contact the administrator."
+          },
+          "deleted_user":"This account has been deleted.",
           "username": "Please enter your username.",
           "password": "Please enter your password.",
           "email": "Please enter your email."
@@ -32,6 +49,9 @@
           "email": "Please enter a valid email address.",
           "password": {
             "length": "Password must be at least 8 characters."
+          },
+          "request":{
+            "generic":"We can’t process your sign-in request. Please check the input format."
           }
         },
         "duplicate": {

@@ -21,7 +21,24 @@
     },
 
     "error": {
+        "server":{
+          "generic":"服务器发生错误，请稍后重试。"
+        },
+        "method":{
+          "generic": "请求方法无效。",
+          "get": "不支持 GET 方法。",
+          "post": "不支持 POST 方法。",
+          "put": "不支持 PUT 方法。",
+          "delete": "不支持 DELETE 方法。"
+        },
         "required": {
+          "credentials":{
+            "both": "请同时输入用户名和密码。",
+            "no_such_user": "该账户不存在。",
+            "bad_password": "密码不正确。",
+            "inactive":"您的账户尚未批准。请联系管理员。"
+          },
+          "deleted_user":"该账户已被注销。",
           "username": "请输入用户名。",
           "password": "请输入密码。",
           "email": "请输入电子邮件。"
@@ -30,6 +47,9 @@
           "email": "请输入有效的电子邮件地址。",
           "password": {
             "length": "密码长度必须至少为8个字符。"
+          },
+          "request":{
+            "generic":"无法处理您的登录请求。请检查输入格式。"
           }
         },
         "duplicate": {

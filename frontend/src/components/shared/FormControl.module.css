@@ -64,5 +64,5 @@
 .errorText{
     width: 100%;
     color: var(--error-font);
-    text-align: end;
+    text-align: start;
 }
