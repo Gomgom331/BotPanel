@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+.alertContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: start;
+    width: 100%;
+    margin: 10px 0px;
+}
+.alertBox{
+    padding: 1.25rem 1rem;
+    border-radius: 0.35rem;
+    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.alertText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.alertList{
+    font-weight: 600;
+    line-height: 1.4rem
+}
+.buttonBox{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    padding-left: 0.4rem;
+}
+h2.title{
+    padding-bottom: 0.4rem;
+}
+
+/* 에러 */
+.alertBox.error{
+    border: 1px solid var(--error-line);
+    background-color: var(--error-bg);
+}
+.alertList.error{
+    color: var(--error-line);
+}
+h2.error{
+    color: var(--error-line);
+}
+
+/* 성공 */
+.alertBox.success{
+    border: 1px solid var(--success-line);
+    background-color: var(--success-bg);
+}
+.alertList.success{
+    color: var(--success-line)
+}
+h2.success{
+    color: var(--success-line)
+}
+
+
+/* 가이드 */
+.alertBox.guide{
+    border: 1px solid var(--guide-ling);
+    background-color: var(--guide-bg);
+}
+.alertList.guide{
+    color: var(--guide-font);
+}
+h2.guide{
+    color: var(--guide-font);
+}
+
+

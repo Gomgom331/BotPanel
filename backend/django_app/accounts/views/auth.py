@@ -34,47 +34,60 @@ class LoginView(View):
                 data = json.loads(request.body or "{}")
             except json.JSONDecodeError:
                 return JsonResponse({"success": False, "formError": "INVALID_REQUEST"}, status=400)
-
             username = (data.get("username") or "").strip()
             password = data.get("password") or ""
 
             print(f"[LOGIN] username={username}, password={'*' * len(password) if password else 'None'}")
-            
 
             # 필드 검증 (프론트에도 있으나 2중검사) --------------
             field_errors = {}
-            # 둘 다 값이 없을 경우
-            if not username and not password:
-                return JsonResponse({"success": False, "formError":"INVALID_INPUT"}, status=400)
-                
             if not username:
-                return JsonResponse({"success": False, "error":"REQUIRED_USERNAME"}, status=400)
+                field_errors["username"] = "REQUIRED_USERNAME"
             if not password:
-                return JsonResponse({"success": False, "error":"REQUIRED_PASSWORD"}, status=400)
+                field_errors["password"] = "REQUIRED_PASSWORD"
+            # 둘 다 없으면 formError
+            if not username and not password:
+                return JsonResponse({
+                    "success": False,
+                    "formError": "INVALID_INPUT",
+                    "fieldErrors": field_errors
+                }, status=400)
+            elif field_errors:
+                return JsonResponse({
+                    "success": False,
+                    "fieldErrors": field_errors
+                }, status=400)
 
             # 사용자 존재 여부 (삭제 제외) --------------
             try:
                 user_obj = CustomUser.objects.get(username=username, is_deleted=False)
             except CustomUser.DoesNotExist:
-                return JsonResponse({"success": False, "error": "ERR_NO_SUCH_USER"}, status=401)
+                return JsonResponse({
+                    "success": False, 
+                    "formError": "ERR_NO_SUCH_USER"
+                })
 
             # 비밀번호 검증 (또는 authenticate 사용 가능)
             if not user_obj.check_password(password):
-                return JsonResponse({"success": False, "error": "ERR_BAD_PASSWORD"}, status=401)
+                field_errors["password"] = "ERR_BAD_PASSWORD"
+                return JsonResponse({
+                    "success": False, 
+                    "fieldErrors": field_errors
+                })
 
             # 활성 상태 확인 ----------------------------
             if not user_obj.is_active:
                 return JsonResponse({
                     "success": False,
                     "formError": "ERR_AUTH_INACTIVE"
-                }, status=401)
+                })
                 
             # 탈퇴 확인 ----------------------------
             if user_obj.is_deleted:
                 return JsonResponse({
                     "success": False,
                     "formError": "ERR_AUTH_DELETED_USER"
-                }, status=401)
+                })
                 
             
             # # 나중에 비밀번호 초기화 (비밀번호 바꾸기) 기능 만들기------
@@ -93,7 +106,7 @@ class LoginView(View):
                 user_group = GroupMembership.objects.get(user=user_obj.pk)
                 # 그룹이 있으면 user
                 role = "user"
-            except GroupMembership.DoesNotExist:
+            except GroupMembership.DoesNotExist: 
                 # 그룹이 없으면 staff/superuser 체크
                 if user_obj.is_staff or user_obj.is_superuser:
                     is_editor = True

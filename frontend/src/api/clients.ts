@@ -12,9 +12,9 @@ if (!FASTAPI_URL || !DJANGO_URL) {
 // 경로 유틸: config.url이 절대/상대 모두 안전하게 pathname 추출
 function getPath(config: InternalAxiosRequestConfig): string {
     try {
-    return new URL(config.url!, config.baseURL || window.location.origin).pathname;
+        return new URL(config.url!, config.baseURL || window.location.origin).pathname;
     } catch {
-    return config.url || "";
+        return config.url || "";
     }
 }
 
@@ -80,8 +80,12 @@ djangoClient.interceptors.response.use(
     const path = original ? getPath(original) : "";
 
     // 401이 아니면 그대로 에러 전달
-    if (status !== 401) return Promise.reject(err);
-
+    // if (status !== 401) return Promise.reject(err);
+    if (status !== 401){
+        console.log("에러아님");
+        return Promise.reject(err);
+    }
+    
     // 리프레시 대상이 아닌 경로는 그대로 실패(무한루프 방지)
     if (!original || SKIP_REFRESH_PATHS.has(path)) {
         return Promise.reject(err);

@@ -1,24 +1,3 @@
-// import { Control, FieldValues, FieldErrors } from "react-hook-form";
-// import { TFunction } from "i18next";
-
-// export type ValueType = "string" | "number" | "boolean";
-
-// export interface FieldConfig<T extends FieldValues> {
-//   name: keyof T;
-//   label: string;
-//   type?: ValueType;
-//   errorKey: string;
-//   height?: string | number;
-// }
-
-// ex Control<T>;
-//   errors: FieldErrors<T>;
-//   onChange: (fieldName: keyof T, type?: ValueType) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-//   t: TFunction; port interface AutoFormFieldProps<T extends FieldValues> {
-//   fields: FieldConfig<T>[];
-//   control:
-// }
-
 import { Control, FieldValues, FieldErrors } from "react-hook-form";
 import { TFunction } from "i18next";
 

@@ -5,6 +5,7 @@ export type IconName =
 | 'eye' // 눈 아이콘
 | 'eye-off'
 | 'loading' // 로딩
+| 'close' // 닫기
 
 interface IconProps {
     name: IconName;

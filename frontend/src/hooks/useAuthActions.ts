@@ -2,9 +2,7 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "./useApi";
-
-type LoginForm = { username: string; password: string };
-
+import type { ApiResponse, ApiFail } from "../api/types";
 
 
 // 로컬스냅샷 유틸
@@ -23,66 +21,62 @@ function applyUserSnapshot( input: any ){
     } catch{}
 }
 
+// 타입지정
+type LoginForm = { username: string; password: string };
+type LoginFields = "username" | "password";
+
 
 export function useAuthActions(){
     const navigate = useNavigate();
-    // 로딩
+    // loading 상태
     const [loading, setLoading] = useState(false);
 
-    // 인증
+    // api
     const sendLogin = useApi("AUTH_LOGIN"); //로그인
     const sendLogout = useApi("AUTH_LOGOUT"); //로그아웃
     const fetchMe = useApi("USER_ME"); // 내정보
 
 
     // 로그인 이벤트 ----------------------------------------------------------------------------
-    const login = useCallback(async (form: LoginForm) => {
-        // 로딩 시작
-        setLoading(true);
+    const login = useCallback(
+        async (form: LoginForm): Promise<ApiResponse<void, LoginFields>> => {
+            setLoading(true);
+            console.log('form',form)
+            try {
+                console.log('폼확인용1')
+                // 서버는 성공/실패를 ApiResponse 규격으로 반환
+                const loginRes = await sendLogin<ApiResponse<void, LoginFields>>({
+                    method: "post",
+                    data: form,
+                });
+                console.log('폼확인용2');
+                // 실패면 그대로 페이지에서 분기 처리(formError or fieldErrors)
+                if (!loginRes?.success) return loginRes as ApiFail<LoginFields>;
 
-        // 로그인 시도
-        try{
-            const loginRes = await sendLogin<{ success: boolean; error?: string }>({
-                method: "post",
-                data: form,
-            });
-            if (!loginRes?.success) {
-                // 서버에서 error, formError, status 등 다양한 에러 정보를 받을 수 있음
-                // error: 특정 필드 에러 (예: username, password)
-                // formError: 폼 전체에 대한 에러 (예: 서버 오류, 비활성화 등)
-                const errorMsg = loginRes?.error || loginRes?.formError || "LOGIN_FAILED";
-                // 에러 정보를 객체로 반환하여 컴포넌트에서 분기 처리 가능
-                // throw {
-                //     error: loginRes?.error,         // 필드 에러 (예: REQUIRED_USERNAME)
-                //     formError: loginRes?.formError, // 폼 에러 (예: SERVER_ERROR)
-                //     status: loginRes?.status,       // HTTP 상태 코드
-                //     message: errorMsg               // 최종 에러 메시지
-                // };
+                console.log('폼확인용3');
+                // 성공 → 내 정보 가져오기 (기존 API 스키마 유지)
+                const meRes = await fetchMe<{ success: boolean; user?: any; me?: any }>({
+                    method: "get",
+                });
+                if (!meRes?.success) {
+                    console.log('확인용33');
+                    return { success: false, formError: "SERVER_ERROR"};
+                }
+                console.log('폼확인용44');
+                // 스냅샷/이동
+                applyUserSnapshot(meRes);
+                navigate("/", { replace: true });
+                return { success: true };
+            } catch {
+                // 예기치 못한 오류는 전역 폼 에러로
+                console.log('확인용4455')
+                return { success: false, formError: "SERVER_ERROR"};
+            } finally {
+                setLoading(false);
             }
-            
-            const meRes = await fetchMe<{ success: boolean; user?: any; me?: any }>({ method: "get" });
-            // 내정보 조회 실패시 에러
-            if (!meRes?.success) throw new Error("CANNOT_FETCH_ME");
-
-            // 유저 정보 저장
-            applyUserSnapshot(meRes);
-            navigate("/", {replace: true});
-            return true;
-        
-        // 로그인 에러
-        } catch (e){
-            console.error("로그인 에러 : ", e);
-            return false;
-        // 작업 완료시
-        } finally {
-            setLoading(false);
-        }
-    }, 
-    //""
-    // 함수(콜백)를 메모이제이션 하기 위한 의존성 배열
-    // login 함수를 매 렌더링마다 새로 만들지 않고, 의존성이 바뀌지 않는 한 같은 함수 참조를 재사용
-    //""
-    [sendLogin, fetchMe, navigate]);
+        },
+        [sendLogin, fetchMe, navigate]
+    );
 
     // 로그아웃 이벤트----------------------------------------------------------------------------
     const logout = useCallback(async () => {
