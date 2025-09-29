@@ -1,1 +1,208 @@
 @charset "utf-8";
+:root{
+    /* 배경화면 그라데이션 컬러 -----------------------*/
+    --gradient-color-1: 120 70% 85%;  /* Soft green */
+    --gradient-color-2: 0 100% 82%;  /* Soft purple */
+    --gradient-color-3: 216 90% 62%;  /* Soft blue */
+    --gradient-color-4: 350 20% 85%;  /* Soft pink */
+    --gradient-color-6: 270 45% 88%;  /* Soft lavender */
+    --gradient-color-7: 200 80% 80%;  /* Soft blue */
+}
+
+/* 색상변수 */
+:root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+}
+
+
+/* 반응형 페이지*/
+@media(max-width: 768px){
+    .loginContainer{
+        width: 100%;
+        padding: 0rem 2rem;
+    }
+    /* 로그인 타이틀 */
+    .loginTitleBox img{
+        width: 10rem;
+    }
+    /* 배경 그라데이션 */
+    .gradientOrb{
+        opacity: 0.8;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1023px){
+    .loginContainer{
+        width: 100%;
+        padding: 0rem 8rem;
+    }
+    /* 로그인 타이틀 */
+    .loginTitleBox img{
+        width: 14rem;
+    }
+    /* 배경 그라데이션 */
+    .gradientOrb{
+        opacity: 0.6;
+    }
+}
+
+@media (min-width: 1024px){
+    .loginContainer{
+        width: 30%;
+        /* padding: 0rem 14rem; */
+    }
+    /* 로그인 타이틀 */
+    .loginTitleBox img{
+        width: 14rem;
+    }
+    /* 배경 그라데이션 */
+    .gradientOrb{
+        opacity: 0.5;
+    }
+}
+
+/* 그라데이션 배경화면 ------------------------------------- */
+.backgroundContainer{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    /* background: linear-gradient(135deg, hsl(0deg 0% 100%) 0%, hsl(220, 100%, 98%) 100%); */
+    background-color: #ffffff;
+    overflow: hidden;
+}
+.gradientOrb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.gradientOrb:first-child{
+    width: 30vw; height: 30vw;
+    background: radial-gradient(circle, hsl(var(--gradient-color-1)) 0%, transparent 70%);
+    animation: float1 20s ease-in-out infinite;
+}
+.gradientOrb:nth-child(2){
+    width: 24vw; height: 24vw;
+    background: radial-gradient(circle, hsl(var(--gradient-color-2)) 0%, transparent 70%);
+    animation: float2 25s ease-in-out infinite;
+}
+.gradientOrb:nth-child(3){
+    width: 40vw; height: 40vw;
+    background: radial-gradient(circle, hsl(var(--gradient-color-3)) 0%, transparent 70%);
+    animation: float3 18s ease-in-out infinite;
+}
+.gradientOrb:nth-child(4){
+    width: 20vw; height: 20vw;
+    background: radial-gradient(circle, hsl(var(--gradient-color-4)) 0%, transparent 70%);
+    animation: float4 30s ease-in-out infinite;
+}
+.gradientOrb:nth-child(5){
+    width: 24vw; height: 24vw;
+    background: radial-gradient(circle, hsl(var(--gradient-color-6)) 0%, transparent 70%);
+    animation: float6 28s ease-in-out infinite;
+}
+.gradientOrb:nth-child(6){
+    width: 40vw; height: 40vw;
+    background: radial-gradient(circle, hsl(var(--gradient-color-7)) 0%, transparent 70%);
+    animation: float7 20s ease-in-out infinite;
+}
+
+
+@keyframes float1 {
+    0%, 100% { transform: translate(calc(30vw - 110px), calc(100vh - 110px)) rotate(0deg); }
+    33% { transform: translate(calc(70vw - 110px), calc(20vh - 110px)) rotate(120deg); }
+    66% { transform: translate(calc(10vw - 110px), calc(60vh - 110px)) rotate(240deg); }
+}
+@keyframes float2 {
+    0%, 100% { transform: translate(calc(100vw - 150px), -50px) rotate(0deg); }
+    33% { transform: translate(-50px, calc(50vh - 125px)) rotate(120deg); }
+    66% { transform: translate(calc(50vw - 125px), calc(100vh - 200px)) rotate(240deg); }
+}
+@keyframes float3 {
+    0%   { transform: translate(50vw, -100px) rotate(0deg); }
+    20%  { transform: translate(90vw, 20vh) rotate(72deg); }
+    40%  { transform: translate(70vw, 90vh) rotate(144deg); }
+    60%  { transform: translate(10vw, 70vh) rotate(216deg); }
+    80%  { transform: translate(-50px, 20vh) rotate(288deg); }
+    100% { transform: translate(50vw, -100px) rotate(360deg); }
+}
+@keyframes float4 {
+    0%, 100% { transform: translate(-175px, calc(50vh - 175px)) rotate(0deg); }
+    50% { transform: translate(calc(100vw - 175px), calc(50vh - 175px)) rotate(180deg); }
+}
+@keyframes float5 {
+    0%, 100% { transform: translate(calc(80vw - 90px), calc(80vh - 90px)) rotate(0deg); }
+    25% { transform: translate(calc(20vw - 90px), calc(80vh - 90px)) rotate(90deg); }
+    50% { transform: translate(calc(20vw - 90px), calc(20vh - 90px)) rotate(180deg); }
+    75% { transform: translate(calc(80vw - 90px), calc(20vh - 90px)) rotate(270deg); }
+}
+/* @keyframes float6 {
+    0%, 100% { transform: translate(calc(30vw - 110px), calc(100vh - 110px)) rotate(0deg); }
+    33% { transform: translate(calc(70vw - 110px), calc(20vh - 110px)) rotate(120deg); }
+    66% { transform: translate(calc(10vw - 110px), calc(60vh - 110px)) rotate(240deg); }
+} */
+@keyframes float7 {
+    0%   { transform: translate(5vw, 5vh) rotate(0deg); }     /* 왼쪽 위 시작 */
+    25%  { transform: translate(20vw, 70vh) rotate(90deg); }
+    50%  { transform: translate(80vw, 60vh) rotate(180deg); }
+    75%  { transform: translate(60vw, 10vh) rotate(270deg); }
+    100% { transform: translate(5vw, 5vh) rotate(360deg); }
+}
+
+
+
+.wrapContainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 0 auto;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loginContainer{
+    transition: 0.3s;
+}
+/* 언어설정 셋팅 */
+.languageBox{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    padding: 0.5rem 1rem 0 0;
+}
+/* 로그인 폼 */
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+/* 로그인 타이틀 */
+.loginTitleBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.4rem;
+    margin-bottom: 2rem;
+}
+.loginTitleBox img{
+    transition: 0.3s;
+}
+/* 아이디 비밀번호 찾기 */
+.accountRecoveryBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0rem;
+    gap: 0.4rem;
+}

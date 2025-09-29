@@ -6,6 +6,8 @@ export type IconName =
 | 'eye-off'
 | 'loading' // 로딩
 | 'close' // 닫기
+| 'language' //언어
+| 'selectArrow' //select 화살표
 
 interface IconProps {
     name: IconName;

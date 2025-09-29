@@ -7,6 +7,11 @@
     width: 100%;
     margin: 10px 0px;
 }
+.shadowBox{
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(30px);
+    box-shadow: 0px 4px 10px 0 rgb(0 0 0 / 10%);
+}
 .alertBox{
     padding: 1.25rem 1rem;
     border-radius: 0.35rem;
@@ -47,6 +52,13 @@ h2.error{
     color: var(--error-line);
 }
 
+
+.shadowBox.error{
+    border: 1px solid var(--error-line);
+    background-color: var(--error-bg-light) !important;
+}
+
+
 /* 성공 */
 .alertBox.success{
     border: 1px solid var(--success-line);
@@ -59,6 +71,10 @@ h2.success{
     color: var(--success-line)
 }
 
+.shadowBox.success{
+    border: 1px solid var(--success-line);
+    background-color: var(--success-bg-light) !important;
+}
 
 /* 가이드 */
 .alertBox.guide{
@@ -72,4 +88,8 @@ h2.guide{
     color: var(--guide-font);
 }
 
+.shadowBox.guide{
+    border: 1px solid var(--guide-ling);
+    background-color: var(--guide-bg-light) !important;
+}
 

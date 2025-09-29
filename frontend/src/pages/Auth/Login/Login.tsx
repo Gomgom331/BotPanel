@@ -8,12 +8,15 @@ import AutoFormField from "../../../components/Form/AutoFormField";
 import Language from "../../../components/LanguageSelector/LanguageSelector";
 import Button from "../../../components/Button/Button";
 import {Alert} from "../../../components/Alert/Alert";
+import SocialLoginSection from "../../../components/SocialLogin/SocialLoginSection";
+import Tooltip from "../../../components/Tooltip/Tooltip"
 
 // hooks
 import { useAuthActions } from "../../../hooks/useAuthActions";
 import { toI18nKey, mapFieldErrors } from "../../../constants/errorMessages";
 
-
+// 스타일
+import styles from "./Login.module.css"
 
 // 폼 타입 정의
 interface LoginFormInputs {
@@ -95,67 +98,115 @@ const Login: React.FC = () => {
   });
 
   return (
-    <div>
-      {/* 언어설정 */}
-      <Language />
+    <div className={styles.backgroundContainer}>
+      
+      {/* 그라데이션 */}
+      <div className={styles.gradientOrb}></div>
+      <div className={styles.gradientOrb}></div>
+      <div className={styles.gradientOrb}></div>
+      <div className={styles.gradientOrb}></div>
+      <div className={styles.gradientOrb}></div>
+      <div className={styles.gradientOrb}></div>
+      {/* //그라데이션 */}
 
-      {/* 전역 에러 배너 (프로젝트 스타일에 맞춰 교체 가능) */}
-      {formErrorKey && (
-        <Alert
-          type="error"
-          message={[formErrorKey ? t(formErrorKey) : ""]}
-          closable={true}
-          onClose={() => setFormErrorKey(null)}
-        />
-      )}
-      {/* 테스트용 */}
-      {/* <Alert
-        type="error"
-        title="에러입니다"
-        message={["실패 가이드"]}
-        closable={true}
-        onClose={() => setFormErrorKey(null)}
-      />
-      <Alert
-        type="success"
-        message={["성공 가이드"]}
-        closable={true}
-      />
-      <Alert
-        type="guide"
-        message={["임시가이드"]}
-        closable={true}
-      /> */}
-      <form onSubmit={onSubmit} noValidate>
-        {/* 타이틀 */}
-        <h1>{t("login.title")}</h1>
-
-        <AutoFormField
-          fields={fields}
-          control={control}
-          errors={errors}
-          onChange={createChangeHandler}
-          t={t}
-        />
-        <Button
-          type="submit"
-          label={t("form.login")}
-          loading={loading}
-          fullWidth={true}
-          variant="large"
-          height="40px"
-          color="primary"
-          loadingColor="var(--color-wh)"
-        />
-        <Button
-          type="button"
-          label={t("signup.title")}
-          fullWidth={true}
-          variant="large"
-          height="40px"
-          color="ghost"
-        />
-      </form>
+      {/* wrapContainer */}
+      <div className={styles.wrapContainer}>
+        {/* 언어설정 */}
+        <div className={styles.languageBox}>
+          <Tooltip
+            content={t("tooltip.languageSetting")}
+            placement="bottom"
+            trigger={["hover", "focus", "click"]}
+            usePortal={true}
+          >
+            <Language />
+          </Tooltip>
+        </div>
+        {/* //언어설정 */}
+        <div className={styles.container}>
+          {/* loginContainer */}
+          <div className={styles.loginContainer}>
+            {/* 타이틀 */}
+              <div className={styles.loginTitleBox}>
+                {/* <h1>{t("login.title")}</h1> */}
+                <img src="/assets/title/title_logo.png" alt="titleLogo" />
+              </div>
+            {/* /타이틀 */}
+            {/* 전역 에러 배너 (프로젝트 스타일에 맞춰 교체 가능) */}
+            {formErrorKey && (
+              <Alert
+                type="error"
+                message={[formErrorKey ? t(formErrorKey) : ""]}
+                closable={true}
+                shadow={true}
+                onClose={() => setFormErrorKey(null)}
+              />
+            )}
+            {/* 테스트용 */}
+            {/* <Alert
+              type="error"
+              title="에러입니다"
+              message={["실패 가이드"]}
+              closable={true}
+              shadow={true}
+              onClose={() => setFormErrorKey(null)}
+            />
+            <Alert
+              type="success"
+              message={["성공 가이드"]}
+              closable={true}
+              shadow={true}
+            />
+            <Alert
+              type="guide"
+              message={["임시가이드"]}
+              closable={true}
+              shadow={true}
+            /> */}
+            <form onSubmit={onSubmit} noValidate className={styles.loginForm}>
+              <AutoFormField
+                fields={fields}
+                control={control}
+                errors={errors}
+                onChange={createChangeHandler}
+                t={t}
+              />
+              <Button
+                type="submit"
+                label={t("form.login")}
+                loading={loading}
+                fullWidth={true}
+                variant="large"
+                height="40px"
+                color="primary"
+                loadingColor="var(--color-wh)"
+                shadow={true}
+              />
+              <Button
+                type="button"
+                label={t("signup.title")}
+                fullWidth={true}
+                variant="large"
+                height="40px"
+                color="ghost"
+                shadow={true}
+              />
+            </form>
+            {/* accountRecoveryBox */}
+            <div className={styles.accountRecoveryBox}>
+              <span><a href="">아이디 찾기</a></span>
+              |
+              <span><a href="">비밀번호 찾기</a></span>
+            </div>
+            {/* //accountRecoveryBox */}
+            {/* 소셜로그인 */}
+            <SocialLoginSection />
+            {/* //소셜로그인 */}
+          </div>
+          {/* //loginContainer */}
+        </div>
+      </div>
+      {/* //wrapContainer */}
     </div>
   );
 };

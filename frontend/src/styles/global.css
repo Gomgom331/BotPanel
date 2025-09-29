@@ -113,9 +113,11 @@ input:focus, select:focus, option:focus, textarea:focus, button:focus{
 }
 
 img {border: 0; padding: 0; margin: 0;}
-button{margin: 0; padding: 0; border: none; background-color: rgba(0, 0, 0, 0);cursor: pointer;}
-input{margin: 0; padding: 0; border: none;}
-select{border: none; outline: none;}
+button{margin: 0; padding: 0; border: none; background-color: rgba(0, 0, 0, 0);cursor: pointer; color: var(--text-body);}
+input{margin: 0; padding: 0; border: none; color: var(--text-body);}
+select{border: none; outline: none; color: var(--text-body);}
+a{color: var(--text-body); transition: 0.3s; color:var(--text-body);}
+a:hover{color: var(--input-focus-border);}
 
 /* 포커스 */
 button:focus{outline: none; background-color: none; box-shadow: none;}
@@ -128,7 +130,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-text-fill-color: #000;
+    -webkit-text-fill-color: #333;
     -webkit-box-shadow: 0 0 0px 1000px #fff inset;
     box-shadow: 0 0 0px 1000px #fff inset;
     transition: background-color 5000s ease-in-out 0s;
@@ -138,7 +140,7 @@ input:autofill,
 input:autofill:hover,
 input:autofill:focus,
 input:autofill:active {
-    -webkit-text-fill-color: #000;
+    -webkit-text-fill-color: #333;
     -webkit-box-shadow: 0 0 0px 1000px #fff inset;
     box-shadow: 0 0 0px 1000px #fff inset;
     transition: background-color 5000s ease-in-out 0s;

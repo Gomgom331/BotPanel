@@ -2,73 +2,89 @@
 @charset "utf-8";
 
 :root{
-  /* 브랜드 컬러 (Primary Theme Colors) */
-  --color-primary: #CC53A3;         /* 메인 컬러 */
-  --color-primary-dark: #B3207E;    /* 메인 컬러 딥 */
-  --color-primary-light: #FFEBF8;   /* 메인 컬러 라이트 */
-  --color-primary-gradient: linear-gradient(90deg, #B3207E, #CC53A3, #D986BB);
+    /* 브랜드 컬러 (Primary Theme Colors) */
+    /* --color-primary: #CC53A3;         
+    --color-primary-dark: #B3207E;    
+    --color-primary-light: #FFEBF8;   
+    --color-primary-gradient: linear-gradient(90deg, #B3207E, #CC53A3, #D986BB); */
 
-  /* 중립 색상 (Neutral Colors) */        
-  --color-white: #ffffff;           
-  --color-grey-light: #f8f8f8;     
-  --color-red: #ED0000;             
-  --color-red-light: #FFECEC;
-  --color-blue: #0087FF;
-  --color-blue-light: #F1F8FF;
+    /* 전체 테마 컬러 ----------------------- */
+    --color-primary: #3B53FF;          /* 선명한 블루 */
+    --color-primary-dark: #2A3ABF;     /* 진한 딥 블루 */
+    --color-primary-light: #9BB8FF;    /* 연한 라이트 블루 */
+    --color-primary-gradient: linear-gradient(90deg, #2A3ABF, #3B53FF, #758AFF);
 
-
-  
-  --bg-base: var(--color-white);         /* 전체 페이지 기본 배경 */
-  --bg-surface: var(--color-grey-light); /* 카드, 섹션, 박스 등 내부 서브 배경 */
-
-  /* 라인, 그림자 */
-  --color-border: #D9D9D9;          /* 경계선, 구분선 */
-  --color-shadow: #0000002b;        /* 그림자 */
-
-  /* 기본 아이콘 컬러 */
-  --icon-color: #999999;
-
-  /* 인풋 색상 */
-  --input-border: #EAEAEC;    /* 인풋 보더 */
-  --input-bg: var(--color-white); /* 인풋 배경 */
-
-  --input-disabled-border: #D9D9D9; /* 인풋 비활성화 보더 */
-  --input-disabled-bg: #F8F8F8;  /* 인풋 비활성화 배경 */
-
-
-  --color-required: var(--color-red); /* 인풋 필수값 */
-  --input-focus-border: var(--color-primary); /*인풋 포커스*/ 
-
-  /* 스크롤 */
-  --color-scroll-thumb: #D9D9D9;
-
-  /* 텍스트 색상 */
-  --text-body: #333333;             /* 기본 본문 텍스트 */
-  --text-heading: #111111;          /* 제목 */
-  --text-sub: #666666;              /* 서브 텍스트 */
-  --text-placeholder: #999999;      /* 입력창 placeholder */
-  --text-wh: #ffffff;
-
-  /* 에러 색상 */
-  --error-ipnut: var(--color-red);
-  --error-font: var(--color-red);
-  --error-bg: var(--color-red-light);
-  --error-line: var(--color-red);
-
-  /* 성공 색상 */
-  --success-line: var(--color-blue);
-  --success-bg: var(--color-blue-light);
-
-  /* 가이드 색상 */
-  --guide-ling: #cdcdcd;
-  --guide-bg: #f5f5f5;
-  --guide-font: var(--text-placeholder);
-
-  /* 버튼 컬러 */
-  --button-ghost-hover: #F1F1F1;
+    /* 중립 색상 (Neutral Colors) -----------------------*/        
+    --color-white: #ffffff;           
+    --color-grey-light: #f8f8f8;     
+    --color-red: #ED0000;             
+    --color-red-light: #FFECEC;
+    --color-blue: #0087FF;
+    --color-blue-light: #F1F8FF;
 
 
 
+    --bg-base: var(--color-white);         /* 전체 페이지 기본 배경 */
+    --bg-surface: var(--color-grey-light); /* 카드, 섹션, 박스 등 내부 서브 배경 */
+
+    /* 라인, 그림자 */
+    --color-border: #C9C9C9;          /* 경계선, 구분선 */
+    --color-shadow: #0000002b;        /* 그림자 */
+
+    /* 기본 아이콘 컬러 */
+    --icon-color: #999999;
+
+    /* 인풋 색상 */
+    --input-border: #EAEAEC;    /* 인풋 보더 */
+    --input-bg: var(--color-white); /* 인풋 배경 */
+
+    --input-disabled-border: #C9C9C9; /* 인풋 비활성화 보더 */
+    --input-disabled-bg: #F8F8F8;  /* 인풋 비활성화 배경 */
+
+
+    --color-required: var(--color-red); /* 인풋 필수값 */
+    --input-focus-border: var(--color-primary); /*인풋 포커스*/ 
+
+    /* 스크롤 */
+    --color-scroll-thumb: #EAEAEC;
+
+    /* 텍스트 색상 */
+    --text-body: #333333;             /* 기본 본문 텍스트 */
+    --text-heading: #111111;          /* 제목 */
+    --text-sub: #666666;              /* 서브 텍스트 */
+    --text-placeholder: #999999;      /* 입력창 placeholder */
+    --text-wh: #ffffff;
+
+    /* 에러 색상 */
+    --error-ipnut: var(--color-red);
+    --error-font: var(--color-red);
+
+    --error-bg: #ffecec;
+    --error-bg-light: #ffecec74;
+    --error-line: #ed0000e0;
+
+    /* 성공 색상 */
+    --success-bg: #f1f8ff;
+    --success-bg-light: #f1f8ff8b;
+    --success-line: #0087ffcf;
+
+    /* 가이드 색상 */
+    --guide-bg: #f5f5f5;
+    --guide-bg-light: #f5f5f583;
+    --guide-font: #5c5c5c;
+    --guide-ling: #a5a5a5d1;
+
+    /* 버튼 색상 */
+    --button-ghost-hover: #F1F1F1;
+
+    /* 툴팁 색상 */
+    --tooltip-bg: #3e3e3e;
+    --tooltip-font: #ffffff;
+    --tooltip-shadow: 0 6px 24px rgba(0, 0, 0, 0.079);
+
+    /* 셀렉트 색상 */
+
+    
 }
 
 /* 반응형 별 크기 사이즈 */

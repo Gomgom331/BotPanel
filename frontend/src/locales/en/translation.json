@@ -22,6 +22,10 @@
         "user": "User Page"
     },
 
+    "tooltip":{
+      "languageSetting": "Language Settings"
+    },
+
     "error": {
         "server":{
           "generic":"A server error occurred. Please try again later."

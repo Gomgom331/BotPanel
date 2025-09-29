@@ -10,6 +10,7 @@ interface ButtonProps {
     disabled?: boolean; // 비활성화
     loading?: boolean; // 로딩
     loadingColor?: string; // 로딩 컬러
+    shadow?: boolean; // 그림자효과
     variant?: "primary" | "secondary" | "large" | "icon"; // 스타일 구분
     color?: "primary" | "ghost" | "secondary" // 색상 구분
     fullWidth?: boolean;    // 너비 100%
@@ -24,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
     disabled = false,
     loading = false,
     loadingColor,
+    shadow = false,
     variant = "primary",
     fullWidth = false,
     height,
@@ -48,6 +50,7 @@ const Button: React.FC<ButtonProps> = ({
                 ${styles[variant]}
                 ${fullWidth ? styles.fullWidth : ''}
                 ${styles[color]}
+                ${shadow ? styles.shadow : ''}
             `}
         >
             {loading ? (

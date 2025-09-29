@@ -25,6 +25,10 @@
       "loading": "로딩중..."
     },
     
+    "tooltip":{
+      "languageSetting": "언어설정"
+    },
+
     "error": {
       "server":{
         "generic":"서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요."

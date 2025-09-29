@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../shared/FormControl.module.css";
 import localStyles from "./PasswordField.module.css";
+import Tooltip  from "../../Tooltip/Tooltip";
 
 // 아이콘
 import Icon from "../../Icon/Icon"
@@ -64,14 +65,20 @@ const PasswordField: React.FC<PasswordProps> = ({
                     aria-describedby={error ? `${name}-error` : undefined}
                 />
                 {/* 비밀번호 아이콘 */}
-                <button
-                    type="button"
-                    className={localStyles.toggleButton}
-                    onClick={togglePasswordVisibility}
-                    aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                <Tooltip
+                    content={'비밀번호 보이기'}
+                    placement="right"
+                    trigger={["hover", "focus", "click"]}
                 >
-                    {showPassword ? <Icon name="eye-off"/> : <Icon name="eye"/>}
-                </button>
+                    <button
+                        type="button"
+                        className={`${localStyles.toggleButton} ${localStyles.passwordButton}`}
+                        onClick={togglePasswordVisibility}
+                        aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                    >
+                        {showPassword ? <Icon name="eye-off"/> : <Icon name="eye"/>}
+                    </button>
+                </Tooltip>
             </div>
             {error && (
                 <p id={`${name}-error`} className={styles.errorText}>

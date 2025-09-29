@@ -51,6 +51,7 @@
 .input:focus{
     outline: 1.5px solid var(--input-focus-border);
     outline-offset: 1px;
+    background-color: var(--input-bg);
 }
 .input.error{
     border: 1px solid var(--error-ipnut);

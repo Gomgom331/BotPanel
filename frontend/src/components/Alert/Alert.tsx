@@ -11,6 +11,7 @@ export interface AlertProps {
     title?: string;
     icon?: string;
     closable?: boolean;
+    shadow?:boolean;
     onClose?: () => void;
 }
 
@@ -21,6 +22,7 @@ export const Alert: React.FC<AlertProps> = ({
     title,
     icon,
     closable = false,
+    shadow= false,
     onClose,
 }) => {
     // 닫기 이벤트
@@ -49,29 +51,33 @@ export const Alert: React.FC<AlertProps> = ({
 
     return (
         <div className={styles.alertContainer}>
-            {icon ? (
-                <div>
-                    <span>{icon}</span>
-                </div>
-            ) : null}
-            <div className={`${styles.alertBox} ${styles[type]}`}>
-                <div className={styles.alertText}>
-                    {title ? (<h2 className={`${styles[type]} ${styles.title}`}>{title}</h2>) : null}
-                    <ul>
-                        {message.map((msg, idx) => (
-                            <li key={idx} className={`${styles.alertList} ${styles[type]}`}>{msg}</li>
-                        ))}
-                    </ul>
-                </div>
-                {closable ? (
-                    <div className={styles.buttonBox}>
-                        <button type="button" onClick={() => setClosing(true)}>
-                            <Icon name="close" color={closeIconColor} />
-                        </button>
-                    </div>
-                ) : null}
+        {icon && (
+            <div>
+                <span>{icon}</span>
             </div>
-            {trigger ? <div>{trigger}</div> : null}
+        )}
+        <div className={`${styles.alertBox} ${styles[type]} ${shadow ? styles.shadowBox : ''}`}>
+            <div className={styles.alertText}>
+                {title && (
+                    <h2 className={`${styles[type]} ${styles.title}`}>{title}</h2>
+                )}
+                <ul>
+                    {message.map((msg, idx) => (
+                        <li key={idx} className={`${styles.alertList} ${styles[type]}`}>
+                            {msg}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            {closable && (
+                <div className={styles.buttonBox}>
+                    <button type="button" onClick={() => setClosing(true)}>
+                        <Icon name="close" color={closeIconColor} />
+                    </button>
+                </div>
+            )}
         </div>
+        {trigger && <div>{trigger}</div>}
+    </div>
     );
 };
