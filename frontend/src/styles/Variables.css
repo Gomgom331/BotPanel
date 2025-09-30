@@ -2,6 +2,7 @@
 @charset "utf-8";
 
 :root{
+    /* 색상 -------------------------------------------------------------------------*/
     /* 브랜드 컬러 (Primary Theme Colors) */
     /* --color-primary: #CC53A3;         
     --color-primary-dark: #B3207E;    
@@ -30,6 +31,9 @@
     /* 라인, 그림자 */
     --color-border: #C9C9C9;          /* 경계선, 구분선 */
     --color-shadow: #0000002b;        /* 그림자 */
+
+    --button-shadow:  0px 2px 6px 0px rgb(0 0 0 / 10%);
+    --button-hover-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.263);
 
     /* 기본 아이콘 컬러 */
     --icon-color: #999999;
@@ -82,7 +86,11 @@
     --tooltip-font: #ffffff;
     --tooltip-shadow: 0 6px 24px rgba(0, 0, 0, 0.079);
 
-    /* 셀렉트 색상 */
+
+    /* 규격 -------------------------------------------------------------------------*/
+    --border-radius: 0.35rem;
+
+
 
     
 }

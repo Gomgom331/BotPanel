@@ -23,9 +23,14 @@
     },
 
     "tooltip":{
-      "languageSetting": "Language Settings"
+      "languageSetting": "Language Settings",
+      "passwordToggle": {
+        "show": "Show password",
+        "hide": "Hide password"
+      }
     },
 
+    
     "error": {
         "server":{
           "generic":"A server error occurred. Please try again later."

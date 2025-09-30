@@ -112,3 +112,12 @@ hr{
     color: var(--text-sub);
     
 }
+
+/* 그림자 */
+.shadow{
+    box-shadow: var(--button-shadow);
+    transition: 0.3s;
+}
+.shadow:hover{
+    box-shadow: var(--button-hover-shadow);
+}

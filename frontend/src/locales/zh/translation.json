@@ -21,9 +21,15 @@
     },
 
     "tooltip":{
-      "languageSetting": "语言设置"
+      "languageSetting": "语言设置",
+      "passwordToggle": {
+        "show": "显示密码",
+        "hide": "隐藏密码"
+      }
     },
 
+
+    
     "error": {
         "server":{
           "generic":"服务器发生错误，请稍后重试。"

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../../shared/FormControl.module.css";
 import localStyles from "./PasswordField.module.css";
 import Tooltip  from "../../Tooltip/Tooltip";
+import { useTranslation } from "react-i18next";
 
 // 아이콘
 import Icon from "../../Icon/Icon"
@@ -43,6 +44,9 @@ const PasswordField: React.FC<PasswordProps> = ({
         ...(height && { height: height, minHeight: height })
     };
 
+    // 번역기
+    const { t } = useTranslation();
+
     return (
         <div className={styles.container}>
             {label && (
@@ -66,7 +70,10 @@ const PasswordField: React.FC<PasswordProps> = ({
                 />
                 {/* 비밀번호 아이콘 */}
                 <Tooltip
-                    content={'비밀번호 보이기'}
+                    content={showPassword 
+                        ? t("tooltip.passwordToggle.hide") 
+                        : t("tooltip.passwordToggle.show")
+                    }
                     placement="right"
                     trigger={["hover", "focus", "click"]}
                 >
@@ -74,7 +81,7 @@ const PasswordField: React.FC<PasswordProps> = ({
                         type="button"
                         className={`${localStyles.toggleButton} ${localStyles.passwordButton}`}
                         onClick={togglePasswordVisibility}
-                        aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보기"}
+                        aria-label={showPassword ? "숨기기" : "보기"}
                     >
                         {showPassword ? <Icon name="eye-off"/> : <Icon name="eye"/>}
                     </button>

@@ -30,7 +30,7 @@ export default function SocialLoginButton({ provider }: { provider: Provider }) 
         <button
             type="button"
             aria-label={label}
-            className={`${styles.circleBtn} ${ring === "light" ? styles.ringLight : ""}`}
+            className={`${styles.circleBtn} ${ring === "light" ? styles.ringLight : ""} ${styles.shadow}`}
             style={style}
             onClick={onClick}
         >

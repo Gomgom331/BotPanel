@@ -1,0 +1,98 @@
+@charset "utf-8";
+:root {
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 컨테이너: 아이콘 + 셀렉트 정렬 */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0rem 0.2rem;
+}
+
+
+/* 셀렉트 래퍼: 커스텀 화살표를 겹치기 위한 상대 위치 */
+.selectWrap {
+    position: relative;
+    width: 100%;
+    padding: 0.5rem 1.1rem 0.5rem 0;
+}
+
+/* 순정 select를 CustomSelect 느낌으로 */
+.select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 100%;
+    min-width: 4rem;
+    min-height: 2rem;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    background-color: rgb(0, 0, 0, 0);
+    transition:
+        border-color 200ms var(--ease),
+        box-shadow 200ms var(--ease),
+        background-color 200ms var(--ease);
+    cursor: pointer;
+}
+
+/* placeholder 색감을 흉내내고 싶다면 첫 옵션을 disabled로 두고 스타일링 가능
+   (현재 옵션에는 실제 placeholder를 쓰지 않으므로 필요 시 확장) */
+
+/* 커스텀 화살표  */
+.chevron {
+    pointer-events: none; /* 클릭 방해 금지 */
+    position: absolute;
+    /* width: 1.25rem; */
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.chevron::before {
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1rem 1rem;
+    transition: transform 200ms var(--ease), filter 200ms var(--ease);
+
+  /* 아래는 다운 화살표(chevron-down) 경로를 단순화한 SVG */
+  /* fill 색은 --select-arrow 를 사용 */
+    background-image: url("data:image/svg+xml;utf8,\
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+    <path fill='%236b7280' d='M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z'/>\
+    </svg>");
+    filter: none;
+}
+
+
+.selectWrap[data-open="true"] .chevron::before {
+    transform: rotate(180deg);
+    filter: brightness(0.85);
+}
+
+
+
+
+.select .option{
+    display:flex; align-items:center; gap:.5rem;
+    padding:.5rem .625rem;
+    border-radius:.5rem;
+    transition: background-color .15s, color .15s;
+}
+.select .option:hover{
+    background:#f3f4f6;
+}
+.select option:checked{ font-weight:600; }    
+
+.option{
+    display:flex; align-items:center; gap:.5rem;
+    padding:.5rem .625rem;
+    border-radius:.5rem;
+    transition: background-color .15s, color .15s;
+}
