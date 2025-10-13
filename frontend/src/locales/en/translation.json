@@ -3,7 +3,13 @@
     "greeting": "Hello, {{name}}!",
 
     "login": {
-      "title": "Login Page"
+      "title": "Login Page",
+      "findId": {
+        "title": "Find ID"
+      },
+      "forgotPassword":{
+        "title": "Forgot Password"
+      }
     },
 
     "signup": {
@@ -22,6 +28,23 @@
         "user": "User Page"
     },
 
+    "auth": {
+      "social": {
+        "title": "Social login",
+        "subtitle": "Sign in quickly with your social account",
+        "continueWith": "Continue with {{brand}}",
+        "or": "or",
+        "otherMethods": "Other methods"
+        }
+    },
+    "social": {
+      "google": "Google",
+      "apple": "Apple",
+      "naver": "NAVER",
+      "kakao": "Kakao",
+      "facebook": "Facebook"
+    },
+
     "tooltip":{
       "languageSetting": "Language Settings",
       "passwordToggle": {
@@ -29,7 +52,6 @@
         "hide": "Hide password"
       }
     },
-
     
     "error": {
         "server":{

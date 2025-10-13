@@ -3,7 +3,13 @@
     "greeting": "Hello, {{name}}!",
 
     "login": {
-      "title": "登录页面"
+      "title": "登录页面",
+      "findId": {
+        "title": "找回账号"
+      },
+      "forgotPassword":{
+        "title": "找回密码"
+      }
     },
     "signup": {
       "title": "注册"
@@ -20,6 +26,23 @@
         "user": "用户页面"
     },
 
+    "auth": {
+      "social": {
+          "title": "社交登录",
+          "subtitle": "使用社交账号快速登录",
+          "continueWith": "使用 {{brand}} 继续",
+          "or": "或",
+          "otherMethods": "其他方式"
+        }
+    },
+    "social": {
+      "google": "Google",
+      "apple": "Apple",
+      "naver": "NAVER",
+      "kakao": "Kakao",
+      "facebook": "Facebook"
+    },
+
     "tooltip":{
       "languageSetting": "语言设置",
       "passwordToggle": {
@@ -27,8 +50,6 @@
         "hide": "隐藏密码"
       }
     },
-
-
     
     "error": {
         "server":{

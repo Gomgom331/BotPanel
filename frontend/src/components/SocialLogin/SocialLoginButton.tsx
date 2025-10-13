@@ -1,6 +1,9 @@
+import { useMemo } from "react";
 import React from "react";
 import styles from "./SocialLoginButton.module.css";
+import { useTranslation } from "react-i18next";
 
+import Tooltip from "../Tooltip/Tooltip";
 
 export type Provider = {
     id: string;
@@ -18,7 +21,26 @@ type CSSVars = React.CSSProperties & {
 };
 
 export default function SocialLoginButton({ provider }: { provider: Provider }) {
-    const { label, iconSrc, bgColor, bgImage, ring = "none", onClick } = provider;
+    const { t, i18n } = useTranslation();
+
+    // 라벨을 번역해 주입
+    const localizedProvider = useMemo(() => {
+    const { label: labelKey, ...rest } = provider;
+    return {
+        ...rest,
+        // 번역 키가 없을 때 원래 문자열을 fallback으로 사용
+        label: t(labelKey, { defaultValue: labelKey }),
+    };}, [provider.label, i18n.language, t]);
+
+    const {
+        id,
+        label,         
+        iconSrc,
+        bgColor,
+        bgImage,
+        ring = "none",
+        onClick,
+    } = localizedProvider;
 
     const style: CSSVars = {
         "--bg": bgColor ?? "#fff",
@@ -27,15 +49,21 @@ export default function SocialLoginButton({ provider }: { provider: Provider }) 
 
 
     return (
-        <button
-            type="button"
-            aria-label={label}
-            className={`${styles.circleBtn} ${ring === "light" ? styles.ringLight : ""} ${styles.shadow}`}
-            style={style}
-            onClick={onClick}
+        <Tooltip
+            placement="bottom"
+            trigger={["hover", "focus", "click"]}
+            content={label}
         >
-            <span aria-hidden className={styles.bg} />
-            <img className={styles.icon} src={iconSrc} alt="" aria-hidden />
-        </button>
+            <button
+                type="button"
+                aria-label={id}
+                className={`${styles.circleBtn} ${ring === "light" ? styles.ringLight : ""} ${styles.shadow}`}
+                style={style}
+                onClick={onClick}
+            >
+                <span aria-hidden className={styles.bg} />
+                <img className={styles.icon} src={iconSrc} alt="" aria-hidden />
+            </button>
+        </Tooltip>
     );
 }

@@ -1,7 +1,7 @@
 export const SOCIAL_PROVIDERS = [
     {
         id: "google",
-        label: "Google 로그인",
+        label: "social.google",
         iconSrc: "/assets/social/google_logo.png",
         bgColor: "#ffffff",
         ring: "light", // 연한 테두리
@@ -9,7 +9,7 @@ export const SOCIAL_PROVIDERS = [
     },
     {
         id: "apple",
-        label: "Apple로 계속하기",
+        label: "social.apple",
         iconSrc: "/assets/social/apple_logo.png",
         bgColor: "#000000",
         ring: "none",
@@ -17,7 +17,7 @@ export const SOCIAL_PROVIDERS = [
     },
     {
         id: "naver",
-        label: "네이버로 계속하기",
+        label: "social.naver",
         iconSrc: "/assets/social/naver_logo.png",
         bgColor: "#03c75a",
         ring: "none",
@@ -25,7 +25,7 @@ export const SOCIAL_PROVIDERS = [
     },
     {
         id: "kakao",
-        label: "카카오로 계속하기",
+        label: "social.kakao",
         iconSrc: "/assets/social/kakao_logo.png",
         bgColor: "#fee500",
         ring: "none",
@@ -33,7 +33,7 @@ export const SOCIAL_PROVIDERS = [
     },
     {
         id: "facebook",
-        label: "Facebook으로 계속하기",
+        label: "social.facebook",
         iconSrc: "/assets/social/facebook_logo.png",
         bgColor: "#4267B2",
         ring: "none",

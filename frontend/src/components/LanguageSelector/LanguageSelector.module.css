@@ -24,7 +24,7 @@
 .trigger {
     width: 100%;
     min-width: 7rem;
-    min-height: 2.25rem;
+    min-height: 2.5rem;
     /* padding: 0.5rem 3rem 0.5rem 0.75rem; */
     padding-left: 0.3rem;
     text-align: left;
@@ -34,7 +34,7 @@
     border-color: var(--color-primary-light);
 }
 
-.triggerLabel { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.triggerLabel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* 화살표 아이콘 (CSS-only) */
 .chevron {
@@ -70,7 +70,6 @@
     width: 100%;
     margin-top: .5rem;
     padding: .25rem;
-
     background: var(--bg);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
@@ -83,6 +82,7 @@
 
 /* 옵션(li) */
 .option {
+    height: 2.4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;

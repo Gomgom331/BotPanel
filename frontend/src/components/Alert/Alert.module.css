@@ -14,7 +14,7 @@
 }
 .alertBox{
     padding: 1.25rem 1rem;
-    border-radius: 0.35rem;
+    border-radius: var(--border-radius);
     width: 100%;
     flex: 1 1 0;
     min-width: 0;

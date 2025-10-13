@@ -17,17 +17,17 @@ export const API_ENDPOINTS = {
     // 로그인
     AUTH_LOGIN: {
         source: API_SOURCES.DJANGO,
-        path: "/auth/login/"
+        path: "/api/auth/login/"
     },
     // 로그아웃
     AUTH_LOGOUT: {
         source: API_SOURCES.DJANGO,
-        path: "/auth/logout/"
+        path: "/api/auth/logout/"
     },
     // 내정보 조회
     USER_ME: {
         source: API_SOURCES.DJANGO,
-        path: "/user/me/"
+        path: "/api/user/me/"
     },
 }as const;
 

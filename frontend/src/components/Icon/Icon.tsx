@@ -16,7 +16,7 @@ interface IconProps {
     color?: string
 }
 
-const Icon:React.FC<IconProps> = ({ name, size = 24, className, color = "var(--icon-color)"})=> {
+const Icon:React.FC<IconProps> = ({ name, size = "1.8rem", className, color = "var(--icon-color)"})=> {
     return(
         <svg
             className={className}

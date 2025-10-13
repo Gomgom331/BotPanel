@@ -3,19 +3,19 @@
 /* 반흥형 별 크기 사이즈 */
 @media(max-width: 768px){
     .input{
-        height: 40px;
+        height: 2.8571rem;
     }
 }
 
 @media (min-width: 769px) and (max-width: 1023px){
     .input{
-        height: 40px;
+        height: 2.8571rem;
     }
 }
 
 @media (min-width: 1024px){
     .input{
-        height: 30px;
+        height: 2.3rem;
     }
 }
 
@@ -39,7 +39,7 @@
     background-color: var(--input-bg);
     border: 1px solid var(--input-border);
     width: 100%;
-    border-radius: 0.35rem;
+    border-radius: var(--border-radius);
     padding: 0rem 0.5rem;
     color: var(--text-body);
     font-size: 0.9rem;

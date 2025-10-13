@@ -1,4 +1,5 @@
 // 공통  API 응답 타입 정의 (전체적인 폼)
+// 백에서 받는 결과값에 따라 데이터 처리
 
 // 성공시
 export type ApiSuccess<D = unknown> = {

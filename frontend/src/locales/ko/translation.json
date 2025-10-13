@@ -3,7 +3,13 @@
     "greeting": "{{name}}님, 안녕하세요!",
 
     "login": {
-      "title": "로그인 페이지 입니다"
+      "title": "로그인 페이지 입니다",
+      "findId": {
+        "title": "아이디 찾기"
+      },
+      "forgotPassword":{
+        "title": "비밀번호 찾기"
+      }
     },
 
     "signup": {
@@ -23,6 +29,23 @@
     },
     "common": {
       "loading": "로딩중..."
+    },
+
+    "auth": {
+      "social": {
+        "title": "간편 로그인",
+        "subtitle": "SNS 계정으로 빠르게 로그인",
+        "continueWith": "{{brand}}로 계속하기",
+        "or": "또는",
+        "otherMethods": "다른 방법"
+      }
+    },
+    "social": {
+      "google": "Google",
+      "apple": "Apple",
+      "naver": "NAVER",
+      "kakao": "Kakao",
+      "facebook": "Facebook"
     },
     
     "tooltip":{

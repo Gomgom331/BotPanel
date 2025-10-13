@@ -1,37 +1,3 @@
-// import type { ComponentType } from "react";
-// import Chat from "../components/test/ChatInput";
-// import Login from "../pages/Login/Login";
-// import Main from "../pages/Main/Main";
-// import EditorDashboard from "../pages/Editor/Dashboard";
-
-// import HomeRedirect from "../routes/HomeRedirect";
-
-// export type UserRole = "none" | "guest" | "user" | "admin" | "editor";
-// export interface AppRoute {
-//     path: string;
-//     component: ComponentType<any>;
-//     roles?: UserRole[];
-// }
-// // 공개 라우터
-
-
-// // 게스트도 입장 가능한 공개/체험 페이지
-// export const publicRoutes: AppRoute[] = [
-//     { path: "/chat", component: Chat, roles: ["none","guest","user","admin","editor"] }, 
-//     { path: "/login", component: Login, roles: ["none"] },
-// ];
-
-// // 보호 라우트
-// export const protectedRoutes: AppRoute[] = [
-//     { path: "/",         component: Main,          roles: ["guest","user","admin","editor"] }, // 게스트도 입장, 내부는 역할별 스위치        // 유저/관리자만
-//     { path: "/admin",    component: EditorDashboard,roles: ["editor"] },                // 관리자만
-// ];
-
-// // fallback
-// export const fallbackRoute: AppRoute = { path: "*", component: HomeRedirect };
-
-
-// src/routes/routeConfig.ts
 import { lazy } from "react";
 import HomeRedirect from "./HomeRedirect";
 
@@ -48,11 +14,11 @@ export type AppRoute = {
 };
 
 // ---- 페이지 컴포넌트 (원하는 방식대로 import/lazy 해도 됨) ----
-const LoginPage     = lazy(() => import("../pages/Auth//Login/Login"));
-const NotFound      = lazy(() => import("../pages/Error/NotFound"));
-const GuestLanding  = lazy(() => import("../pages/Guest/Dashboard"));   // 선택
-const Dashboard     = lazy(() => import("../pages/Main/Main"));            // 일반 유저 홈
-const AdminHome     = lazy(() => import("../pages/Admin/Dashboard"));      // 관리자 홈
+const LoginPage = lazy(() => import("../pages/Auth//Login/Login"));
+const NotFound = lazy(() => import("../pages/Error/NotFound"));
+const GuestLanding = lazy(() => import("../pages/Guest/Dashboard"));   // 선택
+const Dashboard = lazy(() => import("../pages/Main/Main"));            // 일반 유저 홈
+const AdminHome = lazy(() => import("../pages/Admin/Dashboard"));      // 관리자 홈
 // const EntriesList   = lazy(() => import("../pages/entries/EntriesList"));
 // const EntryNew      = lazy(() => import("@/pages/entries/EntryNew"));
 
@@ -69,7 +35,7 @@ export const protectedRoutes: AppRoute[] = [
     // 게스트 전용/체험 페이지(필요 없으면 빼도 됨)
     { path: "/guest", component: GuestLanding, roles: ["guest"] },
 
-    // 일반 유저 홈
+    // 일반 유저 전용 (그룹단위 페이지 유저에서도 - user, admin, owner 로 나뉘어짐)
     { path: "/user", component: Dashboard, roles: ["user"] },
 
 // 도메인 기능 예시(스코프 기반)

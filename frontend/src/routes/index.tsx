@@ -65,7 +65,6 @@ const AppRoutes = () => {
             }
         />
         ))}
-
         {/* 보호 라우트: 로그인/권한 필수 */}
         {protectedRoutes.map(({ path, component: Component, roles, needScopes, redirectTo }) => (
         <Route

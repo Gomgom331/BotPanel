@@ -2,26 +2,26 @@
 
 @media(max-width: 768px){
     .large{
-        height: 40px;
+        height: 2.8571rem;
     }
 }
 
 @media (min-width: 769px) and (max-width: 1023px){
     .large{
-        height: 40px;
+        height: 2.8571rem;
     }
 }
 
 @media (min-width: 1024px){
     .large{
-        height: 30px;
+        height: 2.3rem;
     }
 }
 
 
 /* 버튼 형태 스타일 */
 .button{
-    border-radius: 0.35rem ;
+    border-radius: var(--border-radius);
     transition: 0.3s ease;
 }
 

@@ -18,7 +18,7 @@ urlpatterns = [
     path('csrf/', csrf_view, name="csrf"),
     path('user/', include([
         path('me/', MeView.as_view(), name='me'),
-    ]))
+    ])),
 ] 
 
 

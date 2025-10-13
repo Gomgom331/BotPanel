@@ -51,14 +51,14 @@ const Login: React.FC = () => {
       label: t("form.username"),
       type: "string",
       errorKey: "REQUIRED_USERNAME",
-      height: "40px",
+      height: "3.0769rem",
     },
     {
       name: "password",
       label: t("form.password"),
       type: "password",
       errorKey: "REQUIRED_PASSWORD",
-      height: "40px",
+      height: "3.0769rem",
     },
   ];
 
@@ -177,7 +177,7 @@ const Login: React.FC = () => {
                 loading={loading}
                 fullWidth={true}
                 variant="large"
-                height="40px"
+                height="3.0769rem"
                 color="primary"
                 loadingColor="var(--color-wh)"
                 shadow={true}
@@ -187,16 +187,16 @@ const Login: React.FC = () => {
                 label={t("signup.title")}
                 fullWidth={true}
                 variant="large"
-                height="40px"
+                height="3.0769rem"
                 color="ghost"
                 shadow={true}
               />
             </form>
             {/* accountRecoveryBox */}
             <div className={styles.accountRecoveryBox}>
-              <span><a href="">아이디 찾기</a></span>
+              <span><a href="">{t("login.findId.title")}</a></span>
               |
-              <span><a href="">비밀번호 찾기</a></span>
+              <span><a href="">{t("login.forgotPassword.title")}</a></span>
             </div>
             {/* //accountRecoveryBox */}
             {/* 소셜로그인 */}

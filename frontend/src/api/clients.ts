@@ -22,11 +22,11 @@ function getPath(config: InternalAxiosRequestConfig): string {
 const NEED_CSRF = new Set(["post", "put", "patch", "delete"]);
 
 // 리프레시 엔드포인트(여긴 인터셉터에서 스킵)
-const REFRESH_PATH = "/auth/refresh-cookie/";
+const REFRESH_PATH = "/api/auth/refresh-cookie/";
 const SKIP_REFRESH_PATHS = new Set<string>([
     REFRESH_PATH,
-    "/auth/login/",
-    "/auth/logout/",
+    "/api/auth/login/",
+    "/api/auth/logout/",
 ]);
 
 // ----------------------------------------------

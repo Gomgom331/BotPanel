@@ -1,59 +1,3 @@
-// // 컴포넌트: LanguageSelector
-// import React, {useState, useRef} from "react";
-// import { useTranslation } from "react-i18next";
-// import Icon from "../Icon/Icon";
-
-// import styles from "./LanguageSelector.module.css";
-
-// const LanguageSelector: React.FC = () => {
-//   const { i18n } = useTranslation();
-//   const [open, setOpen] = useState(false);
-//   const wrapRef = useRef<HTMLDivElement>(null);
-
-// const handleChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
-//   const next = e.target.value;
-//   if (next !== i18n.language) i18n.changeLanguage(next);
-//   setOpen(false);
-//   e.currentTarget.blur(); // 선택 후 포커스 제거(화살표 원복 보장)
-// };
-
-
-//   return (
-//     <div className={styles.container}>
-//       <Icon name="language" size={18} />
-//       <div 
-//         className={styles.selectWrap}
-//         data-open={open ? "true" : "false"}
-//         ref={wrapRef}
-//       >
-//         <ul
-//           aria-label="Select language"
-//           className={styles.select}
-//           onChange={handleChangeLang}
-//           value={i18n.language}
-//           // 이벤트
-//           onFocus={() => setOpen(true)}
-//           onBlur={() => setOpen(false)}
-//           onMouseDown={() => setOpen(v => !v)}
-//           onKeyDown={(e) => {
-//             if (e.key === " " || e.key === "Enter" || e.key === "ArrowDown") {
-//               setOpen(v => !v);
-//           }
-//   }}
-//         >
-//           <li className={styles.options} value="ko">한국어</li>
-//           <li className={styles.options} value="en">English</li>
-//           <li className={styles.options} value="zh">中文</li>
-//         </ul>
-//         {/* 화살표 아이콘 */}
-//         <span className={styles.chevron} aria-hidden="true" />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default LanguageSelector;
-
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Icon from "../Icon/Icon";
@@ -176,7 +120,7 @@ const LanguageSelector: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Icon name="language" size={18} />
+      <Icon name="language" size={"1.3rem"} />
       <div className={styles.selectWrap} data-open={open ? "true" : "false"} ref={wrapRef}>
         {/* 트리거 (닫힌 상태 표시 + 열기/닫기) */}
         <button

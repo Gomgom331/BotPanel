@@ -39,6 +39,7 @@ CUSTOM_APPS = [
     'rest_framework_simplejwt',
     'accounts',
     'rbac',
+    'orgs',
 ]
 
 INSTALLED_APPS = SYSTEM_APPS + CUSTOM_APPS
