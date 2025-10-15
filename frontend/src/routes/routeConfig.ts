@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import HomeRedirect from "./HomeRedirect";
-
-// ✨ persona(페이지 분기) 타입: 서버 /user/me 의 persona와 1:1 매칭
+// persona(페이지 분기) 타입: 서버 /user/me 의 persona와 1:1 매칭
 export type PersonaRole = "none" | "guest" | "user" | "admin";
 
 // 라우트 선언 타입
@@ -19,17 +18,16 @@ const NotFound = lazy(() => import("../pages/Error/NotFound"));
 const GuestLanding = lazy(() => import("../pages/Guest/Dashboard"));   // 선택
 const Dashboard = lazy(() => import("../pages/Main/Main"));            // 일반 유저 홈
 const AdminHome = lazy(() => import("../pages/Admin/Dashboard"));      // 관리자 홈
-// const EntriesList   = lazy(() => import("../pages/entries/EntriesList"));
-// const EntryNew      = lazy(() => import("@/pages/entries/EntryNew"));
 
 // -------------------- 공개 라우트 --------------------
 // "/"는 HomeRedirect로 persona에 따라 분기
 export const publicRoutes: AppRoute[] = [
-    { path: "/login", component: LoginPage, roles: ["none"] },
     { path: "/",      component: HomeRedirect, roles: ["none","guest","user","admin"] },
+    { path: "/login", component: LoginPage, roles: ["none"] },
+    { path: "/403", component: NotFound, roles: ["guest", "user", "admin"] },
 ];
 
-// -------------------- 보호 라우트 --------------------
+// -------------------- 보호 라우트 -------s-------------
 // roles로 페이지 분기, needScopes로 기능 권한(OR) 추가
 export const protectedRoutes: AppRoute[] = [
     // 게스트 전용/체험 페이지(필요 없으면 빼도 됨)

@@ -105,6 +105,8 @@ export const useUser = () => {
     const needs = Array.isArray(need) ? need : [need];
     return needs.some((s) => scopes.includes(s));
   };
+
+  // 그룹 확인
   const inAnyGroup = (need: string[] | string, by: "slug" | "name" = "name") => {
     const wants = new Set(Array.isArray(need) ? need : [need]);
     return groups.some((g) => wants.has((by === "slug" ? g.slug : g.name) ?? ""));

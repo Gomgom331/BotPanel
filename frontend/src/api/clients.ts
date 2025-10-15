@@ -62,9 +62,9 @@ const refreshClient = axios.create({
 function refreshCall() {
     const csrf = getCookie("csrftoken");
     return refreshClient.post(
-    REFRESH_PATH,
-    {},
-    csrf ? { headers: { "X-CSRFToken": csrf } } : undefined
+        REFRESH_PATH,
+        {},
+        csrf ? { headers: { "X-CSRFToken": csrf } } : undefined
     );
 }
 
