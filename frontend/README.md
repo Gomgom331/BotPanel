@@ -3,6 +3,55 @@
 ## Axios
 401 status는 토큰처리를 하고 있으니 함부로 넣지말것 (에러처리됨)
 
+## Api 설정
+back과 외부와 연동하는 모든 api는 아래 두개로 관리함
+`constants/apiEndpoints` => 상수값 저장
+`hooks/useApi` => endpoint를 사용하여 api 자동 생성 및 전송 hook
+
+    1. 간단한 path나 source 만 필요할 경우 endpoint를 불러와 사용
+    import { API_ENDPOINTS } from "../constants/apiEndpoints";
+    const REFRESH_PATH = API_ENDPOINTS.REFRESH_COOKIE.path
+
+
+    2. api 전송의 경우 useApi 를 불러와서 사용함
+    import { useApi } from "./useApi";
+    const fetchMe = useApi("USER_ME");
+
+    ``` (1)
+    const res = await fetchMe<{ success: boolean; me?: any; user?: any }>({ method: "get" });
+      if (ac.signal.aborted) return;
+      if (!res?.success) {
+        // 서버가 200에 success=false를 줄 리턴 경로가 있다면 none으로
+        setMe(null); setRole("none"); writeCached("none"); return;
+      }
+      const data = res.me ?? res.user; // 백엔드 호환
+      if (!data) { setMe(null); setRole("none"); writeCached("none"); return; }
+    ```
+
+    ``` (2)
+    const sendCsrf = useApi('CSRF_TOKEN');
+
+    export const useInitCsrf = () => {
+    const didInitRef = useRef(false);
+    const sendCsrf = useApi('CSRF_TOKEN');
+
+    useEffect(() => {
+            if (didInitRef.current) return;
+            didInitRef.current = true;
+
+            sendCsrf()
+                .then(() => {
+                    console.log("CSRF 토큰 발급 완료");
+                })
+                .catch((error) => {
+                    console.error("CSRF 토큰 발급 실패:", error);
+                });
+        }, [sendCsrf]);
+    };
+
+    ```
+
+
 
 ## i18n 다국어 지원
 
@@ -34,7 +83,6 @@
 ## CSRF 토큰
 리액트 입장시 자동으로 발급하게 끔 작성 
 - hooks/useInitCsrf.ts
-
 
 
 ## Input components

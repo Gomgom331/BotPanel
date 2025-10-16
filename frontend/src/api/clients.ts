@@ -1,10 +1,14 @@
 // 호스트 서버 맵핑 각 전용 axios 인스턴스, 인터셉터로 정책을 분리해서 호출
 import axios, { AxiosInstance, AxiosHeaders, InternalAxiosRequestConfig } from "axios";
 import { getCookie } from "../utils/getCookie";
+// api 변수
+import { API_ENDPOINTS } from "../constants/apiEndpoints";
 
-// env
+// env (type string / undefind 강제 제거)
 const FASTAPI_URL = process.env.REACT_APP_API_FASTAPI_URL!;
 const DJANGO_URL  = process.env.REACT_APP_API_DJANGO_URL!;
+
+
 if (!FASTAPI_URL || !DJANGO_URL) {
     throw new Error("필수 환경변수 누락: FASTAPI_URL 또는 DJANGO_URL");
 }
@@ -21,12 +25,16 @@ function getPath(config: InternalAxiosRequestConfig): string {
 // CSRF는 unsafe 메서드에만
 const NEED_CSRF = new Set(["post", "put", "patch", "delete"]);
 
-// 리프레시 엔드포인트(여긴 인터셉터에서 스킵)
-const REFRESH_PATH = "/api/auth/refresh-cookie/";
+// 리프레시 엔드포인트(여긴 인터셉터에서 스킵) path 만 필요
+const REFRESH_PATH = API_ENDPOINTS.REFRESH_COOKIE.path
+const LOGIN_PATH = API_ENDPOINTS.AUTH_LOGIN.path
+const LOGOUT_PATH = API_ENDPOINTS.AUTH_LOGOUT.path
+
+// const REFRESH_PATH = "auth/refresh-cookie/";
 const SKIP_REFRESH_PATHS = new Set<string>([
     REFRESH_PATH,
-    "/api/auth/login/",
-    "/api/auth/logout/",
+    LOGIN_PATH,
+    LOGOUT_PATH,
 ]);
 
 // ----------------------------------------------

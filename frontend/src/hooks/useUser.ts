@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useApi } from "./useApi";
 
-export type UserRole = "none" | "guest" | "user" | "admin";
-export type GroupRoleInGroup = "owner" | "admin" | "member";
+export type UserRole = "none" | "guest" | "user" | "admin"; //1분기
+export type GroupRoleInGroup = "owner" | "admin" | "member"; // 2분기
 export type GroupInfo = { id: number; name: string; slug?: string; role_in_group: GroupRoleInGroup };
 export type MePayload = {
   id: number; username: string;
@@ -112,10 +112,33 @@ export const useUser = () => {
     return groups.some((g) => wants.has((by === "slug" ? g.slug : g.name) ?? ""));
   };
 
+  // slug (그룹내) 역활 확인 및 반환 , 없으면 null
+  const getGroupRole = (slug?:string):GroupRoleInGroup | null => {
+    if (!slug) return null;
+    const g = groups.find((x)=> x.slug === slug);
+    return g?.role_in_group ?? null;
+  };
+
+  // 해당 slug에서 allowed 역할 중 하나라도 가지는지
+  const inGroupHasRole = (
+    slug: string | undefined,
+    allowed: GroupRoleInGroup[] | GroupRoleInGroup
+  ): boolean => {
+    if (!slug) return false;
+    const wants = Array.isArray(allowed) ? allowed : [allowed];
+    const r = getGroupRole(slug);
+    return !!r && wants.includes(r);
+  };  
+
+  // 멤버십만 확인(역할 무관)
+  const isMemberOfSlug = (slug?: string): boolean =>
+    !!slug && groups.some((g) => g.slug === slug);
+
   return {
     role, me, scopes, groups,
     isAuthenticated, isGuest, hasRole,
     loading, error,
     refresh, hasAnyScope, inAnyGroup,
+    getGroupRole, inGroupHasRole, isMemberOfSlug,
   };
 };
