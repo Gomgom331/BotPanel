@@ -20,7 +20,7 @@ function pickPrimarySlug(groups: { slug?: string }[]) {
   return groups?.find(g => !!g.slug)?.slug ?? null;
 }
 
-// 인증성공시 발급되는 access가 없을경우 검증에서 제외시키기
+// 인증성공시 발급되는 access가 없을경우 검증에서 제외시키기 
 function hasAccessCookie(){
   return document.cookie.split("; ").some(v => v.startsWith("access="));
 }

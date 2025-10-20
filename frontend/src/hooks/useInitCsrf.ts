@@ -5,6 +5,8 @@ export const useInitCsrf = () => {
     const didInitRef = useRef(false);
     const sendCsrf = useApi('CSRF_TOKEN');
 
+    console.log("useCsrf")
+
     useEffect(() => {
         if (didInitRef.current) return;
         didInitRef.current = true;

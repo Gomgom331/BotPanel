@@ -40,6 +40,8 @@ class MeView(APIView):
     
     def get(self, request):
         u = request.user
+        print('1')
+        print(u)
         # 그룹멤버쉽
         memberships = (
             u.group_memberships.all()
@@ -63,10 +65,16 @@ class MeView(APIView):
         
         # 페르소나
         persona = derive_persona(u)  # "admin" | "user" | "guest" | "anon"
+        print('2')
+        print(persona)
         # 최종스코프
         scopes = sorted(list(effective_scopes(u)))
+        print('3')
+        print(scopes)
         # 기본 진입 그룹
         default_group = default_group_slug_for(u)
+        print('4')
+        print(default_group)
         
         # 기본 컨텍스트
         me_payload = {
@@ -76,10 +84,12 @@ class MeView(APIView):
             "scopes": scopes,
             "primary_group_slug": default_group,  # 프론트 호환 키 유지
         }
-
+        print('5')
+        print(me_payload)
         
         # 5) (선택) 활성 그룹 컨텍스트 (?group=slug | id | name)
         g_ident = request.query_params.get("group")
+        
         if g_ident:
             g = resolve_group(g_ident)
             if g:
@@ -91,5 +101,6 @@ class MeView(APIView):
                     "role_in_group": group_role(u, g),     # 내 역할
                     "declared_scopes": sorted(list(group_scopes(g))),  # 이 회사가 정책으로 선언한 기능 스코프
                 }
-
+        print('6')
+        print(g_ident)
         return Response({"success": True, "me": me_payload}, status=status.HTTP_200_OK)

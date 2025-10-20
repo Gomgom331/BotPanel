@@ -55,6 +55,7 @@ export const useUser = () => {
     return () => window.removeEventListener("storage", onStorage);
   }, []);
 
+  console.log('USER_ME 1')
   // /user/me API
   const fetchMe = useApi("USER_ME");
 
@@ -65,6 +66,9 @@ export const useUser = () => {
     setLoading(true); setError(null);
     try {
       const res = await fetchMe<{ success: boolean; me?: any; user?: any }>({ method: "get" });
+      if (!res?.success){
+        return { success: false, formError: "SERVER_ERROR"};
+      }
       if (ac.signal.aborted) return;
       if (!res?.success) {
         // 서버가 200에 success=false를 줄 리턴 경로가 있다면 none으로
