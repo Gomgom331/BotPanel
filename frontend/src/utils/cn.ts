@@ -1,4 +1,3 @@
-// src/utils/cn.ts
 // 문자열/객체 형태를 받아 공백으로 합쳐주는 경량 클래스 합성기
 export function cn(
     ...inputs: Array<

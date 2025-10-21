@@ -49,7 +49,7 @@ export const djangoClient: AxiosInstance = axios.create({
 djangoClient.interceptors.request.use((config) => {
     const method = (config.method || "get").toLowerCase();
     if (NEED_CSRF.has(method)) {
-    const csrf = getCookie("csrftoken"); // CSRF_COOKIE_HTTPONLY=False 기준
+        const csrf = getCookie("csrftoken"); // CSRF_COOKIE_HTTPONLY=False 기준
     if (csrf) {
         (config.headers ??= new AxiosHeaders()).set("X-CSRFToken", csrf);
     }
@@ -90,7 +90,6 @@ djangoClient.interceptors.response.use(
     // 401이 아니면 그대로 에러 전달
     // if (status !== 401) return Promise.reject(err);
     if (status !== 401){
-        console.log("에러아님");
         return Promise.reject(err);
     }
     

@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework import status
 
 # rbac
-# 👇 경로 수정: rbac.services.*  ->  rbac.*
 from rbac.services.persona import derive_persona
 from rbac.services.policy import (
     effective_scopes,
@@ -36,38 +35,46 @@ def _public_user_payload(user) -> dict:
 현재 로그인 사용자 컨텍스트
 """    
 class MeView(APIView):
-    permission_classes = (IsAuthenticated,)
-    
     def get(self, request):
-        u = request.user
-        # 그룹멤버쉽
-        memberships = (
-            u.group_memberships.all()
-            .select_related("group")
-            .only(
-                "role_in_group", "is_default",
-                "group__id", "group__name", "group__slug"
-            )
-        )
-        # 그룹목록
-        groups = [
-            {
-                "id": m.group.id,
-                "name": m.group.name,
-                "slug": m.group.slug,          # rbac.Group.slug (회사 코드)
-                "role_in_group": m.role_in_group,  # "member" | "owner" | "admin"
-                "is_default": m.is_default,
-            }
-            for m in memberships
-        ]
         
+        u = request.user
+        try:
+            # 멤버쉽 유무
+            memberships = (
+                u.group_memberships.all()
+                .select_related("group")
+                .only(
+                    "role_in_group", "is_default",
+                    "group__id", "group__name", "group__slug"
+                )
+            )
+        except Exception as e:
+            memberships = []  # 빈 리스트
+            print(f"Error fetching memberships: {e}")
+        
+        # 그룹목록
+        try:
+            groups = [
+                {
+                    "id": m.group.id,
+                    "name": m.group.name,
+                    "slug": m.group.slug,          # rbac.Group.slug (회사 코드)
+                    "role_in_group": m.role_in_group,  # "member" | "owner" | "admin"
+                    "is_default": m.is_default,
+                }
+                for m in memberships
+            ]
+        except Exception as e:
+            groups = [] # 빈리스트
+            print(f"Error fetching groups: {e}")
+
         # 페르소나
-        persona = derive_persona(u)  # "admin" | "user" | "guest" | "anon"
+        persona = derive_persona(u)  # "admin" | "user" | "guest" | "none"
         # 최종스코프
         scopes = sorted(list(effective_scopes(u)))
         # 기본 진입 그룹
         default_group = default_group_slug_for(u)
-        
+        print('확인용3')
         # 기본 컨텍스트
         me_payload = {
             **_public_user_payload(u),
@@ -76,10 +83,10 @@ class MeView(APIView):
             "scopes": scopes,
             "primary_group_slug": default_group,  # 프론트 호환 키 유지
         }
-
         
         # 5) (선택) 활성 그룹 컨텍스트 (?group=slug | id | name)
         g_ident = request.query_params.get("group")
+        
         if g_ident:
             g = resolve_group(g_ident)
             if g:
@@ -91,5 +98,4 @@ class MeView(APIView):
                     "role_in_group": group_role(u, g),     # 내 역할
                     "declared_scopes": sorted(list(group_scopes(g))),  # 이 회사가 정책으로 선언한 기능 스코프
                 }
-
         return Response({"success": True, "me": me_payload}, status=status.HTTP_200_OK)

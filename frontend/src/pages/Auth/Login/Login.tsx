@@ -71,7 +71,6 @@ const Login: React.FC = () => {
     if (!res.success){
       // 필드 에러만 온 경우
       if ("fieldErrors" in res && res.fieldErrors) {
-        console.log('123', res.fieldErrors)
         const fe = mapFieldErrors<keyof LoginFormInputs>(res.fieldErrors)!;
         const entries = Object.entries(fe) as [keyof LoginFormInputs, string][];
         
@@ -84,14 +83,12 @@ const Login: React.FC = () => {
 
       // 전역 에러만 온 경우
       if ("formError" in res && res.formError){
-        console.log('123', res.formError)
         setFormErrorKey(toI18nKey(res.formError));
         return
       }
       
       // 폴백
       setFormErrorKey("error.server.generic");
-      
       return;
     }
     // success:true 인 경우는 훅 내부에서 내정보 조회/이동까지 처리됨

@@ -20,10 +20,6 @@ function pickPrimarySlug(groups: { slug?: string }[]) {
   return groups?.find(g => !!g.slug)?.slug ?? null;
 }
 
-// 인증성공시 발급되는 access가 없을경우 검증에서 제외시키기
-function hasAccessCookie(){
-  return document.cookie.split("; ").some(v => v.startsWith("access="));
-}
 
 // 1분기 role 체크하기
 const HomeRedirect: React.FC = () => {
@@ -31,14 +27,6 @@ const HomeRedirect: React.FC = () => {
   const { role, loading, groups } = useUser();
 
   useEffect(() => {
-
-    // 쿠키가 없을 경우 리턴
-    if (!hasAccessCookie()) {
-      const defaultUser = { role: "none", me: null }; // 👈 기본 유저 상태
-      localStorage.setItem("user", JSON.stringify(defaultUser));
-      navigate("/login", { replace: true });
-      return;
-    }
 
     let alive = true;
 
@@ -50,7 +38,6 @@ const HomeRedirect: React.FC = () => {
       if (role === "guest") { navigate("/guest", { replace: true }); return; }
       if (role === "admin") { navigate("/admin", { replace: true }); return; }
 
-      // role === "user"
       const slug = pickPrimarySlug(groups);
       navigate(slug ? `/${slug}` : "/403", { replace: true });
     })();
