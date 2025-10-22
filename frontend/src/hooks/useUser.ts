@@ -36,12 +36,12 @@ function writeCached(role: UserRole, me?: Partial<MePayload>) {
 
 export const useUser = () => {
   // 
-  const cached = readCached();
-  const [role, setRole] = useState<UserRole>(cached.role);
-  const [me, setMe] = useState<MePayload | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const abortRef = useRef<AbortController | null>(null);
+  const cached = readCached(); // 캐쉬
+  const [role, setRole] = useState<UserRole>(cached.role); // Role
+  const [me, setMe] = useState<MePayload | null>(null); // 유저 정보
+  const [loading, setLoading] = useState<boolean>(true); // 로딩
+  const [error, setError] = useState<string | null>(null); // 에러
+  const abortRef = useRef<AbortController | null>(null); // 
 
   // 탭 간 동기화
   useEffect(() => {

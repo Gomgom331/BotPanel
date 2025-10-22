@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+.container{
+    display: flex;
+    height: 100vh;
+}
+
+/* 기본 아이콘 사이즈 */
+.iconBox{
+    width: 3.8462rem;
+    height: 3.8462rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ---------------------- 고정 사이드바 ---------------------- */
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--side-bar-base);
+}
+.toggleButtonGroup > ul {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 스위치 버튼 */
+.switchBox > button{
+    /* transition: var(--animation-button); */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.switchBox > button.active{
+    background-color: var(--color-primary);
+}
+
+/* 아이콘 버튼 */
+.sidebarMenuIconBox > ul{
+    display: flex;
+    flex-direction: column;
+}
+.iconCircle{
+    width: 2.6923rem;
+    height: 2.6923rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-white);
+}
+
+/* ---------------------- 유동 사이드 메뉴 ---------------------- */
+.sidebarMenu{
+    width: 20rem;
+    height: 100%;
+    background-color: var(--color-white)
+}
+
+.titleBox{
+    width: 100%;
+    height: 3.8462rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: var(--base-padding);
+}
+.titleBox > img{
+    height: 1.4615rem;
+}

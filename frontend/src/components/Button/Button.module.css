@@ -22,9 +22,8 @@
 /* 버튼 형태 스타일 */
 .button{
     border-radius: var(--border-radius);
-    transition: 0.3s ease;
+    transition: var(--animation-button);
 }
-
 .fullWidth{
     width: 100%;
 }
@@ -55,7 +54,7 @@
 
 .shadow{
     box-shadow: var(--button-shadow);
-    transition: 0.3s;
+    transition: var(--animation-button);
 }
 .shadow:hover{
     box-shadow: var(--button-hover-shadow);

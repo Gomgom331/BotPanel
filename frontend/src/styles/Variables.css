@@ -26,7 +26,10 @@
 
 
     --bg-base: var(--color-white);         /* 전체 페이지 기본 배경 */
+    --bg-gray: var(--color-grey-light);    /* 대쉬보드색상 */
+    --side-bar-base: var(--color-grey-light); /* 사이드바 배경 색상 */
     --bg-surface: var(--color-grey-light); /* 카드, 섹션, 박스 등 내부 서브 배경 */
+
 
     /* 라인, 그림자 */
     --color-border: #C9C9C9;          /* 경계선, 구분선 */
@@ -88,7 +91,15 @@
 
 
     /* 규격 -------------------------------------------------------------------------*/
+    
+    /* 패딩/ 간격 */
+    --gab-padding: 0.4rem;
+    --base-padding: 2rem;
+
     --border-radius: 0.35rem;
+    /* 애니메이션 */
+    --animation-button: 0.3s ease;
+
 
 
 
@@ -155,3 +166,11 @@ h3{
     font-weight: 600;
 }
 
+
+/* 이미지 버튼 */
+.imgBg{
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    border: none; 
+}
