@@ -1,4 +1,5 @@
 @charset "utf-8";
+/* ------------- 헤더 컨테이너 ------------- */
 header{
     width: 100%;
     height: 4.6154rem;
@@ -8,7 +9,7 @@ header > ul{
     height: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     padding: 0 var(--base-padding);
 }
 
@@ -18,17 +19,20 @@ header > ul{
 }
 
 
-/* 프로필 이미지  */
+/* ------------- 프로필 이미지 ------------- */
 .columnBox:first-child{
     gap: var(--base-padding);
 }
 .profileBox{
     display: flex;
     align-items: center;
+    gap: 0.8rem;
 }
+
+/* 이미지 */
 .profileBox > .profileImg{
-    width: 3.2308rem;
-    height: 3.2308rem;
+    width: 3.3rem;
+    height: 3.3rem;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
@@ -38,5 +42,18 @@ header > ul{
 .profileImg{
     width: 100%;
     height: 100%;
-    background-image: url(../../../public/assets/title/title_logo.png);
+    background-image: url(../../../public/assets/profile/hong.jpg);
+}
+
+/* 유저 정보 */
+.profileContent > dl{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.2rem;
+    
+}
+.profileContent > dl > dt > h1{
+    padding-right: 0.3rem;
 }

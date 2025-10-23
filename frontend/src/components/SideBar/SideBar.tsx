@@ -69,6 +69,7 @@ const SideBar:React.FC = () => {
                                     <Icon 
                                         name="bell" 
                                         color={activeButton === 'second' ? "var(--color-white)" : "var(--color-primary)"}
+                                        size="1.6rem"
                                     />
                                 </button>
                             </li>

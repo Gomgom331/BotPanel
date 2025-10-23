@@ -1,6 +1,12 @@
+// import React ,{ useState, useEffect } from "react"
+
 // 스타일
 import localStyle from "./Header.module.css"
 import LanguageSelector  from "../LanguageSelector/LanguageSelector"
+
+function useLoadMe() {
+    const [user, setUser]
+}
 
 
 const Header:React.FC = () =>{
@@ -15,12 +21,13 @@ const Header:React.FC = () =>{
                         </div>
                         <div className={localStyle.profileContent}>
                             <dl>
-                                <dt><h2>홍길동</h2><span>멤버</span></dt>
+                                <dt><h1>홍길동</h1><span className="fw700">멤버</span></dt>
                                 <dd>소속회사명</dd>
                             </dl>
                         </div>
                     </div>
                     <div className={localStyle.companySelectBox}>
+                        
                         <select>
                             <option value="">아무거나 넣기</option>
                             <option value="">아무거나 넣기</option>

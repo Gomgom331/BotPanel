@@ -94,14 +94,11 @@
     
     /* 패딩/ 간격 */
     --gab-padding: 0.4rem;
-    --base-padding: 2rem;
+    --base-padding: 1.4rem;
 
     --border-radius: 0.35rem;
     /* 애니메이션 */
     --animation-button: 0.3s ease;
-
-
-
 
     
 }
@@ -166,6 +163,10 @@ h3{
     font-weight: 600;
 }
 
+/* 폰트 굷기 */
+.fw700{
+    font-weight: 700;
+}
 
 /* 이미지 버튼 */
 .imgBg{
