@@ -86,7 +86,8 @@ class MeView(APIView):
         
         # 5) (선택) 활성 그룹 컨텍스트 (?group=slug | id | name)
         g_ident = request.query_params.get("group")
-        
+        print("g_ident")
+        print(g_ident)
         if g_ident:
             g = resolve_group(g_ident)
             if g:
@@ -98,4 +99,6 @@ class MeView(APIView):
                     "role_in_group": group_role(u, g),     # 내 역할
                     "declared_scopes": sorted(list(group_scopes(g))),  # 이 회사가 정책으로 선언한 기능 스코프
                 }
+            print("me_payload")
+            print(me_payload)
         return Response({"success": True, "me": me_payload}, status=status.HTTP_200_OK)

@@ -16,6 +16,9 @@ import {
 } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef } from "react";
+import { useLanguage } from "./useLanguage ";
+
+
 
 //  모든 입력 타입 정의 (form.ts와 일치시켜야 함)
 export type ValueType =
@@ -35,35 +38,28 @@ export type ValueType =
 export const useCommonForm = <T extends FieldValues>(
   fieldNames: (keyof T)[],
   options?: UseFormProps<T>
-): {
-  t: ReturnType<typeof useTranslation>["t"];
-  createChangeHandler: (
-    fieldName: keyof T,
-    type?: ValueType
-  ) => (e: React.ChangeEvent<HTMLInputElement>) => void;
-} & UseFormReturn<T> => {
-  const { t, i18n } = useTranslation();
+)=>{
+  const { onLanguageChange } = useLanguage(); // 다국어 훅
+
   const methods = useForm<T>({ mode: "onSubmit", ...options });
   const { clearErrors, setValue } = methods;
 
   // 언어 변경 시 에러 초기화 (예: 다국어 메시지 반영)
-  const stableFieldNames = useRef(fieldNames);
   useEffect(() => {
-    stableFieldNames.current.forEach((name) => {
-      clearErrors(name as Path<T>);
+    const cleanup = onLanguageChange(() => {
+      fieldNames.forEach((name) => clearErrors(name as Path<T>));
     });
-  }, [i18n.language, clearErrors]);
+    return cleanup;
+  }, [onLanguageChange, clearErrors, fieldNames]);
 
   // 필드 onChange 핸들러
   const createChangeHandler = (
     fieldName: keyof T,
     type: ValueType = "string"
   ) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value;
-
-    let value: any = raw;
-    if (type === "number") value = Number(raw);
-    else if (type === "boolean") value = raw === "true";
+    let value: any = e.target.value;
+    if (type === "number") value = Number(value);
+    else if (type === "boolean") value = value === "true";
 
     setValue(fieldName as Path<T>, value, {
       shouldValidate: true,
@@ -71,5 +67,5 @@ export const useCommonForm = <T extends FieldValues>(
     });
   };
 
-  return { t, createChangeHandler, ...methods };
+  return { createChangeHandler, ...methods };
 };

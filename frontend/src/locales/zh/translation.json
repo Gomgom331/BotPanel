@@ -1,6 +1,4 @@
 {
-    "welcome": "Welcome",
-    "greeting": "Hello, {{name}}!",
 
     "login": {
       "title": "登录页面",
@@ -21,9 +19,15 @@
     },
     
     "main": {
-        "welcome": "欢迎！",
-        "admin": "管理员页面",
-        "user": "用户页面"
+      "welcome": "欢迎！",
+      "admin": "管理员页面",
+      "user": "用户页面"
+    },
+
+    "role": {
+      "admin": "管理员",
+      "member": "成员",
+      "owner": "负责人"
     },
 
     "auth": {
@@ -48,6 +52,16 @@
       "passwordToggle": {
         "show": "显示密码",
         "hide": "隐藏密码"
+      },
+      "sideMenu": {
+        "menu": "菜单",
+        "notifications": "通知",
+        "logout": "退出登录",
+        "home": "返回主页",
+        "myProfile": "我的信息",
+        "companyInfo": "公司信息",
+        "chatBot": "聊天机器人",
+        "addMore": "添加"
       }
     },
     

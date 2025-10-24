@@ -14,6 +14,7 @@ import Tooltip from "../../../components/Tooltip/Tooltip"
 // hooks
 import { useAuthActions } from "../../../hooks/useAuthActions";
 import { toI18nKey, mapFieldErrors } from "../../../constants/errorMessages";
+import { useLanguage } from "../../../hooks/useLanguage ";
 
 // 스타일
 import styles from "./Login.module.css"
@@ -27,7 +28,6 @@ interface LoginFormInputs {
 const Login: React.FC = () => {
 
   const {
-    t,
     control,
     handleSubmit,
     formState: { errors },
@@ -41,6 +41,8 @@ const Login: React.FC = () => {
   const { login , loading } = useAuthActions();
   // 전역 폼 에러 키
   const [formErrorKey, setFormErrorKey] = React.useState<string | null>(null);
+
+  const {t} = useLanguage();
   
 
   // 필드 설정 - 클라이언트 1차 검증

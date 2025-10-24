@@ -1,7 +1,4 @@
 {
-    "welcome": "Welcome",
-    "greeting": "Hello, {{name}}!",
-
     "login": {
       "title": "Login Page",
       "findId": {
@@ -28,6 +25,12 @@
         "user": "User Page"
     },
 
+    "role": {
+      "admin": "Admin",
+      "member": "Member",
+      "owner": "Owner"
+    },
+
     "auth": {
       "social": {
         "title": "Social login",
@@ -50,6 +53,16 @@
       "passwordToggle": {
         "show": "Show password",
         "hide": "Hide password"
+      },
+      "sideMenu": {
+        "menu": "Menu",
+        "notifications": "Notifications",
+        "logout": "Logout",
+        "home": "Go to Home",
+        "myProfile": "My Profile",
+        "companyInfo": "Company Info",
+        "chatBot": "ChatBot",
+        "addMore": "Add More"
       }
     },
     

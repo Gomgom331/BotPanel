@@ -68,7 +68,7 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    padding-left: var(--base-padding);
+    padding-left: 1.4rem;
 }
 .titleBox > img{
     height: 1.4615rem;

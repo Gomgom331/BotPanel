@@ -16,16 +16,17 @@ export default function AuthGate({
     redirectTo?: string;
     children: React.ReactNode;
 }) {
+    
     const { role, loading, hasAnyScope } = useUser();
     const location = useLocation();
 
     if(loading) return null
     // role 확인
     if (!roles.includes(role)) {
-    if (role === "none") {
-        return <Navigate to="/login" replace state={{ from: location }} />;
-    }
-        return <Navigate to={redirectTo} replace />;
+        if (role === "none") {
+            return <Navigate to="/login" replace state={{ from: location }} />;
+        }
+            return <Navigate to={redirectTo} replace />;
     }
 
     // 권한 확인

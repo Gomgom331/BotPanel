@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../hooks/useLanguage ";
+
 import localStyle from "./SideBar.module.css";
 
 import Icon from "../Icon/Icon";
@@ -7,6 +9,7 @@ import Tooltip from "../Tooltip/Tooltip";
 
 import Menu from "../Menu/Menu";
 import Notification from "../Notification/Notification";
+
 
 
 type IconItem = {
@@ -17,19 +20,19 @@ type IconItem = {
 }
 
 const iconItems: IconItem[] = [
-    { name: "logout", tooltip: "로그아웃", link: "/hide" },
-    { name: "home", tooltip: "홈 이동", link: "/hide" },
-    { name: "user", tooltip: "내정보", link: "/hide" },
-    { name: "contact", tooltip: "회사정보", link: "/hide" },
-    { name: "chat", tooltip: "챗봇", onClick: () => alert("삭제 클릭!") },
-    { name: "add-btn", tooltip: "보기 숨김", link: "/hide" },
+    { name: "logout", tooltip: "tooltip.sideMenu.logout", link: "/hide" },
+    { name: "home", tooltip: "tooltip.sideMenu.home", link: "/hide" },
+    { name: "user", tooltip: "tooltip.sideMenu.myProfile", link: "/hide" },
+    { name: "contact", tooltip: "tooltip.sideMenu.companyInfo", link: "/hide" },
+    { name: "chat", tooltip: "tooltip.sideMenu.chatBot", onClick: () => alert("삭제 클릭!") },
+    { name: "add-btn", tooltip: "tooltip.sideMenu.addMore", link: "/hide" },
 ];
 
 
 const SideBar:React.FC = () => {
 
     const [activeButton, setActiveButton] = useState<'first' | 'second'>('first'); //first가 기본값
-
+    const {t} = useLanguage();
 
     return(
         <div className={localStyle.container}>
@@ -37,7 +40,7 @@ const SideBar:React.FC = () => {
                 <div className={localStyle.toggleButtonGroup}>
                     <ul>
                         <Tooltip
-                                content="메뉴"
+                                content={t("tooltip.sideMenu.menu")}
                                 placement="right"
                         >
                             <li className={`${localStyle.iconBox} ${localStyle.switchBox} ${localStyle.toggleButtonBox}`}>
@@ -56,7 +59,7 @@ const SideBar:React.FC = () => {
                         </Tooltip>
                         {/* .toggleButtonBox */}
                         <Tooltip
-                                content="알림"
+                                content={t("tooltip.sideMenu.notifications")}
                                 placement="right"
                         >
                             <li className={`${localStyle.iconBox} ${localStyle.switchBox} ${localStyle.bellButtonBox}`}>
@@ -82,14 +85,17 @@ const SideBar:React.FC = () => {
                 <div className={localStyle.sidebarMenuIconBox}>
                     <ul>
                         {iconItems.map((item, index) => (
-                        <Tooltip content={item.tooltip} placement="right">
+                        <Tooltip 
+                            content={t(item.tooltip)} 
+                            placement="right"
+                        >
                             <li className={localStyle.iconBox} key={index}>
                             
                             {item.link ? (
                                 <Link
                                     className={localStyle.iconCircle}
                                     to={item.link}
-                                    aria-label={item.tooltip}
+                                    aria-label={t(item.tooltip)}
                                 >
                                     <Icon name={item.name} color="var(--color-primary)" size="1.4rem"/>
                                 </Link>
@@ -97,7 +103,7 @@ const SideBar:React.FC = () => {
                                 <button
                                     type="button"
                                     className={localStyle.iconCircle}
-                                    aria-label={item.tooltip}
+                                    aria-label={t(item.tooltip)}
                                     onClick={item.onClick}
                                 >
                                     <Icon name={item.name} color="var(--color-primary)" size="1.4rem"/>

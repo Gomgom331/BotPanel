@@ -1,6 +1,4 @@
 {
-    "welcome": "환영합니다",
-    "greeting": "{{name}}님, 안녕하세요!",
 
     "login": {
       "title": "로그인 페이지 입니다",
@@ -11,7 +9,6 @@
         "title": "비밀번호 찾기"
       }
     },
-
     "signup": {
       "title": "회원가입"
     },
@@ -27,6 +24,13 @@
       "admin": "관리자 페이지",
       "user": "사용자 페이지"
     },
+
+    "role": {
+      "admin": "관리자",
+      "member": "멤버",
+      "owner": "담당자"
+    },
+
     "common": {
       "loading": "로딩중..."
     },
@@ -53,6 +57,16 @@
       "passwordToggle": {
         "show": "비밀번호 보기",
         "hide": "비밀번호 숨기기"
+      },
+      "sideMenu": {
+        "menu": "메뉴",
+        "notifications": "알림",
+        "logout": "로그아웃",
+        "home": "홈 이동",
+        "myProfile": "내 정보",
+        "companyInfo": "회사 정보",
+        "chatBot": "챗봇",
+        "addMore": "추가"
       }
     },
 

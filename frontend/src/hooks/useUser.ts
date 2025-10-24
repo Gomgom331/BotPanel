@@ -1,5 +1,14 @@
 // 로그인/권한 컨텍스트 훅
 // 서버가 계산한 persona/scopes/groups를 /user/me 에서 받아와 전역 분기에 사용
+// 
+// ---------------------------------------------------
+// 유정 정보를 불러오고 싶을때
+// 해당 컴포넌트에서 useUSer() 후 me를 참조하기
+// ex) const {me} = useUser(); me?.email , me?.full_name 등
+// 추 후 유저 데이터가 추가 될 시 "export type MePayload" 에 필드 추가
+// backend에서는 Me view 체크하기
+//  ---------------------------------------------------
+
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useApi } from "./useApi";
 
@@ -9,9 +18,14 @@ export type GroupInfo = { id: number; name: string; slug?: string; role_in_group
 
 // /user/me API 페이로드 타입
 export type MePayload = {
-  id: number; username: string;
+  id: number; 
+  username: string;
+  email: string;
+  full_name?: string;
   persona: Exclude<UserRole, "none">; // guest | user | admin
-  groups: GroupInfo[]; scopes: string[]; features?: string[];
+  groups: GroupInfo[]; 
+  scopes: string[]; 
+  features?: string[];
 };
 
 const LSK = "user";
@@ -29,7 +43,7 @@ function readCached(): { role: UserRole; me?: Partial<MePayload> } {
     return { role: "none" };
   } catch { return { role: "none" }; }
 }
-// 쓰기
+// 로컬스토리지에 쓰기
 function writeCached(role: UserRole, me?: Partial<MePayload>) {
   try {
     const out: any = { role };
@@ -69,7 +83,7 @@ export const useUser = () => {
   const refresh = useMemo(() => async () => {
     // 이전 요청 중단
     abortRef.current?.abort();
-    const ac = new AbortController();
+    const ac = new AbortController(); // 새 컨트롤러
     abortRef.current = ac;
     // 초기화
     setLoading(true); setError(null);
@@ -79,12 +93,9 @@ export const useUser = () => {
       if (res == null){
         return { success: false, formError: "SERVER_ERROR"};
       }
-      // if (!res?.success){
-      //   return { success: false, formError: "SERVER_ERROR"};
-      // }
-      if (ac.signal.aborted) return;
-      if (!res?.success) {
-        // 서버가 200에 success=false를 줄 리턴 경로가 있다면 none으로
+
+      if (ac.signal.aborted) return; // AbortSignal 상태 확인 boolean 속성의 함수 (신호가 있으면 return)
+      if (!res?.success) { // 서버가 200에 success=false를 줄 리턴 경로가 있다면 none으로
         setMe(null); setRole("none"); writeCached("none"); return;
       }
       const data = res.me ?? res.user; // 백엔드 호환

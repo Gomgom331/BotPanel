@@ -94,7 +94,7 @@
     
     /* 패딩/ 간격 */
     --gab-padding: 0.4rem;
-    --base-padding: 1.4rem;
+    --base-padding: 2rem;
 
     --border-radius: 0.35rem;
     /* 애니메이션 */
@@ -164,6 +164,9 @@ h3{
 }
 
 /* 폰트 굷기 */
+.fw600{
+    font-weight: 600;
+}
 .fw700{
     font-weight: 700;
 }

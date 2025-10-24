@@ -54,6 +54,10 @@ header > ul{
     gap: 0.2rem;
     
 }
-.profileContent > dl > dt > h1{
+.profileContent > dl > dt > h2{
     padding-right: 0.3rem;
+}
+.userRole{
+    font-size: 0.9rem;
+    color: var(--text-sub);
 }

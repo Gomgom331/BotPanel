@@ -3,13 +3,15 @@
 // 스타일
 import localStyle from "./Header.module.css"
 import LanguageSelector  from "../LanguageSelector/LanguageSelector"
-
-function useLoadMe() {
-    const [user, setUser]
-}
+import { useUser } from "../../hooks/useUser"
+import { useLanguage } from "../../hooks/useLanguage "
 
 
 const Header:React.FC = () =>{
+
+    const { me } = useUser();
+    const { t } = useLanguage();
+
     return(
         <header>
             <ul>
@@ -21,8 +23,15 @@ const Header:React.FC = () =>{
                         </div>
                         <div className={localStyle.profileContent}>
                             <dl>
-                                <dt><h1>홍길동</h1><span className="fw700">멤버</span></dt>
-                                <dd>소속회사명</dd>
+                                <dt>
+                                    <h2>{me?.full_name}</h2>
+                                    <span className={`${localStyle.userRole} fw600`}>
+                                        {me?.groups.length
+                                            ? t(`role.${me.groups[0].role_in_group}`)
+                                            : "undefined"}
+                                    </span>
+                                </dt>
+                                <dd>{me?.groups[0].name}</dd>
                             </dl>
                         </div>
                     </div>
