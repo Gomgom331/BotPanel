@@ -2,7 +2,7 @@
 
 // 스타일
 import localStyle from "./Header.module.css"
-import LanguageSelector  from "../LanguageSelector/LanguageSelector"
+import LanguageSelector  from "../Selector/LanguageSelector/LanguageSelector"
 import { useUser } from "../../hooks/useUser"
 import { useLanguage } from "../../hooks/useLanguage "
 
@@ -21,6 +21,7 @@ const Header:React.FC = () =>{
                             <button className={`imgBg ${localStyle.profileImg} `}>
                             </button>
                         </div>
+                        {/* / profileImg */}
                         <div className={localStyle.profileContent}>
                             <dl>
                                 <dt>
@@ -34,9 +35,13 @@ const Header:React.FC = () =>{
                                 <dd>{me?.groups[0].name}</dd>
                             </dl>
                         </div>
+                        {/* / profileContent */}
                     </div>
+                    {/* / profileBox */}
+                </li>
+                {/* / columnBox */}
+                <li className={localStyle.columnBox}>
                     <div className={localStyle.companySelectBox}>
-                        
                         <select>
                             <option value="">아무거나 넣기</option>
                             <option value="">아무거나 넣기</option>
@@ -45,10 +50,12 @@ const Header:React.FC = () =>{
                             <option value="">아무거나 넣기</option>
                         </select>
                     </div>
+                    {/* / companySelectBox */}
+                    <div>
+                        <LanguageSelector />
+                    </div>
                 </li>
-                <li className={localStyle.columnBox}>
-                    <LanguageSelector />
-                </li>
+                {/* / columnBox */}
             </ul>
         </header>
     )

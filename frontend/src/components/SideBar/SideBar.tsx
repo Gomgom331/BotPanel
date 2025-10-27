@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../../hooks/useLanguage ";
+import { useAuthActions } from "../../hooks/useAuthActions";
 
 import localStyle from "./SideBar.module.css";
 
@@ -19,20 +20,29 @@ type IconItem = {
     onClick?: () => void;
 }
 
-const iconItems: IconItem[] = [
-    { name: "logout", tooltip: "tooltip.sideMenu.logout", link: "/hide" },
-    { name: "home", tooltip: "tooltip.sideMenu.home", link: "/hide" },
-    { name: "user", tooltip: "tooltip.sideMenu.myProfile", link: "/hide" },
-    { name: "contact", tooltip: "tooltip.sideMenu.companyInfo", link: "/hide" },
-    { name: "chat", tooltip: "tooltip.sideMenu.chatBot", onClick: () => alert("삭제 클릭!") },
-    { name: "add-btn", tooltip: "tooltip.sideMenu.addMore", link: "/hide" },
-];
-
 
 const SideBar:React.FC = () => {
 
     const [activeButton, setActiveButton] = useState<'first' | 'second'>('first'); //first가 기본값
     const {t} = useLanguage();
+    const { logout } = useAuthActions();  // 로그아웃
+
+    const handleLogout = async () => {
+        if (window.confirm(t("logout.confirm"))) {
+            await logout();
+        }
+    };
+
+    // 사이드 바 아이콘 항목들
+    const iconItems: IconItem[] = [
+        { name: "logout", tooltip: "tooltip.sideMenu.logout", onClick: handleLogout },
+        { name: "home", tooltip: "tooltip.sideMenu.home", link: "/hide" },
+        { name: "user", tooltip: "tooltip.sideMenu.myProfile", link: "/hide" },
+        { name: "contact", tooltip: "tooltip.sideMenu.companyInfo", link: "/hide" },
+        { name: "chat", tooltip: "tooltip.sideMenu.chatBot", onClick: () => alert("삭제 클릭!") },
+        { name: "add-btn", tooltip: "tooltip.sideMenu.addMore", link: "/hide" },
+    ];
+
 
     return(
         <div className={localStyle.container}>
@@ -48,7 +58,6 @@ const SideBar:React.FC = () => {
                                     onClick={()=>setActiveButton('first')}
                                     className={`${localStyle.toggleButton} ${activeButton === 'first' ? localStyle.active : ''}`}
                                 >
-                                    
                                     <Icon 
                                         name="hamburger" 
                                         color={activeButton === 'first' ? "var(--color-white)" : "var(--color-primary)"} 

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Icon from "../Icon/Icon";
+import Icon from "../../Icon/Icon";
 import styles from "./LanguageSelector.module.css";
 
 /** 선택 가능한 언어 목록 */

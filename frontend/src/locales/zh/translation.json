@@ -9,6 +9,10 @@
         "title": "找回密码"
       }
     },
+    "logout":{
+      "confirm": "您要退出登录吗？"
+    },
+
     "signup": {
       "title": "注册"
     },

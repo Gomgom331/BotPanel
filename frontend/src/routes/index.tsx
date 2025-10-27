@@ -7,6 +7,7 @@ import HomeRedirect from "./HomeRedirect";
 // page component
 import TestPage from "../components/test/ChatInput";
 import LoginPage from "../pages/Auth/Login/Login"; // 로그인
+
 // 나중에 게스트, 관리자 라우트 만들어두기
 import GuestPage from "../pages/Guest/Dashboard";
 import AdminPage from "../pages/Admin/Dashboard";
@@ -36,7 +37,6 @@ export default function AppRoutes() {
 
         {/* 회사별 보호 라우트 (/:slug/*) — 오직 user만 접근 */}
         <Route path=":slug">
-            {/* index → dashboard */}
             <Route
                 index
                 element={ 
@@ -49,22 +49,6 @@ export default function AppRoutes() {
                 path="dashboard"
                 element={
                     <ProtectedRoute roles={["user"]}>
-                        <UserPage />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path="orders"
-                element={
-                    <ProtectedRoute roles={["user"]} needGroupRoles={["member","admin","owner"]}>
-                        <UserPage />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                path="settings"
-                element={
-                    <ProtectedRoute roles={["user"]} needGroupRoles={["admin","owner"]}>
                         <UserPage />
                     </ProtectedRoute>
                 }

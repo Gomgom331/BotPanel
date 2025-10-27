@@ -5,7 +5,7 @@ import { FieldConfig } from "../../../types/form";
 
 // components
 import AutoFormField from "../../../components/Form/AutoFormField";
-import Language from "../../../components/LanguageSelector/LanguageSelector";
+import Language from "../../../components/Selector/LanguageSelector/LanguageSelector";
 import Button from "../../../components/Button/Button";
 import {Alert} from "../../../components/Alert/Alert";
 import SocialLoginSection from "../../../components/SocialLogin/SocialLoginSection";

@@ -10,7 +10,7 @@ header > ul{
     display: flex;
     justify-content: space-between;
     align-items: end;
-    padding: 0 var(--base-padding);
+    padding-left: var(--base-padding);
 }
 
 .columnBox{
@@ -23,6 +23,13 @@ header > ul{
 .columnBox:first-child{
     gap: var(--base-padding);
 }
+.columnBox:nth-child(2){
+    gap: var(--base-padding);
+    height: 100%;
+    align-items: start;
+    padding: 0.5rem 1rem 0 0;
+}
+
 .profileBox{
     display: flex;
     align-items: center;
