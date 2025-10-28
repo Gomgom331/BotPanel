@@ -38,8 +38,9 @@ class MeView(APIView):
     def get(self, request):
         
         u = request.user
+        # 멤버쉽 유무 ----------------
         try:
-            # 멤버쉽 유무
+            
             memberships = (
                 u.group_memberships.all()
                 .select_related("group")
@@ -52,7 +53,7 @@ class MeView(APIView):
             memberships = []  # 빈 리스트
             print(f"Error fetching memberships: {e}")
         
-        # 그룹목록
+        # 그룹목록 ----------------
         try:
             groups = [
                 {
@@ -67,27 +68,62 @@ class MeView(APIView):
         except Exception as e:
             groups = [] # 빈리스트
             print(f"Error fetching groups: {e}")
+        
+        # 멤버십 맵(빠른 조회용) ----------------
+        by_slug = {}
+        groups = []
+        
+        for m in memberships:
+            item = {
+                "id" : m.group.id,
+                "name": m.group.name,
+                "slug": m.group.slug,
+                "role_in_group": m.role_in_group, #member, admin, owner
+                "is_default": m.is_default,
+            }
+            groups.append(item)
+            if m.group.slug:
+                by_slug[m.group.slug] = item
+                
+        # last_viewed_group 직렬화
+        last_viewed = None
+        if getattr(u, "last_viewed_group_id", None):
+            g = u.last_viewed_group
+            if g and g.slug in by_slug:
+                last_viewed = {
+                    "id": g.id,
+                    "name": g.name,
+                    "slug": g.slug,
+                    "role_in_group": by_slug[g.slug]["role_in_group"],
+                }
+            else:
+                # 멤버가 아니면 정리
+                u.last_viewed_group = None
+                u.save(update_fields=["last_viewed_group"])
+        
 
-        # 페르소나
+
+        # 페르소나 ----------------
         persona = derive_persona(u)  # "admin" | "user" | "guest" | "none"
-        # 최종스코프
+        
+        # 최종스코프 ----------------
         scopes = sorted(list(effective_scopes(u)))
-        # 기본 진입 그룹
+        
+        # 기본 진입 그룹 ----------------
         default_group = default_group_slug_for(u)
-        print('확인용3')
-        # 기본 컨텍스트
+        
+        # 기본 컨텍스트----------------
         me_payload = {
             **_public_user_payload(u),
             "persona": persona,
             "groups": groups,
             "scopes": scopes,
             "primary_group_slug": default_group,  # 프론트 호환 키 유지
+            "last_viewed_group": last_viewed,
         }
         
         # 5) (선택) 활성 그룹 컨텍스트 (?group=slug | id | name)
         g_ident = request.query_params.get("group")
-        print("g_ident")
-        print(g_ident)
         if g_ident:
             g = resolve_group(g_ident)
             if g:
@@ -99,6 +135,5 @@ class MeView(APIView):
                     "role_in_group": group_role(u, g),     # 내 역할
                     "declared_scopes": sorted(list(group_scopes(g))),  # 이 회사가 정책으로 선언한 기능 스코프
                 }
-            print("me_payload")
-            print(me_payload)
+                
         return Response({"success": True, "me": me_payload}, status=status.HTTP_200_OK)

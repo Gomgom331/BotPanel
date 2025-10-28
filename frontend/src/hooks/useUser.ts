@@ -26,6 +26,12 @@ export type MePayload = {
   groups: GroupInfo[]; 
   scopes: string[]; 
   features?: string[];
+  last_viewed_group?: {
+    id: number;
+    name: string;
+    slug: string;
+    role_in_group: "owner" | "admin" | "member";
+  } | null;
 };
 
 const LSK = "user";

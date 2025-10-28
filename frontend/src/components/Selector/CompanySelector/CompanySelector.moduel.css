@@ -1,2 +1,104 @@
 @charset "utf-8";
 
+:root {
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    /* 토큰 없을 때 기본값 (원하면 프로젝트 토큰으로 치환) */
+    --bg: #ffffff;
+}
+
+/* 컨테이너: 아이콘 + 드롭다운 정렬 */
+.container {
+    display: flex;
+    align-items: center;
+    padding: 0 0.2rem;
+    gap: 0.2rem;
+}
+
+/* 래퍼: 화살표 회전 및 팝오버 포지셔닝 */
+.selectWrap {
+    position: relative;
+    width: 100%;
+}
+
+/* 트리거 버튼(닫힌 상태 UI) */
+.trigger {
+    width: 100%;
+    min-width: 7rem;
+    min-height: 2.5rem;
+    /* padding: 0.5rem 3rem 0.5rem 0.75rem; */
+    padding-left: 0.3rem;
+    text-align: left;
+}
+.trigger:focus-visible {
+    outline: none;
+    border-color: var(--color-primary-light);
+}
+
+.triggerLabel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* 화살표 아이콘 (CSS-only) */
+.chevron {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: .5rem;
+}
+.chevron::before {
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    background: center/1rem no-repeat;
+    transition: transform 200ms var(--ease), filter 200ms var(--ease);
+    filter: none;
+    background-image: url("data:image/svg+xml;utf8,\
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+        <path fill='%236b7280' d='M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z'/>\
+    </svg>");
+}
+.selectWrap[data-open="true"] .chevron::before {
+    transform: rotate(180deg);
+    filter: brightness(0.85);
+}
+
+/* 드롭다운 메뉴(ul) */
+.menu {
+    position: absolute;
+    z-index: 20;
+    width: 100%;
+    margin-top: .5rem;
+    padding: .25rem;
+    background: var(--bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    box-shadow: var(--button-shadow);
+
+    max-height: 14rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+.menu:focus { outline: none; }
+
+/* 옵션(li) */
+.option {
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .625rem .75rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease;
+}
+.option:hover { background: var(--button-ghost-hover); }
+.optionActive { background: var(--button-ghost-hover); }
+.optionSelected {
+    background: var(--button-ghost-hover);
+    color: var(--color-primary);
+}
+.optionLabel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.check { margin-left: .5rem; opacity: .9; }

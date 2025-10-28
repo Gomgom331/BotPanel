@@ -1,8 +1,11 @@
-// import React ,{ useState, useEffect } from "react"
+import React from "react"
 
 // 스타일
 import localStyle from "./Header.module.css"
+// 컴포넌트
 import LanguageSelector  from "../Selector/LanguageSelector/LanguageSelector"
+import CompanySelector from "../Selector/CompanySelector/CompanySelector"
+
 import { useUser } from "../../hooks/useUser"
 import { useLanguage } from "../../hooks/useLanguage "
 
@@ -32,7 +35,7 @@ const Header:React.FC = () =>{
                                             : "undefined"}
                                     </span>
                                 </dt>
-                                <dd>{me?.groups[0].name}</dd>
+                                <dd>{me?.last_viewed_group?.name}</dd>
                             </dl>
                         </div>
                         {/* / profileContent */}
@@ -49,6 +52,7 @@ const Header:React.FC = () =>{
                             <option value="">아무거나 넣기</option>
                             <option value="">아무거나 넣기</option>
                         </select>
+                        {/* <CompanySelector /> */}
                     </div>
                     {/* / companySelectBox */}
                     <div>

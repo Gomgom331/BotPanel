@@ -14,36 +14,55 @@ import { useUser } from "../hooks/useUser";
 
 
 // 마지막으로 입장한 그룹이 있으면 불러오기
-function pickPrimarySlug(groups: { slug?: string }[]) {
+// function pickPrimarySlug(groups: { slug?: string }[]) {
+//   const last = localStorage.getItem("lastSlug");
+//   if (last && groups?.some(g => g.slug === last)) return last;
+//   return groups?.find(g => !!g.slug)?.slug ?? null;
+// }
+
+function pickPrimarySlug(
+  me: ReturnType<typeof useUser >["me"],
+  groups: { slug? : string }[]
+){
+  
+  // 서버가 준 마지막 활성화 그룹
+  const fromServer = me?.last_viewed_group?.slug;
+  if(fromServer && groups?.some(g => g.slug === fromServer )) return fromServer
+
+  // 로컬 마지막 slug (여전히 소속인지 검증)
   const last = localStorage.getItem("lastSlug");
-  if (last && groups?.some(g => g.slug === last)) return last;
-  return groups?.find(g => !!g.slug)?.slug ?? null;
+  if (last && groups?.some(g => g.slug === last)) return last
+
+  // 첫번째 소속 그룸
+  return groups?.find(g=> !!g.slug)?.slug?? null;
 }
+
 
 
 // 1분기 role 체크하기
 const HomeRedirect: React.FC = () => {
   const navigate = useNavigate();
-  const { role, loading, groups } = useUser();
+  const { role, loading, me, groups } = useUser();
 
   useEffect(() => {
+    if (loading) return
 
-    let alive = true;
+    // 1분기 분기처리
+    if (role === "none")  { navigate("/login", { replace: true }); return; }
+    if (role === "guest") { navigate("/guest", { replace: true }); return; }
+    if (role === "admin") { navigate("/admin", { replace: true }); return; }
 
-    (async () => {
-      if (!alive || loading) return;
+    const slug = pickPrimarySlug(me, groups);
 
-      // 분기점1
-      if (role === "none") { navigate("/login", { replace: true }); return; }
-      if (role === "guest") { navigate("/guest", { replace: true }); return; }
-      if (role === "admin") { navigate("/admin", { replace: true }); return; }
+    // slug가 있을시 
+    if (slug) {
+      localStorage.setItem("lastSlug", slug);
+      navigate(`/${slug}` , {replace: true});
+    } else{
+      navigate("/403", {replace: true});
+    }
 
-      const slug = pickPrimarySlug(groups);
-      navigate(slug ? `/${slug}` : "/403", { replace: true });
-    })();
-
-    return () => { alive = false; };
-  }, [role, loading, groups, navigate]);
+  }, [role, loading, me, groups, navigate]);
 
   return null;
 }

@@ -8,8 +8,9 @@ import type { ApiResponse, ApiFail } from "../api/types";
 // 로컬스냅샷 유틸
 function applyUserSnapshot( input: any ){
     try{
-        const me = input?.me ?? input?.user ?? input; 
+        const me = input?.me ?? input?.user ?? input
         const persona = me?.persona ?? ((me?.groups?.length ?? 0) > 0 ? "user" : "guest");
+        
         const snapshot = {
             role: persona,              // "guest" | "user" | "admin"
             scopes: me?.scopes ?? [],
@@ -86,6 +87,7 @@ export function useAuthActions(){
         }finally{
             // 스토리지 유저 정보 삭제
             localStorage.removeItem("user");
+            localStorage.removeItem("lastSlug");
             window.dispatchEvent(new StorageEvent("storage", { key: "user" }));
 
             // 로딩 종료

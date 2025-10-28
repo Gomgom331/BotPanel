@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 # 모델
 from accounts.models import CustomUser
+from rbac.models import Group
 from rbac.models import GroupMembership
 
 # 쿠키
@@ -34,6 +35,7 @@ class LoginView(View):
                 data = json.loads(request.body or "{}")
             except json.JSONDecodeError:
                 return JsonResponse({"success": False, "formError": "INVALID_REQUEST"}, status=400)
+            # 받은 데이터 확인
             username = (data.get("username") or "").strip()
             password = data.get("password") or ""
 
@@ -88,7 +90,6 @@ class LoginView(View):
                     "success": False,
                     "formError": "ERR_AUTH_DELETED_USER"
                 })
-                
             
             # # 나중에 비밀번호 초기화 (비밀번호 바꾸기) 기능 만들기------
             # if user_obj.reset_token:
@@ -103,7 +104,7 @@ class LoginView(View):
             is_editor = False
 
             try:
-                user_group = GroupMembership.objects.get(user=user_obj.pk)
+                GroupMembership.objects.filter(user=user_obj).exists()
                 # 그룹이 있으면 user
                 role = "user"
             except GroupMembership.DoesNotExist: 
@@ -114,12 +115,16 @@ class LoginView(View):
                 else:
                     is_guest = True 
                     role = "guest"
-
+                    
             # 토큰 발급 → HttpOnly 쿠키 저장 ----------------------------
             refresh = RefreshToken.for_user(user_obj)
             access  = str(refresh.access_token)
 
-            response_data = {"success": True, "message": "LOGIN_OK", "role": role}
+            response_data = {
+                "success": True, 
+                "message": "LOGIN_OK", 
+                "role": role,
+            }
             if is_guest:
                 response_data["is_guest"] = True
             if is_editor:

@@ -21,6 +21,7 @@ export type IconName =
 | 'add-btn' // 더하기, 더보기 원형 플러스 버튼
 | 'refresh' // 리프래시, 새로고침
 | 'forwarding' // 전송, (비행기모양)
+| 'company' // 회사, 빌딩
 
 
 interface IconProps {

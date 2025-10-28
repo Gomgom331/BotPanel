@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.db import models
+from rbac.models import Group
 
 # 유저 생성 매니저
 class UserManager(BaseUserManager):
@@ -41,6 +42,8 @@ class CustomUser(AbstractUser):
     date_joined = models.DateTimeField(auto_now_add=True)  # 접근일자
     reset_token = models.CharField(max_length=255, null=True, blank=True, default=False) # 비밀번호 초기화 토큰
     is_deleted = models.BooleanField(default=False) # 회원탈퇴
+    # 컬럼 추가가 안됨
+    last_viewed_group = models.ForeignKey(Group, null=True, blank=True, on_delete=models.SET_NULL) # 마지막 그룹활동
     
     USERNAME_FIELD = "username"
     # python manage.py createsuperuser 사용시 추가 입력 사항
