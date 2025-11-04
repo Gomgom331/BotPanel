@@ -39,6 +39,11 @@ export const API_ENDPOINTS = {
         source: API_SOURCES.DJANGO,
         path: "/user/me/"
     },
+    // 회사 slug 조회 값을 치환하기':slug'"
+    USER_SET_LAST_GROUP: {
+        source: API_SOURCES.DJANGO,
+        path: "/user/last-group/:slug/"
+    }
 }as const;
 
 // 타입 정의 

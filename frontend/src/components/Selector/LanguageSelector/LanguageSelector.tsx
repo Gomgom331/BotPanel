@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+
+
 import Icon from "../../Icon/Icon";
 import styles from "./LanguageSelector.module.css";
+import Tooltip from "../../Tooltip/Tooltip";
+
 
 /** 선택 가능한 언어 목록 */
 const LANGS = [
@@ -12,6 +16,7 @@ const LANGS = [
 
 const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -117,65 +122,72 @@ const LanguageSelector: React.FC = () => {
   };
 
   const listboxId = "lang-listbox";
+  const [ t ] = useTranslation(); 
 
   return (
-    <div className={styles.container}>
-      <Icon name="language" size={"1.3rem"} />
-      <div className={styles.selectWrap} data-open={open ? "true" : "false"} ref={wrapRef}>
-        {/* 트리거 (닫힌 상태 표시 + 열기/닫기) */}
-        <button
-          type="button"
-          className={styles.trigger}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-          aria-controls={listboxId}
-          onClick={toggle}
-          onKeyDown={onTriggerKeyDown}
-          ref={triggerRef}
+    
+      <div className={styles.container}>
+        <Tooltip
+          content={t("tooltip.languageSetting")}
+          placement="bottom"
         >
-          <span className={styles.triggerLabel}>{selected?.label ?? "Select"}</span>
-        </button>
-        <span className={styles.chevron} aria-hidden="true" />
-
-        {/* 드롭다운 목록 */}
-        {open && (
-          <ul
-            id={listboxId}
-            role="listbox"
-            tabIndex={-1}
-            className={styles.menu}
-            aria-activedescendant={`lang-opt-${activeIndex}`}
-            onKeyDown={onListKeyDown}
-            ref={listRef}
+          <Icon name="language" size={"1.2rem"} />
+        </Tooltip>
+        <div className={styles.selectWrap} data-open={open ? "true" : "false"} ref={wrapRef}>
+          {/* 트리거 (닫힌 상태 표시 + 열기/닫기) */}
+          <button
+            type="button"
+            className={styles.trigger}
+            aria-haspopup="listbox"
+            aria-expanded={open}
+            aria-controls={listboxId}
+            onClick={toggle}
+            onKeyDown={onTriggerKeyDown}
+            ref={triggerRef}
           >
-            {LANGS.map((opt, idx) => {
-              const selected = i18n.language === opt.value;
-              const active = activeIndex === idx;
-              return (
-                <li
-                  id={`lang-opt-${idx}`}
-                  key={opt.value}
-                  role="option"
-                  aria-selected={selected}
-                  className={[
-                    styles.option,
-                    selected ? styles.optionSelected : "",
-                    active ? styles.optionActive : "",
-                  ].join(" ")}
-                  ref={(el) => { itemRefs.current[idx] = el; }}
-                  onMouseEnter={() => setActiveIndex(idx)}
-                  onMouseDown={(e) => e.preventDefault()} // 포커스 손실 방지
-                  onClick={() => selectValue(idx)}
-                >
-                  <span className={styles.optionLabel}>{opt.label}</span>
-                  {selected && <span className={styles.check} aria-hidden>✓</span>}
-                </li>
-              );
-            })}
-          </ul>
-        )}
+            <span className={styles.triggerLabel}>{selected?.label ?? "Select"}</span>
+          </button>
+          <span className={styles.chevron} aria-hidden="true" />
+
+          {/* 드롭다운 목록 */}
+          {open && (
+            <ul
+              id={listboxId}
+              role="listbox"
+              tabIndex={-1}
+              className={styles.menu}
+              aria-activedescendant={`lang-opt-${activeIndex}`}
+              onKeyDown={onListKeyDown}
+              ref={listRef}
+            >
+              {LANGS.map((opt, idx) => {
+                const selected = i18n.language === opt.value;
+                const active = activeIndex === idx;
+                return (
+                  <li
+                    id={`lang-opt-${idx}`}
+                    key={opt.value}
+                    role="option"
+                    aria-selected={selected}
+                    className={[
+                      styles.option,
+                      selected ? styles.optionSelected : "",
+                      active ? styles.optionActive : "",
+                    ].join(" ")}
+                    ref={(el) => { itemRefs.current[idx] = el; }}
+                    onMouseEnter={() => setActiveIndex(idx)}
+                    onMouseDown={(e) => e.preventDefault()} // 포커스 손실 방지
+                    onClick={() => selectValue(idx)}
+                  >
+                    <span className={styles.optionLabel}>{opt.label}</span>
+                    {selected && <span className={styles.check} aria-hidden>✓</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       </div>
-    </div>
   );
 };
 

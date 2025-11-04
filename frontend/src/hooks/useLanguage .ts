@@ -8,6 +8,7 @@ import { useCallback } from "react";
 
 export const useLanguage = () => {
     const { t, i18n } = useTranslation();
+    
 
     // 현재 언어
     const currentLanguage = i18n.language;

@@ -6,6 +6,7 @@ from .views.auth import LogoutView
 from .views.refresh_cookie import RefreshCookieView
 from .views.csrf import csrf_view
 from .views.me import MeView
+from .views.group import UserLastGroupView
 
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
     path('csrf/', csrf_view, name="csrf"),
     path('user/', include([
         path('me/', MeView.as_view(), name='me'),
+        path('last-group/<slug:slug>/', UserLastGroupView.as_view(), name='last_group')
     ])),
 ] 
 

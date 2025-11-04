@@ -60,6 +60,7 @@
     --text-heading: #111111;          /* 제목 */
     --text-sub: #666666;              /* 서브 텍스트 */
     --text-placeholder: #999999;      /* 입력창 placeholder */
+    --text-icon: #999999;
     --text-wh: #ffffff;
 
     /* 에러 색상 */

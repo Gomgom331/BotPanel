@@ -23,7 +23,7 @@
 /* 트리거 버튼(닫힌 상태 UI) */
 .trigger {
     width: 100%;
-    min-width: 7rem;
+    min-width: 9rem;
     min-height: 2.5rem;
     /* padding: 0.5rem 3rem 0.5rem 0.75rem; */
     padding-left: 0.3rem;
@@ -35,6 +35,19 @@
 }
 
 .triggerLabel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+
+.textTitle{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    font-weight: 600;
+    color: var(--text-icon);
+    white-space: nowrap;
+}
+.iconBox{
+    display: inline-block;
+}
+
 
 /* 화살표 아이콘 (CSS-only) */
 .chevron {

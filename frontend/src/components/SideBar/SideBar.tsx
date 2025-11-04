@@ -36,7 +36,7 @@ const SideBar:React.FC = () => {
     // 사이드 바 아이콘 항목들
     const iconItems: IconItem[] = [
         { name: "logout", tooltip: "tooltip.sideMenu.logout", onClick: handleLogout },
-        { name: "home", tooltip: "tooltip.sideMenu.home", link: "/hide" },
+        { name: "home", tooltip: "tooltip.sideMenu.home", link: "/" },
         { name: "user", tooltip: "tooltip.sideMenu.myProfile", link: "/hide" },
         { name: "contact", tooltip: "tooltip.sideMenu.companyInfo", link: "/hide" },
         { name: "chat", tooltip: "tooltip.sideMenu.chatBot", onClick: () => alert("삭제 클릭!") },

@@ -21,7 +21,9 @@ const Header:React.FC = () =>{
                 <li className={localStyle.columnBox}>
                     <div className={localStyle.profileBox}>
                         <div className={localStyle.profileImg}>
-                            <button className={`imgBg ${localStyle.profileImg} `}>
+                            <button 
+                                className={`imgBg ${localStyle.profileImg} `}
+                            >
                             </button>
                         </div>
                         {/* / profileImg */}
@@ -30,12 +32,26 @@ const Header:React.FC = () =>{
                                 <dt>
                                     <h2>{me?.full_name}</h2>
                                     <span className={`${localStyle.userRole} fw600`}>
-                                        {me?.groups.length
-                                            ? t(`role.${me.groups[0].role_in_group}`)
-                                            : "undefined"}
+                                        {(() => {
+                                            // last_viewed_group이 존재하면 그 slug를 기준으로 role 찾기
+                                            const lastSlug = me?.last_viewed_group?.slug;
+
+                                            const currentGroup = me?.groups?.find((g) => g.slug === lastSlug)
+                                            ?? me?.groups?.[0]; // 첫 번째 그룹
+
+                                            const roleKey = currentGroup?.role_in_group ?? "undefined"; // 기본값
+
+                                            return t(`role.${roleKey}`);
+                                        })()}
                                     </span>
                                 </dt>
-                                <dd>{me?.last_viewed_group?.name}</dd>
+                                <dd>
+                                    {/* 마지막 로그인 홈페이지가 없으면 첫번째 그룹 */}
+                                    {me?.last_viewed_group
+                                    ? me?.last_viewed_group?.name 
+                                    : me?.groups[0]?.name
+                                    }
+                                </dd>
                             </dl>
                         </div>
                         {/* / profileContent */}
@@ -45,14 +61,14 @@ const Header:React.FC = () =>{
                 {/* / columnBox */}
                 <li className={localStyle.columnBox}>
                     <div className={localStyle.companySelectBox}>
-                        <select>
+                        {/* <select>
                             <option value="">아무거나 넣기</option>
                             <option value="">아무거나 넣기</option>
                             <option value="">아무거나 넣기</option>
                             <option value="">아무거나 넣기</option>
                             <option value="">아무거나 넣기</option>
-                        </select>
-                        {/* <CompanySelector /> */}
+                        </select> */}
+                        <CompanySelector />
                     </div>
                     {/* / companySelectBox */}
                     <div>

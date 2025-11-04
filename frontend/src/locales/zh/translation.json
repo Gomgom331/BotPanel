@@ -34,6 +34,10 @@
       "owner": "负责人"
     },
 
+    "group":{
+      "company":"公司"
+    },
+
     "auth": {
       "social": {
           "title": "社交登录",
@@ -57,6 +61,7 @@
         "show": "显示密码",
         "hide": "隐藏密码"
       },
+      "changeCompany": "更改公司",
       "sideMenu": {
         "menu": "菜单",
         "notifications": "通知",

@@ -35,6 +35,10 @@
       "owner": "담당자"
     },
 
+    "group":{
+      "company":"회사"
+    },
+
     "common": {
       "loading": "로딩중..."
     },
@@ -62,6 +66,7 @@
         "show": "비밀번호 보기",
         "hide": "비밀번호 숨기기"
       },
+      "changeCompany": "회사 변경",
       "sideMenu": {
         "menu": "메뉴",
         "notifications": "알림",
