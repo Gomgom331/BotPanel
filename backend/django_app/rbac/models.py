@@ -336,13 +336,17 @@ class GroupFeatureFlag(models.Model):
         return f"{self.group.slug}:{self.flag.key} ({'ON' if self.enabled else 'OFF'} / {self.rollout_percent}%)"
     
     
+# 메뉴 아이템 -----------------------------------------------------
+# 사이드바에 들어갈 메뉴바
+
 class MenuItem(models.Model):
-    KIND_ITEM = "item"
-    KIND_GROUP = "group"
+    KIND_ITEM = "item" # 각 메뉴
+    KIND_GROUP = "group" # 메뉴의 그룹
     KIND_CHOICES = [
         (KIND_ITEM, "Item (link)"),
         (KIND_GROUP, "Group (header)"),
     ]
+    # 그룹에 속해있는 메뉴
     parent = models.ForeignKey(
         "self", null=True, 
         blank=True, 
@@ -351,6 +355,7 @@ class MenuItem(models.Model):
         verbose_name="상위 메뉴",
         help_text="최상위면 비움. 하위는 부모 지정"
     )
+    # 제목 or 링크 / item or group
     kind = models.CharField(
         max_length=10, 
         choices=KIND_CHOICES, 
@@ -358,13 +363,26 @@ class MenuItem(models.Model):
         verbose_name="메뉴 타입", 
         help_text="링크 메뉴인지/그룹 헤더인지"
     )
-    label = models.CharField(
+    # 메뉴 명 (기본을 한국어로)
+    label_ko = models.CharField(
         max_length=50,
-        verbose_name="메뉴명",
+        verbose_name="한국 메뉴명",
         help_text="표시 이름",
     )
+    label_en = models.CharField(
+        max_length=50,
+        verbose_name="영어 메뉴명",
+        help_text="표시 이름",
+    )
+    label_zh = models.CharField(
+        max_length=50,
+        verbose_name="중국 메뉴명",
+        help_text="표시 이름",
+    )
+    # 내부 경로
     path = models.CharField(
         max_length=200,
+        default="",
         blank=True,
         verbose_name="경로",
         help_text="내부경로, 그룹타입은 비움(그룹명에만 쓰이고 path가 없어서)"
@@ -377,6 +395,7 @@ class MenuItem(models.Model):
         verbose_name="필요 스코프(OR)",
         help_text='비우면 권한 제한 없음. 회사 전용은 "group.{slug}"를 추가'
     )
+    # 뷰 활성화 비활성화
     feature_flag = models.ForeignKey(
         FeatureFlag,
         null=True,
@@ -387,9 +406,12 @@ class MenuItem(models.Model):
         help_text="ON일 때만 노출, 회사별 오버라이드는 GroupFeatureFlag를 서비스에서 적용"
     )
     order = models.IntegerField(default=0, verbose_name="정렬 순서")
+    # 외부 api
     external = models.BooleanField(default=False, verbose_name="외부 링크")
-    external_url = models.URLField(blank=True, verbose_name="외부 링크 URL")
+    external_url = models.URLField(blank=True, default="", verbose_name="외부 링크 URL")
+    # 설명
     desc = models.CharField(max_length=200, blank=True, verbose_name="설명")
+    # 사용여부
     enabled = models.BooleanField(default=True, verbose_name="사용 여부")
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -426,8 +448,8 @@ class MenuItem(models.Model):
                 check=~(Q(kind="item") & Q(external=False)) | Q(external_url=""),
             ),
             # 동일 부모 내 라벨 유니크 + 루트 라벨 유니크
-            UniqueConstraint(fields=["parent", "label"], name="uniq_menu_parent_label"),
-            UniqueConstraint(fields=["label"], condition=Q(parent__isnull=True), name="uniq_menu_root_label"),
+            UniqueConstraint(fields=["parent", "label_ko"], name="uniq_menu_parent_label"),
+            UniqueConstraint(fields=["label_ko"], condition=Q(parent__isnull=True), name="uniq_menu_root_label"),
         ]
 
     def clean(self):
@@ -448,7 +470,7 @@ class MenuItem(models.Model):
                     raise ValidationError("external=False인 item은 external_url을 비워야 합니다.")
 
     def __str__(self) -> str:
-        return self.label
+        return self.label_ko
     
 """
 그룹의 대표 스코프 (group.{slug})를 생성/정합성 유지

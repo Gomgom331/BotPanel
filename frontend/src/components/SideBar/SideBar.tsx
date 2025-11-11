@@ -132,13 +132,13 @@ const SideBar:React.FC = () => {
                         <div className={localStyle.titleBox}>
                             <img src="/assets/title/title_logo.png" alt="titleLogo" />
                         </div>
-                        <div className={localStyle.MenuBox}>
+                        <div className={`${localStyle.MenuBox} scrollBox`}>
                             <Menu />
                         </div>
                     </> 
                     :
                     <>
-                        <h1>second</h1>
+                        <h1>알림 메뉴</h1>
                         <Notification />
                     </>
                 }

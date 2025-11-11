@@ -1,1 +1,167 @@
 @charset "uft-8";
+/*----------- 그룹 -----------*/
+.group {
+    height: 100%;
+    font-weight: 600;
+}
+
+/* 그룹 한 줄 (헤더) */
+.itemWrapper {
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    /* 혹시 모를 버튼 스타일 제거 */
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding-left: 0;
+    color: inherit;
+}
+
+/* 그룹 제목 텍스트 */
+.groupLabel {
+    color: var(--text-body);
+}
+
+/* 그룹 자식 메뉴 컨테이너 */
+.groupChildren {
+    margin-top: 2px;
+    overflow: hidden;
+    transition:
+        max-height 0.35s ease-out,
+        opacity 0.3s ease-out,
+        transform 0.35s ease-in-out;
+    background-color: var(--bg-base);
+
+}
+.groupChildren > :last-child{
+    border-bottom: 1px solid var(--color-border);
+}
+
+
+/* 펼쳐진 상태 (open) */
+.groupChildrenOpen {
+    max-height: 1200px; /* 충분히 큰 값으로 설정 */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 닫힌 상태 (closed) */
+.groupChildrenClosed {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none; /* 닫힌 상태에서 클릭 방지 */
+}
+
+
+
+/*----------- 아이콘박스 / 타이틀 -----------*/
+
+/* 아이콘 박스: 모든 행에서 폭 고정
+→ 아이콘 없어도 글자 시작 위치가 항상 동일
+*/
+.itemIcon {
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* 텍스트 영역 */
+.itemTitle {
+    flex: 1;
+}
+
+
+/* 아이콘 기본 상태 */
+.chevron {
+    transition: transform 0.25s ease-in-out; /* 회전 속도 */
+    transform: rotate(0deg);
+}
+
+/* 열린 상태 (회전된 상태) */
+.chevronOpen {
+    transform: rotate(90deg); /* 오른쪽 ▶ → 아래 ▼ */
+}
+
+
+
+/*----------- 메뉴 아이템 -----------*/
+
+/* 한 줄 전체가 클릭 영역 (a, Link 공통) */
+.item {
+    display: flex;
+    align-items: center;
+    height: 2.8571rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+/* hover */
+.item:hover {
+    background-color: var(--color-primary); /* slate-700-ish */
+    color: #ffffff;
+}
+
+/* 활성 메뉴 */
+/* .active {
+    background-color: var(--color-primary); 
+    color: #f9fafb;
+    font-weight: 600;
+} */
+
+/* depth에 따른 높이 살짝 조정
+→ 1,2 depth는 같은 느낌, 3 depth는 조금 더 작게
+*/
+
+.depth1 > button > div{
+    font-weight: 700;
+    color: var(--text-body);
+    /* color: var(--text-wh); */
+}
+
+
+.depth2 > button > div{
+    font-weight: 600;
+    color: var(--text-sub);
+}
+
+.groupChildren > a{
+    font-weight: 500;
+    color: var(--text-sub);
+    background-color: var(--color-grey-light);
+}
+.depth1{
+    font-weight: 700;
+    color: var(--text-body);
+}
+/* .depth3 > button > div{
+    font-weight: 500;
+    color: var(--text-sub);
+} */
+
+/* nav 안쪽 간격 */
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+}
+
+
+nav > a{
+    height: 3.2rem !important;
+}
+.depth2 > button,a{
+    height: 2.8571rem !important;
+}

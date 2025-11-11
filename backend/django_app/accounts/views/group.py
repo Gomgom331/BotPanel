@@ -32,11 +32,7 @@ class UserLastGroupView(APIView):
         # 해당 그룹에서의 유저 role 가져오기
         membership = GroupMembership.objects.filter(user=user, group=group).first()
         role = getattr(membership, "role_in_group", None)
-
-        print("user", user)
-        print("group", group)
-        print("role", role)
-
+        
         return Response(
             {
                 "slug": group.slug,

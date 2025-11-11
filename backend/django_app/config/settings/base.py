@@ -38,7 +38,7 @@ CUSTOM_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'accounts',
-    'rbac',
+    'rbac', 
     'orgs',
 ]
 

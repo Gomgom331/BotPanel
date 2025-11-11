@@ -43,7 +43,15 @@ export const API_ENDPOINTS = {
     USER_SET_LAST_GROUP: {
         source: API_SOURCES.DJANGO,
         path: "/user/last-group/:slug/"
+    },
+
+    // 메뉴 관련 ----------
+    // 메뉴 트리 불러오기 (zh, kr, en)
+    MENU_TREE: {
+        source: API_SOURCES.DJANGO,
+        path: "/menu/sidebar/"
     }
+
 }as const;
 
 // 타입 정의 

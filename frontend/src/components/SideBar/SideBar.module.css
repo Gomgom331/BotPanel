@@ -76,3 +76,8 @@
 .titleBox > img{
     height: 1.4615rem;
 }
+
+.MenuBox{
+    width: 100%;
+    height: calc(100% - 3.8462rem);
+}
