@@ -1,6 +1,7 @@
 import React from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import Header from "../../components/Header/Header"
+import Footer from "../../components/Footer/Footer"
 
 import localStyles from "./Dashboard.module.css"
 import { useUser } from "../../hooks/useUser";
@@ -21,6 +22,7 @@ const UserDashboard: React.FC = () => {
                     대쉬보드
                     <p>이메일: {me?.email}</p>
                 </main>
+                <Footer />
             </div>
         </div>
     </>;

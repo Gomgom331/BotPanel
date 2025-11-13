@@ -1,0 +1,22 @@
+import React from "react";
+import style from "./Footer.module.css";
+
+const Footer: React.FC = () => {
+    return(
+        <footer className={style.footer}>
+            <ul className={style.listBox}>
+                <li><a href="">개인정보처리방침</a></li>
+                <li>|</li>
+                <li><a href="">이용약관</a></li>
+                <li>|</li>
+                <li><a href="">사업자등록번호</a></li>
+                <li>|</li>
+                <li><a href="">고객지원</a></li>
+                <li>|</li>
+                <li><a href="">회원탈퇴</a></li>
+            </ul>
+        </footer>
+    )
+}
+
+export default Footer;

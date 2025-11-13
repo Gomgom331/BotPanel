@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useMenuItem } from "../../hooks/useMenuItem";
 
 import Icon from "../Icon/Icon"
+import Collapsible from "../Collapsible/Collapsible"; // 메뉴 애니메이션
 
 import styles from "./Menu.module.css";
 
@@ -27,8 +28,22 @@ interface SidebarNodeProps {
     depth: number; // 깊이
     currentPath: string; //링크
     openIds: Set<number>; // 열려 있는 그룹 id 집합 (메뉴)
-    onToggleGroup: (id: number) => void; //그룹 토글 이벤트
+    onToggleGroup: (node: MenuItem) => void; //그룹 토글 이벤트
 }
+
+
+// 메뉴 아이템 애니메이션
+const collectGroupIds = (node: MenuItem, acc: number[] = []): number[] => {
+    if (node.kind === "group"){
+        acc.push(node.id);
+    }
+    if(node.children){
+        node.children.forEach((child) => collectGroupIds(child, acc));
+    }
+    return acc;
+};
+
+
 
 // 개별 메뉴 노드 (group / item 재귀 렌더링)
 const SidebarNode: React.FC<SidebarNodeProps> = ({
@@ -88,7 +103,7 @@ const SidebarNode: React.FC<SidebarNodeProps> = ({
                 <button
                     type="button"
                     className={styles.itemWrapper}
-                    onClick={()=> hasChildren && onToggleGroup(node.id)}
+                    onClick={() => hasChildren && onToggleGroup(node)}
                 >
                     {/* 공통 아이콘 박스 (모든 메뉴가 같은 폭을 가지도록) */}
                     <div className={styles.itemIcon}>
@@ -104,24 +119,20 @@ const SidebarNode: React.FC<SidebarNodeProps> = ({
                 
                 {/* 그룹 자식 메뉴 */}
                 {hasChildren && (
-                <div
-                    className={`${styles.groupChildren} ${
-                    isOpen
-                        ? styles.groupChildrenOpen   
-                        : styles.groupChildrenClosed 
-                    }`}
-                >
+                <Collapsible isOpen={isOpen}>
+                    <div className={styles.groupChildren}>
                     {node.children!.map((child) => (
-                    <SidebarNode
+                        <SidebarNode
                         key={child.id}
                         node={child}
                         depth={depth + 1}
                         currentPath={currentPath}
                         openIds={openIds}
                         onToggleGroup={onToggleGroup}
-                    />
+                        />
                     ))}
-                </div>
+                    </div>
+                </Collapsible>
                 )}
             </div>
         );
@@ -131,34 +142,16 @@ const SidebarNode: React.FC<SidebarNodeProps> = ({
     // item 노드 (실제 링크)
     // ---------------------------
     const href = node.external ? node.external_url ?? "#" : node.path || "#";
-
-    const isActive =
-        !node.external &&
-        node.path &&
-        currentPath.startsWith(node.path);
-
-    const rowClass = [
-        styles.item,
-        depthClass, // depth별 스타일 여기에도 같이 적용
-        isActive ? styles.active : "",
-    ]
-        .filter(Boolean)
-        .join(" ");
+    
+    const rowClass = [styles.item, depthClass].join(" ");
 
     if (node.external) {
         // 외부 링크
         return (
-            <a
-                href={href}
-                className={rowClass}
-                target="_blank"
-                rel="noreferrer"
-            >
-                <div className={styles.itemIcon}>
-                    {/* 나중에 아이콘 있으면 여기 */}
-                </div>
-                <div className={styles.itemTitle}>{node.label}</div>
-            </a>
+            <a href={href} className={rowClass} target="_blank" rel="noreferrer">
+            <div className={styles.itemIcon} />
+            <div className={styles.itemTitle}>{node.label}</div>
+        </a>
         )}
         // 내부 라우팅 (react-router Link)
         return (
@@ -178,17 +171,20 @@ const { menu, loading } = useMenuItem(); // 아이템 로딩
 const location = useLocation(); 
 
 // 열려있는 그룹 아이디 관리
-const [openIds, setOpenIds] = useState<Set<number>>(
-    () => new Set()
-)
+const [openIds, setOpenIds] = useState<Set<number>>(() => new Set());
 
-const handleToggleGroup = useCallback((id: number)=>{
+// 그룹 토글 핸들러
+const handleToggleGroup = useCallback((node: MenuItem) => {
     setOpenIds((prev)=>{
         const next = new Set(prev);
-        if(next.has(id)){
-            next.delete(id);
+        const currentlyOpen = next.has(node.id);
+        if (currentlyOpen) {
+            // 닫힐 때: 자기 + 자식 그룹 모두 닫기
+            const toClose = collectGroupIds(node);
+            toClose.forEach((id) => next.delete(id));
         } else {
-            next.add(id);
+            // 열릴 때: 자기만 열기 (자식들은 사용자가 개별로 열도록)
+            next.add(node.id);
         }
         return next;
     });
