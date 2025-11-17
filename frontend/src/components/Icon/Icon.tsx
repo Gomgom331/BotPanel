@@ -13,6 +13,7 @@ export type IconName =
 | 'hamburger' // 햄버거 
 | 'bell' // 알림
 | 'bell-active' // 알림 활성화 
+| 'title-bell' // 사이드바 알림모양
 | 'logout' // 로그아웃
 | 'home' // 집
 | 'user' // 유저
@@ -22,6 +23,7 @@ export type IconName =
 | 'refresh' // 리프래시, 새로고침
 | 'forwarding' // 전송, (비행기모양)
 | 'company' // 회사, 빌딩
+| 'chevronUp' // 위에 화살표
 | 'chevronDown' // 아래 화살표
 | 'chevronRight' // 오른쪽 화살표
 | 'plus' // 플러스 아이콘

@@ -138,7 +138,6 @@ const SideBar:React.FC = () => {
                     </> 
                     :
                     <>
-                        <h1>알림 메뉴</h1>
                         <Notification />
                     </>
                 }

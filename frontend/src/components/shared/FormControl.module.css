@@ -47,6 +47,7 @@
 .input:disabled{
     border: 1px solid var(--input-disabled-border);
     background-color: var(--input-disabled-bg);
+    cursor: not-allowed;
 }
 .input:focus{
     outline: 1.5px solid var(--input-focus-border);

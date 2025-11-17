@@ -96,7 +96,7 @@
     
     /* 패딩/ 간격 */
     --gab-padding: 0.4rem;
-    --base-padding: 2rem;
+    --base-padding: 1.2rem;
 
     --border-radius: 0.35rem;
     /* 애니메이션 */
@@ -179,4 +179,14 @@ h3{
     background-position: center;
     background-repeat: no-repeat; 
     border: none; 
+}
+
+/* 규격 */
+.textTag{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4rem 1.2rem;
+    border-radius: 999px;
+    font-size: 1rem;
 }

@@ -60,9 +60,9 @@
 
 /* ---------------------- 유동 사이드 메뉴 ---------------------- */
 .sidebarMenu{
-    width: 20rem;
+    width: 23rem;
     height: 100%;
-    background-color: var(--color-white)
+    background-color: var(--color-white);
 }
 
 .titleBox{

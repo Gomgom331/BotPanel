@@ -1,1 +1,88 @@
 @charset "utf-8";
+
+
+/* Select Wrapper */
+.selectWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.selectInput {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+
+/* Open 상태 (focus와 동일) */
+.selectInput.open {
+    outline: 1.5px solid var(--input-focus-border);
+    outline-offset: 1px;
+    background-color: var(--input-bg);
+}
+
+/* 선택된 텍스트 */
+.selectedText {
+    color: var(--text-body);
+    font-size: 0.9rem;
+}
+
+/* Placeholder 텍스트 */
+.placeholderText {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* 화살표 */
+.arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    color: var(--text-body);
+}
+
+.arrowOpen {
+    transform: rotate(180deg);
+}
+
+/* 드롭다운 */
+.dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--border-radius);
+    max-height: 200px;
+    z-index: 1000;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 옵션 */
+.option {
+    padding: 0.75rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-body);
+    transition: background-color 0.15s ease;
+}
+
+.option:hover {
+    background-color: #f5f5f5;
+}
+
+/* 선택된 옵션 */
+.selectedOption {
+    background-color: var(--input-focus-border);
+    color: white;
+    font-weight: 600;
+}
+
+.selectedOption:hover {
+    background-color: var(--input-focus-border);
+}

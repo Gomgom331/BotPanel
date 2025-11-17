@@ -1,14 +1,89 @@
 @charset "uft-8";
+.container{
+    width: 100%;
+    height: 100vh;
+    padding: 0rem var(--base-padding);
+}
 
-/* 타이틀 박스 */
+.fixedBox{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+}
+
+/* 타이틀 박스 --------------------------*/
 .titleContainer{
     width: 100%;
     height: 4rem;
     display: flex;
     align-items: end;
+    justify-content: space-between;
+}
+/* 플러스 아이콘 */
+.addButton{
+    width: 2rem;
+    height:2rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    cursor: pointer;
+}
+.titleBox{
+    display: flex;
+    align-items: center;
+}
+/* 폰트 */
+.titleBox > h1{
+    font-weight: 700;
+}
+/* 아이콘 */
+.iconBox{
+    width: 2rem;
+    height:2rem;
+    margin-right: var(--gab-padding);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius);
 }
 
-/* 아이템 박스 */
-.ItemContainer{
+/* 셀렉트 및 정렬 박스 --------------------------*/
+.selectContainer{
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--base-padding);
+    margin: var(--base-padding) 0rem; 
+}
+.selectContainer > ul{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--base-padding);
+}
+.tagBox{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gab-padding);
+}
+.tag{
+    background-color: rgba(255, 201, 136, 0.353);
+}
+.tag:nth-child(2){
+    background-color: rgba(136, 237, 255, 0.505);
+}
+.tag:nth-child(3){
+    background-color: rgba(255, 185, 185, 0.493);
+}
 
+.selectBox{
+    width: 100%;
+
+}
+
+/* 아이템 박스 --------------------------*/
+.ItemContainer{
+    width: 100%;
 }
