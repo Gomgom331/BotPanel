@@ -1,0 +1,84 @@
+@charset "utf-8";
+
+.checkboxItem {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkboxItem.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.checkboxItem input[type="checkbox"] {
+    display: none;
+}
+
+.checkboxCircle {
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 외부 링 효과 */
+.checkboxCircle::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+/* 체크 아이콘 */
+.checkIcon {
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease;
+}
+
+/* 체크된 상태 */
+.checkboxItem input[type="checkbox"]:checked + .checkboxCircle {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.checkboxItem input[type="checkbox"]:checked + .checkboxCircle::before {
+    opacity: 0.3;
+}
+
+.checkboxItem input[type="checkbox"]:checked + .checkboxCircle .checkIcon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 호버 효과 */
+.checkboxItem:hover .checkboxCircle {
+    transform: scale(1.1);
+}
+
+.checkboxItem.disabled:hover .checkboxCircle {
+    transform: none;
+}
+
+.checkboxLabel {
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.checkboxItem input[type="checkbox"]:checked ~ .checkboxLabel {
+    color: var(--color-primary);
+    font-weight: 500;
+}

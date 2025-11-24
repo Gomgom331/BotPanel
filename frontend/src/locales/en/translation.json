@@ -38,6 +38,16 @@
       "company":"company"
     },
 
+    
+    "common": {
+      "loading": "Loading...",
+      "seeMore":"seeMore"
+    },
+
+    "unit":{
+      "count": ""
+    },
+
     "auth": {
       "social": {
         "title": "Social login",
@@ -47,12 +57,32 @@
         "otherMethods": "Other methods"
         }
     },
+
     "social": {
       "google": "Google",
       "apple": "Apple",
       "naver": "NAVER",
       "kakao": "Kakao",
       "facebook": "Facebook"
+    },
+
+    "filterTags":{
+      "all":"All",
+      "unconfirmed":"Unconfirmed",
+      "confirmed":"Confirmed"
+    },
+
+    "sortOptions": {
+      "latest": "Latest",
+      "oldest": "Oldest",
+      "status": "Status"
+    },
+
+    "categories":{
+      "announcement": "Announcement",
+      "approvalRequest": "Approval Request",
+      "system": "System",
+      "update": "Update"
     },
 
     "tooltip":{
@@ -110,9 +140,6 @@
           "username": "This username is already taken.",
           "email": "This email is already registered."
         }
-    },
-
-    "common": {
-      "loading": "Loading..."
     }
+
 }

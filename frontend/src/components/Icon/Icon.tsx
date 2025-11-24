@@ -28,7 +28,7 @@ export type IconName =
 | 'chevronRight' // 오른쪽 화살표
 | 'plus' // 플러스 아이콘
 | 'minus' // 마이너스 아이콘
-
+| 'trash' //쓰레기통
 
 interface IconProps {
     name: IconName | string;

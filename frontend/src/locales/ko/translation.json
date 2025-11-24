@@ -40,7 +40,12 @@
     },
 
     "common": {
-      "loading": "로딩중..."
+      "loading": "로딩중...",
+      "seeMore":"더보기"
+    },
+
+    "unit":{
+      "count": "개"
     },
 
     "auth": {
@@ -52,6 +57,7 @@
         "otherMethods": "다른 방법"
       }
     },
+
     "social": {
       "google": "Google",
       "apple": "Apple",
@@ -60,6 +66,25 @@
       "facebook": "Facebook"
     },
     
+    "filterTags":{
+      "all":"전체",
+      "unconfirmed":"미확인",
+      "confirmed":"확인"
+    },
+
+    "sortOptions": {
+      "latest": "최신순",
+      "oldest": "오래된순",
+      "status": "상태별"
+    },
+
+    "categories":{
+      "announcement": "공지사항",
+      "approvalRequest": "승인요청",
+      "system": "시스템",
+      "update": "업데이트"
+    },
+
     "tooltip":{
       "languageSetting": "언어설정",
       "passwordToggle": {
