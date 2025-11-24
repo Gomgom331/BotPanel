@@ -2,7 +2,8 @@ import React,{ useState } from "react";
 import style from "./NotificationItem.module.css"
 import { useTranslation } from "react-i18next";
 
-import Icon from "../Icon/Icon"
+import Icon from "../Icon/Icon" //아이콘
+import Tooltip from "../Tooltip/Tooltip" //툴팁
 import CircleCheckBox from "../Input/CircleCheckBox/CircleCheckBox"
 
 
@@ -56,19 +57,28 @@ const NotificationsItem:React.FC<NotificationItemProps> = ({
                             />
                             <span className={`${style.category} textTag`}>{category}</span>
                         </div>
-                        <button
-                            type="button"
-                            onClick={(e) => {
-                                e.stopPropagation(); // 아이템 클릭 이벤트 방지
-                                onDelete?.(id);
-                            }}
-                            aria-label="알림 삭제"
+                        <Tooltip
+                            content={t("common.delete")}
+                            placement="right"
+                            // overflow 이슈로 미세조정
+                            tooltipStyle={{ marginTop: "1.2rem" }}
+                            usePortal={true}
                         >
-                            <Icon 
-                                name="trash" 
-                                size={"1.2rem"}
-                            />
-                        </button>
+                            <button
+
+                                type="button"
+                                onClick={(e) => {
+                                    e.stopPropagation(); // 아이템 클릭 이벤트 방지
+                                    onDelete?.(id);
+                                }}
+                                aria-label="알림 삭제"
+                                >
+                                    <Icon 
+                                        name="trash" 
+                                        size={"1.2rem"}
+                                    />
+                            </button>
+                        </Tooltip>
                     </li>
                     {/* listItem */}
                     <li className={style.listItem}>

@@ -41,7 +41,8 @@
 
     "common": {
       "loading": "로딩중...",
-      "seeMore":"더보기"
+      "seeMore":"더보기",
+      "delete":"삭제"
     },
 
     "unit":{

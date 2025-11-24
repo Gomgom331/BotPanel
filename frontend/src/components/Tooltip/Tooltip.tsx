@@ -20,6 +20,7 @@ type TooltipProps = {
     className?: string;                 // 래퍼 커스텀 클래스
     tooltipClassName?: string;          // 말풍선 커스텀 클래스
     // 상위 컨테이너 overflow 숨김이면 true 권장
+    tooltipStyle?: React.CSSProperties; // 툴팁 위치 미세조정
     usePortal?: boolean;                // body 포털로 그리기 (overflow 이슈 회피) 
     align?: Align;                     // text 정렬
 };
@@ -34,6 +35,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     disabled = false,
     className,
     tooltipClassName,
+    tooltipStyle,
     usePortal = false,
     align = "center",
 }) => {
@@ -45,6 +47,11 @@ const [delayed, setDelayed] = useState(false);
 const timerRef = useRef<number | null>(null);
 const anchorRef = useRef<HTMLDivElement>(null);
 const tipRef = useRef<HTMLDivElement>(null);
+
+// 툴팁 위치 미세조정하는 방법
+// tooltipStyle={{ top: '5px', left: '-10px' }}
+
+
 
 // open 지연 처리
 useEffect(() => {
@@ -126,7 +133,8 @@ const tipNode = delayed && open && !disabled ? (
         {...(usePortal && coords
             ? { position: "fixed", top: coords.top, left: coords.left }
             : {}),
-        textAlign: align,}
+        textAlign: align,
+    ...tooltipStyle}
     }
 >
     {content}

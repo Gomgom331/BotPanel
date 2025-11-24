@@ -41,7 +41,8 @@
     
     "common": {
       "loading": "Loading...",
-      "seeMore":"seeMore"
+      "seeMore":"seeMore",
+      "delete":"Delete"
     },
 
     "unit":{
