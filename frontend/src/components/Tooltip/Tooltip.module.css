@@ -8,7 +8,7 @@
 
 .tooltip {
     position: absolute;
-    z-index: 9999;
+    z-index: var(--z-index-modal);
     max-width: 260px;
     padding: 8px 10px;
     border-radius: 8px;

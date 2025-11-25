@@ -22,7 +22,7 @@
     height: 100%;
     background-color: var(--side-bar-base);
     box-shadow: 1px 0px 6px 0px var(--color-shadow);
-    z-index: 10;
+    z-index: var(--z-index-sidebar);
 }
 .toggleButtonGroup > ul {
     display: flex;
@@ -46,7 +46,7 @@
 .sidebarMenuIconBox > ul{
     display: flex;
     flex-direction: column;
-    z-index: 9;
+    z-index: var(--z-index-sidebar-icon);
 }
 .iconCircle{
     width: 2.6923rem;
