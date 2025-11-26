@@ -1,5 +1,5 @@
 @charset "uft-8";
-/*----------- 그룹 -----------*/
+/*----------- 그룹 ---------------------- */
 .group {
     height: 100%;
     font-weight: 600;
@@ -26,6 +26,7 @@
 .groupLabel {
     color: var(--text-body);
 }
+
 
 /* 그룹 자식 메뉴 컨테이너 */
 .groupChildren {
@@ -60,7 +61,7 @@
 
 
 
-/*----------- 아이콘박스 / 타이틀 -----------*/
+/*----------- 아이콘박스 / 타이틀 ---------------------- */
 
 /* 아이콘 박스: 모든 행에서 폭 고정
 → 아이콘 없어도 글자 시작 위치가 항상 동일
@@ -92,7 +93,7 @@
 
 
 
-/*----------- 메뉴 아이템 -----------*/
+/*----------- 메뉴 아이템 ----------------------*/
 
 /* 한 줄 전체가 클릭 영역 (a, Link 공통) */
 .item {
@@ -105,8 +106,8 @@
     color: inherit;
     cursor: pointer;
     transition:
-        background-color 0.15s ease,
-        color 0.15s ease;
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 
 /* hover */
@@ -165,4 +166,10 @@ nav > a{
 }
 .depth2 > button,a{
     height: 2.8571rem !important;
+}
+
+
+/* 포커스 컬러 */
+.focusedText{
+    color: var(--text-wh) !important;
 }

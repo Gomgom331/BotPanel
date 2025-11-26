@@ -17,6 +17,8 @@ function App() {
   return (
     // 해당 라우터로 감싸줘야 실행이 됨
     <BrowserRouter>
+      {/* 모달 루트 */}
+      <div id="modal-root"/>
       <AppRoutes />
     </BrowserRouter>
   );

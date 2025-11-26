@@ -33,6 +33,13 @@ const Collapsible: React.FC<CollapsibleProps> = ({ isOpen, children }) => {
             transform ${duration}ms ease-in-out
         `;
 
+        // 닫힌 상태에서 포인터 이벤트를 비활성화 (teb, click 접근성을 차단)
+        if(!isOpen){
+            el.style.pointerEvents = 'none';
+        }else{
+            el.style.pointerEvents = 'auto';
+        }
+
         // 첫 렌더에서 isOpen=true 인 경우: 그냥 펼쳐진 상태로 두고 애니메이션은 생략
         if (firstRenderRef.current) {
             firstRenderRef.current = false;
@@ -40,10 +47,12 @@ const Collapsible: React.FC<CollapsibleProps> = ({ isOpen, children }) => {
             el.style.height = "auto";
             el.style.opacity = "1";
             el.style.transform = "translateY(0)";
+            el.style.display = "block"
         } else {
             el.style.height = "0px";
             el.style.opacity = "0";
             el.style.transform = "translateY(-4px)";
+            el.style.display = "none"
         }
             return;
         }
@@ -56,6 +65,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({ isOpen, children }) => {
             el.style.height = "0px";
             el.style.opacity = "0";
             el.style.transform = "translateY(-4px)";
+            el.style.display = "block"
 
             requestAnimationFrame(() => {
                 // 다음 프레임에서 0 => 실제 높이로 변환
@@ -70,6 +80,8 @@ const Collapsible: React.FC<CollapsibleProps> = ({ isOpen, children }) => {
                 el.style.height = "auto"; // 나중에 내용이 늘어도 자연스럽게
                 el.style.willChange = "auto";
                 el.removeEventListener("transitionend", onEnd);
+                // 포인트 이벤트 활성화
+                el.style.pointerEvents = "auto";
             };
             el.addEventListener("transitionend", onEnd);
 
@@ -90,11 +102,17 @@ const Collapsible: React.FC<CollapsibleProps> = ({ isOpen, children }) => {
                 el.style.opacity = "0";
                 el.style.transform = "translateY(-4px)";
             });
+            
+            // 비활성화
+            el.style.pointerEvents = "none"
 
             const onEnd = (e: TransitionEvent) => {
                 if (e.propertyName !== "height") return;
                 el.style.willChange = "auto";
                 el.removeEventListener("transitionend", onEnd);
+
+                // 디스플레이 비활성화
+                el.style.display = "none";
             };
             el.addEventListener("transitionend", onEnd);
         }
@@ -103,6 +121,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({ isOpen, children }) => {
     return(
         <div
             ref={ref}
+            aria-hidden={!isOpen}
             style={{
                 overflow: "hidden",
             }}

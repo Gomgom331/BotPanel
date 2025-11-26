@@ -50,13 +50,17 @@ const SideBar:React.FC = () => {
                 <div className={localStyle.toggleButtonGroup}>
                     <ul>
                         <Tooltip
-                                content={t("tooltip.sideMenu.menu")}
-                                placement="right"
+                            content={t("tooltip.sideMenu.menu")}
+                            placement="right"
                         >
                             <li className={`${localStyle.iconBox} ${localStyle.switchBox} ${localStyle.toggleButtonBox}`}>
                                 <button
                                     onClick={()=>setActiveButton('first')}
-                                    className={`${localStyle.toggleButton} ${activeButton === 'first' ? localStyle.active : ''}`}
+                                    className={`
+                                            ${localStyle.toggleButton}
+                                            ${activeButton === 'first' ? localStyle.active : ''}
+                                            borderFocus
+                                    `}
                                 >
                                     <Icon 
                                         name="hamburger" 
@@ -68,15 +72,18 @@ const SideBar:React.FC = () => {
                         </Tooltip>
                         {/* .toggleButtonBox */}
                         <Tooltip
-                                content={t("tooltip.sideMenu.notifications")}
-                                placement="right"
+                            content={t("tooltip.sideMenu.notifications")}
+                            placement="right"
                         >
                             <li className={`${localStyle.iconBox} ${localStyle.switchBox} ${localStyle.bellButtonBox}`}>
                             
                                 {/* 알림이 있을 경우 Icon bell-active로 교체하기 */}
                                 <button 
                                     onClick={()=>setActiveButton('second')}
-                                    className={`${localStyle.bellButton} ${activeButton === 'second' ? localStyle.active : ''}`} 
+                                    className={`
+                                        ${localStyle.bellButton} ${activeButton === 'second' ? localStyle.active : ''}
+                                        borderFocus
+                                    `} 
                                 >
                                     <Icon 
                                         name="bell" 
@@ -102,7 +109,7 @@ const SideBar:React.FC = () => {
                             
                             {item.link ? (
                                 <Link
-                                    className={localStyle.iconCircle}
+                                    className={`${localStyle.iconCircle} borderFocus`}
                                     to={item.link}
                                     aria-label={t(item.tooltip)}
                                 >
@@ -111,7 +118,7 @@ const SideBar:React.FC = () => {
                             ) : (
                                 <button
                                     type="button"
-                                    className={localStyle.iconCircle}
+                                    className={`${localStyle.iconCircle} borderFocus`}
                                     aria-label={t(item.tooltip)}
                                     onClick={item.onClick}
                                 >

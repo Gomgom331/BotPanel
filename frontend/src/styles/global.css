@@ -120,6 +120,7 @@ a{color: var(--text-body); transition: 0.3s; color:var(--text-body);}
 a:hover{color: var(--input-focus-border);}
 
 /* 포커스 */
+a:focus{outline: none; background-color: none; box-shadow: none;}
 button:focus{outline: none; background-color: none; box-shadow: none;}
 input:focus{outline: none; background-color: none; box-shadow: none; background: none;}
 select:focus{outline: none; background-color: none; box-shadow: none;}

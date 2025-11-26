@@ -58,7 +58,6 @@ export const useMenuItem = () => {
         return off;
     }, [currentLanguage, fetchMenu, onLanguageChange]);
 
-    console.log(menu);
 
     return { menu, loading };
 };
