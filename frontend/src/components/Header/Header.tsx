@@ -22,7 +22,8 @@ const Header:React.FC = () =>{
                     <div className={localStyle.profileBox}>
                         <div className={localStyle.profileImg}>
                             <button 
-                                className={`imgBg ${localStyle.profileImg} `}
+                                type="button"
+                                className={`imgBg ${localStyle.profileImg} borderFocus`}
                             >
                             </button>
                         </div>

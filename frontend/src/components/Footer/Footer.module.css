@@ -24,6 +24,7 @@
 .listBox > li > a{
     color: var(--text-color);
     transition: 0.3s ease;
+    padding: 0rem 0.5rem;
 }
 .listBox > li > a:hover{
     color: var(--color-primary);

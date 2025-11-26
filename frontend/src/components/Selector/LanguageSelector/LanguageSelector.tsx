@@ -137,7 +137,7 @@ const LanguageSelector: React.FC = () => {
           {/* 트리거 (닫힌 상태 표시 + 열기/닫기) */}
           <button
             type="button"
-            className={styles.trigger}
+            className={`${styles.trigger} borderFocus`}
             aria-haspopup="listbox"
             aria-expanded={open}
             aria-controls={listboxId}

@@ -157,7 +157,7 @@ const CompanySelector: React.FC = () => {
                 {/* 트리거 */}
                 <button
                     type="button"
-                    className={styles.trigger}
+                    className={`${styles.trigger} borderFocus`}
                     aria-haspopup="listbox"
                     aria-expanded={open}
                     aria-controls={listboxId}
