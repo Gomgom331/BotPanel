@@ -25,6 +25,9 @@
     --color-blue: #0087FF;
     --color-blue-light: #F1F8FF;
 
+    /* 투명 색상 */
+    --color-opacity: #ffffff00;
+
 
 
     --bg-base: var(--color-white);         /* 전체 페이지 기본 배경 */
@@ -176,9 +179,13 @@ h3{
 }
 
 /* focus ------------------ */
+.borderFocus{
+    outline: 0.1425rem solid var(--color-opacity);
+}
 .borderFocus:focus{
     outline: 0.1429rem solid var(--color-primary) !important;
     outline-offset: 0.1429rem !important;
+    transition: 0.2s ease;
 }
 
 /* 메뉴 포커스 */

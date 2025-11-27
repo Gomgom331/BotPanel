@@ -2,7 +2,8 @@ import React from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer"
-import Modal from "../../components/Modals/BaseModal/BaseModal" // 모달;
+import { Modal } from "../../components/Modals/layout/Modal" // 모달;
+import { ConfirmModal } from "../../components/Modals/presets/ConfirmModal"
 
 import localStyles from "./Dashboard.module.css"
 import { useUser } from "../../hooks/useUser";
@@ -15,6 +16,7 @@ const UserDashboard: React.FC = () => {
     const { t } = useLanguage();
     // 모달
     const modal = useModal();
+    const modal2 = useModal();
 
     const handleConfirm = () => {
         console.log('확인!');
@@ -36,6 +38,12 @@ const UserDashboard: React.FC = () => {
                     >
                         모달 열기 테스트
                     </button>
+                    <button
+                        onClick={modal2.open}
+                        style={{ padding: '8px 16px', marginTop: '12px', fontSize: '1.4rem' }}
+                    >
+                        모달 열기 테스트2
+                    </button>
                     <Modal 
                         isOpen={modal.isOpen} 
                         onClose={modal.close}
@@ -44,6 +52,16 @@ const UserDashboard: React.FC = () => {
                             <h1> 모달입니다 </h1>
                         }
                     ></Modal>
+                    <ConfirmModal
+                        isOpen={modal2.isOpen}
+                        onClose={modal2.close}
+                        title="로그아웃 하시겠습니까?"
+                        iconName="logout"
+                        positiveButtonLabel="로그아웃"
+                        negativeButtonLabel="취소하기"
+                    >
+                        정말로 로그아웃하시겠습니까?
+                    </ConfirmModal>
                 </main>
                 <Footer />
             </div>

@@ -1,30 +1,28 @@
 import React, { useEffect, useCallback } from "react";
 import ReactDOM from "react-dom"
 
-import styles from "./BaseModal.module.css";
+import styles from "./Modal.module.css";
 import Icon from "../../Icon/Icon";
 
-interface BaseModalProps {
+// 기본 틀 + 닫기 버튼
+
+interface ModalProps {
     isOpen: boolean; // 열림 여부
     onClose: () => void; // 닫기 콜백
     closeOnEsc?: boolean; // esc 키로 닫기 여부 
     size?: 'sm' | 'md' | 'lg'; 
-    children: React.ReactNode; // 모달 내용
-    header?: React.ReactNode; // 모달 헤더
-    footer?: React.ReactNode; // 모달 푸터
+    children: React.ReactNode; 
     className?: string; // 추가 커스텀
 }
 
 
 // 기본 컨테이너 (배경, 중앙정렬, 닫기버튼 등)
-const BaseModal: React.FC<BaseModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
     isOpen,
     onClose,
     closeOnEsc = true,
     size = 'md',
     children,
-    header,
-    footer,
     className,
     
 }) => {
@@ -59,16 +57,15 @@ const BaseModal: React.FC<BaseModalProps> = ({
     const portalRoot = document.getElementById("modal-root")
     if (!portalRoot) return null
 
-    // // size에 따른 클래스는 나중에표기
-    // 버튼크기와 아이콘 유무에 따라 다르게하기
-    // const sizeClass =
-    //     size === "sm"
-    //     ? "max-w-sm"
-    //     : size === "lg"
-    //     ? "max-w-3xl"
-    //     : size === "full"
-    //     ? "w-full h-full m-0"
-    //     : "max-w-lg"
+        // // size에 따른 클래스는 나중에표기
+    // 버튼크기와 아이콘 유무에 따라 다르게하기 (나중에 추가 하기)
+    const sizeClassMap: Record<'sm' | 'md' | 'lg', string> = {
+        sm: styles.sm,
+        md: styles.md,
+        lg: styles.lg,
+    };
+
+    const sizeClass = sizeClassMap[size] ?? styles.md;
 
     return ReactDOM.createPortal(
         (
@@ -77,7 +74,10 @@ const BaseModal: React.FC<BaseModalProps> = ({
                 onClick={onClose}
             >
                 <div 
-                    className={styles.container}
+                    className={`
+                        ${styles.container}
+                        ${sizeClass}
+                    `}
                     // 클릭 방지
                     onClick={(e)=> e.stopPropagation()}
                 >
@@ -98,5 +98,4 @@ const BaseModal: React.FC<BaseModalProps> = ({
     )
 }
 
-export default BaseModal;
 

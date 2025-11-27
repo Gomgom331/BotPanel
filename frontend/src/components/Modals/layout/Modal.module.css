@@ -19,10 +19,18 @@
     border-radius: var(--border-radius);
     padding: var(--base-padding);
     width: min(33.8462rem);
-    height: min(12.3077rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--base-padding);
 }
 .closeBtn{
     position: absolute;
     top: calc(0 + var(--base-padding));
     right: calc(0% + var(--base-padding));
 }
+
+/* .sm */
+.md {
+    width: 31.4286rem;;
+}
+/* .lg */

@@ -26,8 +26,10 @@
     min-width: 7rem;
     min-height: 2.5rem;
     /* padding: 0.5rem 3rem 0.5rem 0.75rem; */
-    padding-left: 0.3rem;
+    padding-left: 0.8rem;
     text-align: left;
+    border-radius: var(--border-radius);
+    margin-left: 0.5rem;
 }
 .trigger:focus-visible {
     outline: none;

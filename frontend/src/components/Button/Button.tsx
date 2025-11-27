@@ -46,6 +46,7 @@ const Button: React.FC<ButtonProps> = ({
             disabled={disabled || loading}
             style={buttonStyle}
             className={`
+                borderFocus
                 ${styles.button}
                 ${styles[variant]}
                 ${fullWidth ? styles.fullWidth : ''}
