@@ -105,6 +105,7 @@
     /* 패딩/ 간격 */
     --gab-padding: 0.4rem;
     --base-padding: 1.2rem;
+    --xl-padding: 2rem;
 
     --border-radius: 0.35rem;
     /* 애니메이션 */

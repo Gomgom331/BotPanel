@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import ReactDOM from "react-dom"
 
 import styles from "./Modal.module.css";
@@ -27,26 +27,91 @@ export const Modal: React.FC<ModalProps> = ({
     
 }) => {
 
-    // esc 키 핸들링
+   // ref로 모달 컴테이너 참조
+    const modalRef = useRef<HTMLDivElement>(null);
+    const previousActiveElement = useRef<HTMLElement | null>(null);  
+
+    // 포커스 가능한 요소 찾기
+    const getFocusableElements = useCallback(()=>{
+        if(!modalRef.current) return [];
+
+        const focusableSelectors = [
+            'a[href]',
+            'button:not([disabled])',
+            'textarea:not([disabled])',
+            'input:not([disabled])',
+            'select:not([disabled])',
+            '[tabindex]:not([tabindex="-1"])'
+        ].join(', ');
+
+        return Array.from(
+            modalRef.current.querySelectorAll<HTMLElement>(focusableSelectors)
+        );
+    },[]);
+
+
+    // esc 키 핸들링 / tab 키 핸들링
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
+            // esc 닫기
             if (!closeOnEsc) return
             if (e.key === "Escape") {
                 onClose();
             }
+
+            // Tab 키 focus trap
+            if (e.key === "Tab") {
+                const focusableElements = getFocusableElements();
+                
+                if (focusableElements.length === 0) return;
+
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                // Shift + Tab (역방향)
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    }
+                } 
+                // Tab (정방향)
+                else {
+                    if (document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    }
+                }
+            }
         },
-        [closeOnEsc, onClose]
+        [closeOnEsc, onClose, getFocusableElements]
     )
 
     useEffect(() => {
         if (!isOpen) return
-        console.log('작동확인')
+
+        // 모달 열릴 때 해당 포커스 저장
+        previousActiveElement.current = document.activeElement as HTMLElement;
+        // 키보드 이벤트 리스터
         window.addEventListener("keydown", handleKeyDown)
+
+        const timeoutId = setTimeout(() => {
+            const focusableElements = getFocusableElements();
+            if (focusableElements.length > 0) {
+                focusableElements[0].focus();
+            }
+        }, 0);
+
         return () => {
             console.log('해제확인')
             window.removeEventListener("keydown", handleKeyDown)
+            clearTimeout(timeoutId);
+
+            if(previousActiveElement.current){
+                previousActiveElement.current.focus();
+            }
         }
-    }, [isOpen, handleKeyDown])
+    }, [isOpen, handleKeyDown, getFocusableElements]);
 
 
     // 모달이 열리지 않으면 아무것도 리턴하지 않음
@@ -80,6 +145,9 @@ export const Modal: React.FC<ModalProps> = ({
                     `}
                     // 클릭 방지
                     onClick={(e)=> e.stopPropagation()}
+                    ref={modalRef}
+                    role="dialog"
+                    aria-modal="true"
                 >
                     <button 
                         className={styles.closeBtn}

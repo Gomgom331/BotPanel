@@ -17,7 +17,7 @@
     transform: translate(-50%, -50%);
     background-color: var(--bg-base);
     border-radius: var(--border-radius);
-    padding: var(--base-padding);
+    padding: var(--xl-padding);
     width: min(33.8462rem);
     display: flex;
     flex-direction: column;
@@ -25,8 +25,8 @@
 }
 .closeBtn{
     position: absolute;
-    top: calc(0 + var(--base-padding));
-    right: calc(0% + var(--base-padding));
+    top: calc(0 + var(--xl-padding));
+    right: calc(0% + var(--xl-padding));
 }
 
 /* .sm */
