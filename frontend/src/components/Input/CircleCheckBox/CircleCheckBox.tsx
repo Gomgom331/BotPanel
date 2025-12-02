@@ -35,8 +35,18 @@ const CircleCheckBox: React.FC<CircleCheckBoxProps> = ({
             onChange(e.target.checked);
         }
     };
-    // 아이디
-    const stringId = String(id); //id를 문자열로 변환
+
+    // 키보드 이벤트 (enter키 지원)
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+            e.preventDefault();
+            if (onChange && !disabled) {
+                onChange(!checked);
+            }
+        }
+    };
+    //id를 문자열로 변환
+    const stringId = String(id); 
 
     return (
 
@@ -46,9 +56,11 @@ const CircleCheckBox: React.FC<CircleCheckBoxProps> = ({
                 type="checkbox"
                 checked={checked}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
                 disabled={disabled}
                 name={name}
                 value={value}
+                className={`borderFocus ${styles.someFocus}`}
             />
             <span 
                 className={styles["checkboxCircle"]}

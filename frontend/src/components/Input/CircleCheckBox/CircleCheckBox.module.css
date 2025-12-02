@@ -13,7 +13,10 @@
 }
 
 .checkboxItem input[type="checkbox"] {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .checkboxCircle {
@@ -81,4 +84,17 @@
 .checkboxItem input[type="checkbox"]:checked ~ .checkboxLabel {
     color: var(--color-primary);
     font-weight: 500;
+}
+
+/* 삭제버튼 */
+.deleteButton{
+    padding: var(--gap-padding);
+    border-radius: var(--border-radius);
+}
+
+
+/* 포커스 이벤트 */
+:global(.borderFocus):focus + .checkboxCircle::before {
+    opacity: 1;
+    border-color: var(--color-primary);
 }

@@ -49,11 +49,11 @@
     background-color: var(--input-disabled-bg);
     cursor: not-allowed;
 }
-.input:focus{
+/* .input:focus{
     outline: 1.5px solid var(--input-focus-border);
     outline-offset: 1px;
     background-color: var(--input-bg);
-}
+} */
 .input.error{
     border: 1px solid var(--error-ipnut);
 }

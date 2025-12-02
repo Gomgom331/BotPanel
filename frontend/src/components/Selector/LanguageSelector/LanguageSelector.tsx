@@ -125,15 +125,14 @@ const LanguageSelector: React.FC = () => {
   const [ t ] = useTranslation(); 
 
   return (
-    
-      <div className={styles.container}>
-        <Tooltip
+      <Tooltip
           content={t("tooltip.languageSetting")}
           placement="bottom"
-        >
+          tooltipStyle={{ marginLeft: "-4rem" }}
+      >
+        <div className={styles.container}>
           <Icon name="language" size={"1.2rem"} />
-        </Tooltip>
-        <div className={styles.selectWrap} data-open={open ? "true" : "false"} ref={wrapRef}>
+          <div className={styles.selectWrap} data-open={open ? "true" : "false"} ref={wrapRef}>
           {/* 트리거 (닫힌 상태 표시 + 열기/닫기) */}
           <button
             type="button"
@@ -149,45 +148,46 @@ const LanguageSelector: React.FC = () => {
           </button>
           <span className={styles.chevron} aria-hidden="true" />
 
-          {/* 드롭다운 목록 */}
-          {open && (
-            <ul
-              id={listboxId}
-              role="listbox"
-              tabIndex={-1}
-              className={styles.menu}
-              aria-activedescendant={`lang-opt-${activeIndex}`}
-              onKeyDown={onListKeyDown}
-              ref={listRef}
-            >
-              {LANGS.map((opt, idx) => {
-                const selected = i18n.language === opt.value;
-                const active = activeIndex === idx;
-                return (
-                  <li
-                    id={`lang-opt-${idx}`}
-                    key={opt.value}
-                    role="option"
-                    aria-selected={selected}
-                    className={[
-                      styles.option,
-                      selected ? styles.optionSelected : "",
-                      active ? styles.optionActive : "",
-                    ].join(" ")}
-                    ref={(el) => { itemRefs.current[idx] = el; }}
-                    onMouseEnter={() => setActiveIndex(idx)}
-                    onMouseDown={(e) => e.preventDefault()} // 포커스 손실 방지
-                    onClick={() => selectValue(idx)}
-                  >
-                    <span className={styles.optionLabel}>{opt.label}</span>
-                    {selected && <span className={styles.check} aria-hidden>✓</span>}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+            {/* 드롭다운 목록 */}
+            {open && (
+              <ul
+                id={listboxId}
+                role="listbox"
+                tabIndex={-1}
+                className={styles.menu}
+                aria-activedescendant={`lang-opt-${activeIndex}`}
+                onKeyDown={onListKeyDown}
+                ref={listRef}
+              >
+                {LANGS.map((opt, idx) => {
+                  const selected = i18n.language === opt.value;
+                  const active = activeIndex === idx;
+                  return (
+                    <li
+                      id={`lang-opt-${idx}`}
+                      key={opt.value}
+                      role="option"
+                      aria-selected={selected}
+                      className={[
+                        styles.option,
+                        selected ? styles.optionSelected : "",
+                        active ? styles.optionActive : "",
+                      ].join(" ")}
+                      ref={(el) => { itemRefs.current[idx] = el; }}
+                      onMouseEnter={() => setActiveIndex(idx)}
+                      onMouseDown={(e) => e.preventDefault()} // 포커스 손실 방지
+                      onClick={() => selectValue(idx)}
+                    >
+                      <span className={styles.optionLabel}>{opt.label}</span>
+                      {selected && <span className={styles.check} aria-hidden>✓</span>}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
         </div>
-      </div>
+      </Tooltip>
   );
 };
 

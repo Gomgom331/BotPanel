@@ -14,7 +14,7 @@ import Tooltip from "../../../components/Tooltip/Tooltip"
 // hooks
 import { useAuthActions } from "../../../hooks/useAuthActions";
 import { toI18nKey, mapFieldErrors } from "../../../constants/errorMessages";
-import { useLanguage } from "../../../hooks/useLanguage ";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 // 스타일
 import styles from "./Login.module.css"
@@ -112,14 +112,7 @@ const Login: React.FC = () => {
       <div className={styles.wrapContainer}>
         {/* 언어설정 */}
         <div className={styles.languageBox}>
-          <Tooltip
-            content={t("tooltip.languageSetting")}
-            placement="bottom"
-            trigger={["hover", "focus", "click"]}
-            usePortal={true}
-          >
             <Language />
-          </Tooltip>
         </div>
         {/* //언어설정 */}
         <div className={styles.container}>
@@ -175,8 +168,7 @@ const Login: React.FC = () => {
                 label={t("form.login")}
                 loading={loading}
                 fullWidth={true}
-                variant="large"
-                height="3.0769rem"
+                variant="lg"
                 color="primary"
                 loadingColor="var(--color-wh)"
                 shadow={true}
@@ -185,17 +177,16 @@ const Login: React.FC = () => {
                 type="button"
                 label={t("signup.title")}
                 fullWidth={true}
-                variant="large"
-                height="3.0769rem"
+                variant="lg"
                 color="ghost"
                 shadow={true}
               />
             </form>
             {/* accountRecoveryBox */}
             <div className={styles.accountRecoveryBox}>
-              <span><a href="">{t("login.findId.title")}</a></span>
+              <span><a href="" className={`${styles.accountBox} borderFocus`}>{t("login.findId.title")}</a></span>
               |
-              <span><a href="">{t("login.forgotPassword.title")}</a></span>
+              <span><a href="" className={`${styles.accountBox} borderFocus`}>{t("login.forgotPassword.title")}</a></span>
             </div>
             {/* //accountRecoveryBox */}
             {/* 소셜로그인 */}

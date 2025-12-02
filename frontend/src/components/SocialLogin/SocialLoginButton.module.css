@@ -49,7 +49,7 @@
 
 .circleBtn:hover { transform: translateY(1px); }
 .circleBtn:focus-visible {
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, .35);
+    box-shadow: var(--button-focus-shadow);
 }
 
 /* 연한 테두리(google 느낌) */

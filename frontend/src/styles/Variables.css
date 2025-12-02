@@ -57,6 +57,7 @@
 
     --color-required: var(--color-red); /* 인풋 필수값 */
     --input-focus-border: var(--color-primary); /*인풋 포커스*/ 
+    --button-focus-shadow: 0 0 0 3px rgba(99, 102, 241, .35); /*동그라미 버튼*/
 
     /* 스크롤 */
     --color-scroll-thumb: #EAEAEC;
@@ -103,7 +104,9 @@
     /* 규격 -------------------------------------------------------------------------*/
     
     /* 패딩/ 간격 */
-    --gab-padding: 0.4rem;
+    /* 오타보면 수정해주기 */
+    --gab-padding: 0.4rem; 
+    --gap-padding: 0.4rem;
     --base-padding: 1.2rem;
     --xl-padding: 2rem;
 
@@ -162,7 +165,7 @@ textarea{
     color: var(--text-body);
 }
 
-/* font ------------------ */
+/* font ------------------------------------ */
 h1{
     font-weight: 700;
     font-size: 1.4rem;
@@ -178,8 +181,12 @@ h3{
     font-size: 1rem;
     font-weight: 600;
 }
-
-/* focus ------------------ */
+/* \n 처리(i18n 번역 처리 줄넘김 기능) ------------------ */
+.whiteSpace{
+    white-space: pre-line;
+}
+/* focus ------------------------------------ */
+/* 버튼 */
 .borderFocus{
     outline: 0.1425rem solid var(--color-opacity);
 }
@@ -188,17 +195,30 @@ h3{
     outline-offset: 0.1429rem !important;
     transition: 0.2s ease;
 }
-
-/* 메뉴 포커스 */
+/* 인풋 */
+.inputFocus{
+    outline: 1.5px solid var(--color-opacity);
+}
+.inputFocus:focus{
+    outline: 1.5px solid var(--input-focus-border);
+    outline-offset: 1px;
+    background-color: var(--input-bg);
+    transition: 0.2s ease;
+}
+/* 메뉴 */
 .menuFocus:focus{
     background-color: var(--color-primary) !important; /* slate-700-ish */
     color: #ffffff !important;
 }
+/* 동그라미 버튼 */
+.shadowFocus:focus{
+    box-shadow: var(--button-focus-shadow);
+    transition: 0.2s ease;
+}
 
 
 
-
-/* 폰트 굷기 ------------------ */
+/* 폰트 굷기 ------------------------------------ */
 .fw600{
     font-weight: 600;
 }
@@ -206,7 +226,7 @@ h3{
     font-weight: 700;
 }
 
-/* 이미지 버튼 ------------------ */
+/* 이미지 버튼 ------------------------------------ */
 .imgBg{
     background-size: cover; 
     background-position: center;
@@ -214,7 +234,7 @@ h3{
     border: none; 
 }
 
-/* 규격 ------------------ */
+/* 규격 ------------------------------------ */
 .textTag{
     display: flex;
     justify-content: center;
@@ -224,7 +244,7 @@ h3{
     font-size: 1rem;
 }
 
-/* input 체크박스 ------------------ */
+/* input 체크박스 ------------------------------------ */
 .checkStyle{
     width: 1.2rem;
     height: 1.2rem;

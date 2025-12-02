@@ -5,7 +5,7 @@ import Icon from "../Icon/Icon"
 import CustomSelect from "../Input/SelectField/SelectField"
 import NotificationItem from "./NotificationItem"
 
-import { useLanguage } from "../../hooks/useLanguage ";
+import { useLanguage } from "../../hooks/useLanguage";
 
 export const NOTIFICATION_CATEGORIES = {
     NOTICE: 'announcement',
@@ -159,7 +159,13 @@ const Notification:React.FC = () => {
                             <h1>알림</h1>
                         </div>
                         {/* / titleBox */}
-                        <button type="button" className={style.addButton}>
+                        <button 
+                            type="button"
+                            className={`
+                                ${style.addButton}
+                                borderFocus
+                            `}
+                        >
                             <Icon
                                 name="plus"
                                 size={"1rem"}
@@ -171,9 +177,9 @@ const Notification:React.FC = () => {
                     <div className={style.selectContainer}>
                         <ul>
                             <li className={style.tagBox}>
-                                <button className={`${style.tag} textTag`}>{t('filterTags.all')}&nbsp;<span className="">28</span>{t(`unit.count`)}</button>
-                                <button className={`${style.tag} textTag`}>{t(`filterTags.unconfirmed`)}&nbsp;<span className="">4</span>{t(`unit.count`)}</button>
-                                <button className={`${style.tag} textTag`}>{t(`filterTags.confirmed`)}&nbsp;<span className="">24</span>{t(`unit.count`)}</button>
+                                <button className={`${style.tag} textTag borderFocus`}>{t('filterTags.all')}&nbsp;<span className="">28</span>{t(`unit.count`)}</button>
+                                <button className={`${style.tag} textTag borderFocus`}>{t(`filterTags.unconfirmed`)}&nbsp;<span className="">4</span>{t(`unit.count`)}</button>
+                                <button className={`${style.tag} textTag borderFocus`}>{t(`filterTags.confirmed`)}&nbsp;<span className="">24</span>{t(`unit.count`)}</button>
                             </li>
                             <li className={style.selectBox}>
                                 <CustomSelect

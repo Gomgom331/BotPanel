@@ -62,6 +62,16 @@
     color: var(--text-sub);
 }
 
+/* 더보기 버튼 */
+.addButton{
+    border-radius: var(--border-radius);
+    padding: var(--gap-padding);
+}
+
+/* 삭제버튼 */
+.deleteButton{
+    border-radius: var(--border-radius);
+}
 
 /* 비활성화 */
 .disabled{

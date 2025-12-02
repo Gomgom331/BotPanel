@@ -5,9 +5,10 @@ import localStyle from "./Header.module.css"
 // 컴포넌트
 import LanguageSelector  from "../Selector/LanguageSelector/LanguageSelector"
 import CompanySelector from "../Selector/CompanySelector/CompanySelector"
+import Tooltip from "../Tooltip/Tooltip"
 
 import { useUser } from "../../hooks/useUser"
-import { useLanguage } from "../../hooks/useLanguage "
+import { useLanguage } from "../../hooks/useLanguage"
 
 
 const Header:React.FC = () =>{
@@ -20,13 +21,19 @@ const Header:React.FC = () =>{
             <ul>
                 <li className={localStyle.columnBox}>
                     <div className={localStyle.profileBox}>
-                        <div className={localStyle.profileImg}>
-                            <button 
-                                type="button"
-                                className={`imgBg ${localStyle.profileImg} borderFocus`}
-                            >
-                            </button>
-                        </div>
+                        <Tooltip
+                                content="내 정보"
+                                placement="bottom"
+                                tooltipStyle={{ marginTop: "0.3rem" }}
+                        >    
+                            <div className={localStyle.profileImgBox}>
+                                <button
+                                    type="button"
+                                    className={`imgBg ${localStyle.profileImg} shadowFocus`}
+                                >
+                                </button>
+                            </div>
+                        </Tooltip>
                         {/* / profileImg */}
                         <div className={localStyle.profileContent}>
                             <dl>

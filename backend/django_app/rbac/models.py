@@ -14,25 +14,25 @@ from django.utils.text import slugify #slug 형식 (웹 url 친화적 문자열�
 
 """
 ---------------------------------------------------------------------    
-    <2025-09-18 기능추가시>
+<2025-09-18 기능추가시>
 
-    - 회사별 기능 추가
-        전역 스코프에 새 기능 키(reports.export, member.audit.view 등)만 추가
-        회사에서 해당 기능을 쓰고 싶으면 GroupRoleScope(group, role, scope) 레코드만 추가
-        (필요하면 GroupFeatureFlag까지 함께 ON
-        
-    - 회사 전용 메뉴
-        MenuItem.required_any에 group.{slug} 스코프 추가 → 그 회사에만 보임
-        기능 플래그도 연결했다면 전역/그룹 토글로 단계적 오픈 가능
-        
-    - 민감 필드/관리 기능
-        스코프를 세분화 (profile.sensitive.read/write, group.manage …) 후
-        GroupRoleScope로 역할별 배분 + **시리얼라이저**에서 필드 가드(읽기/쓰기 스코프 체크)    
-        
-    - 그룹 플래그(회사 전용 토글)
-        GroupFeatureFlag로 전역 토글을 덮어쓰기, 비율 롤아웃, 기간 제한 지원.
-        
-    => 시리얼라이저 : SON, XML 같은 표현 형식으로 변환해주는 도구
+- 회사별 기능 추가
+    전역 스코프에 새 기능 키(reports.export, member.audit.view 등)만 추가
+    회사에서 해당 기능을 쓰고 싶으면 GroupRoleScope(group, role, scope) 레코드만 추가
+    (필요하면 GroupFeatureFlag까지 함께 ON
+    
+- 회사 전용 메뉴
+    MenuItem.required_any에 group.{slug} 스코프 추가 → 그 회사에만 보임
+    기능 플래그도 연결했다면 전역/그룹 토글로 단계적 오픈 가능
+    
+- 민감 필드/관리 기능
+    스코프를 세분화 (profile.sensitive.read/write, group.manage …) 후
+    GroupRoleScope로 역할별 배분 + **시리얼라이저**에서 필드 가드(읽기/쓰기 스코프 체크)    
+    
+- 그룹 플래그(회사 전용 토글)
+    GroupFeatureFlag로 전역 토글을 덮어쓰기, 비율 롤아웃, 기간 제한 지원.
+    
+=> 시리얼라이저 : SON, XML 같은 표현 형식으로 변환해주는 도구
 
 ---------------------------------------------------------------------    
 """

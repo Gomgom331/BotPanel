@@ -1,5 +1,5 @@
 import React,{ useState } from "react";
-import style from "./NotificationItem.module.css"
+import styles from "./NotificationItem.module.css"
 import { useTranslation } from "react-i18next";
 
 import Icon from "../Icon/Icon" //아이콘
@@ -45,17 +45,17 @@ const NotificationsItem:React.FC<NotificationItemProps> = ({
 
     return(
         <>
-            <div className={`${style.itemContainer} ${checkBox ? style.disabled : ''}`}>
+            <div className={`${styles.itemContainer} ${checkBox ? styles.disabled : ''}`}>
                  {/* / checkBox */}
-                <ul className={`${style.listBox}`}>
-                    <li className={style.listItem}>
-                        <div className={style.checkBox}>
+                <ul className={`${styles.listBox}`}>
+                    <li className={styles.listItem}>
+                        <div className={styles.checkBox}>
                             <CircleCheckBox
                                 id={`notification-${id}`}
                                 checked={checkBox}
                                 onChange={(checked) => onCheckboxChange?.(id, checked)}
                             />
-                            <span className={`${style.category} textTag`}>{category}</span>
+                            <span className={`${styles.category} textTag`}>{category}</span>
                         </div>
                         <Tooltip
                             content={t("common.delete")}
@@ -65,14 +65,14 @@ const NotificationsItem:React.FC<NotificationItemProps> = ({
                             usePortal={true}
                         >
                             <button
-
                                 type="button"
                                 onClick={(e) => {
                                     e.stopPropagation(); // 아이템 클릭 이벤트 방지
                                     onDelete?.(id);
                                 }}
                                 aria-label="알림 삭제"
-                                >
+                                className={`borderFocus ${styles.deleteButton}`}
+                            >
                                     <Icon 
                                         name="trash" 
                                         size={"1.2rem"}
@@ -81,22 +81,22 @@ const NotificationsItem:React.FC<NotificationItemProps> = ({
                         </Tooltip>
                     </li>
                     {/* listItem */}
-                    <li className={style.listItem}>
+                    <li className={styles.listItem}>
                         <h2>{title}</h2>
                     </li>
 
                     {/* 컨텐츠가 있으면 추가 ----------*/}
                     {content && (
-                        <li className={style.listItem}>
-                            <p className={style.content}>{content}</p>
+                        <li className={styles.listItem}>
+                            <p className={styles.content}>{content}</p>
                         </li>
                     )}
 
                     {/* listItem */}
-                    <li className={style.listItem}>
+                    <li className={styles.listItem}>
                         <p>
                             <span><Icon name="clock" size={"1.2rem"} color="var(--color-primary)"/></span>
-                            <span className={style.itemDate}>{date}</span>
+                            <span className={styles.itemDate}>{date}</span>
                         </p>
                         {/* 더보기 버튼기능이 있으면 추가 ----------*/}
                         {(hasMoreButton || link) && (
@@ -106,6 +106,7 @@ const NotificationsItem:React.FC<NotificationItemProps> = ({
                                     e.stopPropagation(); // 아이템 클릭 이벤트 방지
                                     onMoreClick?.(id);
                                 }}
+                                className={`borderFocus ${styles.addButton}`}
                             >
                                 {t("common.seeMore")}
                                 <Icon 

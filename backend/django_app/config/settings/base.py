@@ -40,6 +40,7 @@ CUSTOM_APPS = [
     'accounts',
     'rbac', 
     'orgs',
+    'notificaions',
 ]
 
 INSTALLED_APPS = SYSTEM_APPS + CUSTOM_APPS

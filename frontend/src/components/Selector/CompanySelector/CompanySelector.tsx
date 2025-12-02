@@ -139,84 +139,86 @@ const CompanySelector: React.FC = () => {
     const listboxId = "company-listbox";
 
     return (
-        <div className={styles.container}>
-            <Tooltip
+        <Tooltip
                 content={t("tooltip.changeCompany")}
                 placement="bottom"
-            >
+                tooltipStyle={{marginLeft: "-6rem"}}
+        >
+            <div className={styles.container}>
+                
                 <span className={styles.iconBox}>
                     <Icon name="company" size={"0.9rem"} />
                 </span>
-            </Tooltip>
-            <p className={styles.textTitle}>{t('group.company')}</p>
-            <div
-                className={styles.selectWrap}
-                data-open={open ? "true" : "false"}
-                ref={wrapRef}
-            >
-                {/* 트리거 */}
-                <button
-                    type="button"
-                    className={`${styles.trigger} borderFocus`}
-                    aria-haspopup="listbox"
-                    aria-expanded={open}
-                    aria-controls={listboxId}
-                    onClick={toggle}
-                    onKeyDown={onTriggerKeyDown}
-                    ref={triggerRef}
+                <p className={styles.textTitle}>{t('group.company')}</p>
+                <div
+                    className={styles.selectWrap}
+                    data-open={open ? "true" : "false"}
+                    ref={wrapRef}
                 >
-                    <span className={styles.triggerLabel}>
-                        {selected?.name ?? "Select"}
-                    </span>
-                </button>
-                <span className={styles.chevron} aria-hidden="true" />
+                    {/* 트리거 */}
+                    <button
+                        type="button"
+                        className={`${styles.trigger} borderFocus`}
+                        aria-haspopup="listbox"
+                        aria-expanded={open}
+                        aria-controls={listboxId}
+                        onClick={toggle}
+                        onKeyDown={onTriggerKeyDown}
+                        ref={triggerRef}
+                    >
+                        <span className={styles.triggerLabel}>
+                            {selected?.name ?? "Select"}
+                        </span>
+                    </button>
+                    <span className={styles.chevron} aria-hidden="true" />
 
-                {/* 드롭다운 목록 */}
-                {open && (
-                <ul
-                    id={listboxId}
-                    role="listbox"
-                    tabIndex={-1}
-                    className={styles.menu}
-                    aria-activedescendant={`company-opt-${activeIndex}`}
-                    onKeyDown={onListKeyDown}
-                    ref={listRef}
-                >
-                    {groups.map((g, idx) => {
-                    const isSelected = g.slug === activeSlug;
-                    const isActive = activeIndex === idx;
-                    return (
-                        <li
-                            id={`company-opt-${idx}`}
-                            key={g.slug ?? `g-${g.id}-${idx}`}
-                            role="option"
-                            aria-selected={isSelected}
-                            className={[
-                                styles.option,
-                                isSelected ? styles.optionSelected : "",
-                                isActive ? styles.optionActive : "",
-                            ].join(" ")}
-                            ref={(el) => {
-                                itemRefs.current[idx] = el;
-                            }}
-                            onMouseEnter={() => setActiveIndex(idx)}
-                            onMouseDown={(e) => e.preventDefault()} // 포커스 손실 방지
-                            onClick={() => selectValue(idx)}
-                            >
-                            <span className={styles.optionLabel}>{g.name}</span>
-                            {isSelected && (
-                                <span className={styles.check} aria-hidden>
-                                ✓
-                                </span>
-                            )}
-                        </li>
-                    );
-                    })}
-                </ul>
-                )}
+                    {/* 드롭다운 목록 */}
+                    {open && (
+                    <ul
+                        id={listboxId}
+                        role="listbox"
+                        tabIndex={-1}
+                        className={styles.menu}
+                        aria-activedescendant={`company-opt-${activeIndex}`}
+                        onKeyDown={onListKeyDown}
+                        ref={listRef}
+                    >
+                        {groups.map((g, idx) => {
+                        const isSelected = g.slug === activeSlug;
+                        const isActive = activeIndex === idx;
+                        return (
+                            <li
+                                id={`company-opt-${idx}`}
+                                key={g.slug ?? `g-${g.id}-${idx}`}
+                                role="option"
+                                aria-selected={isSelected}
+                                className={[
+                                    styles.option,
+                                    isSelected ? styles.optionSelected : "",
+                                    isActive ? styles.optionActive : "",
+                                ].join(" ")}
+                                ref={(el) => {
+                                    itemRefs.current[idx] = el;
+                                }}
+                                onMouseEnter={() => setActiveIndex(idx)}
+                                onMouseDown={(e) => e.preventDefault()} // 포커스 손실 방지
+                                onClick={() => selectValue(idx)}
+                                >
+                                <span className={styles.optionLabel}>{g.name}</span>
+                                {isSelected && (
+                                    <span className={styles.check} aria-hidden>
+                                    ✓
+                                    </span>
+                                )}
+                            </li>
+                        );
+                        })}
+                    </ul>
+                    )}
+                </div>
             </div>
-        </div>
+        </Tooltip>
     );
-    };
+};
 
 export default CompanySelector;

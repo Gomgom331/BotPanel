@@ -29,8 +29,9 @@
     height:2rem;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
     cursor: pointer;
+    border-radius: var(--border-radius);
 }
 .titleBox{
     display: flex;

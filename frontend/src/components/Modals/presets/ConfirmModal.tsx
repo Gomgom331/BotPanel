@@ -8,6 +8,7 @@ interface ConfirmModalProps{
     isOpen: boolean;
     onClose: () => void;
     title: string;
+    id?:string | number;
     children?: ReactNode;
     iconName?: string;
     iconSize?: number | string;
@@ -16,14 +17,15 @@ interface ConfirmModalProps{
     iconBgOpacity?: number;
     positiveButtonLabel?: string; // 확인 / 저장 / 예
     negativeButtonLabel?: string; // 취소 / 아니오
-    onPositiveClick?: () => void;
-    onNegativeClick?: () => void;
+    onPositiveClick?: () => void | Promise<void>;
+    onNegativeClick?: () => void | Promise<void>;
 }
 
 export const ConfirmModal:React.FC<ConfirmModalProps> = ({
     isOpen,
     onClose,
     title,
+    id,
     children,
     iconName,
     iconSize="1.4286rem",
@@ -59,14 +61,15 @@ export const ConfirmModal:React.FC<ConfirmModalProps> = ({
                     label={positiveButtonLabel}
                     onClick={onPositiveClick}
                     color="primary"
-                    variant="large"
-
+                    variant="lg"
+                    // id가 있을시 넣기
+                    {...(id ? {id}: {})}
                 />
                 <Button
                     label={negativeButtonLabel}
                     onClick={onNegativeClick}
                     color="ghost"
-                    variant="large"
+                    variant="lg"
                 />
             </ModalFooter>
         </Modal>

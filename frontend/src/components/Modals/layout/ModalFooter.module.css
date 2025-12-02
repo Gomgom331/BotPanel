@@ -3,6 +3,6 @@
 .container{
     display: flex;
     align-items: center;
-    margin-top: var(--base-padding);
-    gap: var(--gab-padding);
+    margin-top: var(--xl-padding);
+    gap: var(--gap-padding);
 }

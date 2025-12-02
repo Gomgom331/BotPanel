@@ -9,7 +9,9 @@
       }
     },
     "logout":{
-      "confirm": "Would you like to log out?"
+      "title": "Logout",
+      "confirm": "Would you like to log out?",
+      "warning": "Your unsaved work may be lost if you log out.\n Do you want to continue?"
     },
 
     "signup": {
@@ -42,7 +44,9 @@
     "common": {
       "loading": "Loading...",
       "seeMore":"seeMore",
-      "delete":"Delete"
+      "delete":"Delete",
+      "cancel": "Cancel",
+      "cancelAction": "Cancel"
     },
 
     "unit":{

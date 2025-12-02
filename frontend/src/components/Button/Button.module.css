@@ -1,19 +1,28 @@
 @charset "utf-8";
 
 @media(max-width: 768px){
-    .large{
+    .lg{
+        height: 3.0769rem;
+    }
+    .md{
         height: 2.8571rem;
     }
 }
 
 @media (min-width: 769px) and (max-width: 1023px){
-    .large{
+    .lg{
+        height: 3.0769rem;
+    }
+    .md{
         height: 2.8571rem;
     }
 }
 
 @media (min-width: 1024px){
-    .large{
+    .lg{
+        height: 3.0769rem;
+    }
+    .md{
         height: 2.3rem;
     }
 }
@@ -28,7 +37,7 @@
     width: 100%;
 }
 
-.large{
+.lg{
     font-size: 1.0769rem;
     font-weight: 500;
     padding: 0 1rem;

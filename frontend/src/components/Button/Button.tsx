@@ -11,7 +11,7 @@ interface ButtonProps {
     loading?: boolean; // 로딩
     loadingColor?: string; // 로딩 컬러
     shadow?: boolean; // 그림자효과
-    variant?: "primary" | "secondary" | "large" | "icon"; // 스타일 구분
+    variant?: "primary" | "secondary" | "lg" | "md" | "icon"; // 스타일 구분
     color?: "primary" | "ghost" | "secondary" // 색상 구분
     fullWidth?: boolean;    // 너비 100%
     height?: string;        // 버튼 높이

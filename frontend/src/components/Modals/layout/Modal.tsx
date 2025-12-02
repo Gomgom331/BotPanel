@@ -98,12 +98,14 @@ export const Modal: React.FC<ModalProps> = ({
         const timeoutId = setTimeout(() => {
             const focusableElements = getFocusableElements();
             if (focusableElements.length > 0) {
+                // const parent = focusableElements[0].parentElement;
+                // parent?.focus();
                 focusableElements[0].focus();
+                console.log(focusableElements)
             }
         }, 0);
 
         return () => {
-            console.log('해제확인')
             window.removeEventListener("keydown", handleKeyDown)
             clearTimeout(timeoutId);
 
@@ -150,7 +152,9 @@ export const Modal: React.FC<ModalProps> = ({
                     aria-modal="true"
                 >
                     <button 
-                        className={styles.closeBtn}
+                        className={`
+                            ${styles.closeBtn}
+                        `}
                         aria-label="closeModal"
                         onClick={onClose}
                     >

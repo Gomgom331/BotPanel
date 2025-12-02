@@ -3,12 +3,10 @@ import baseStyles from "../../shared/FormControl.module.css" // 공용
 import selectStyles from "./SelectField.module.css" // select 용
 import Icon from "../../Icon/Icon"
 
-
 interface Option {
   value: string | number;
   label: string;
 }
-
 
 // select type
 interface SelectProps {
@@ -33,7 +31,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   value,
   name,
   options,
-  placeholder = "선책하세요",
+  placeholder = "선택해주세요.",
   error,
   required = false,
   disabled = false,
@@ -46,9 +44,32 @@ const CustomSelect: React.FC<SelectProps> = ({
   const [ isOpen, setIsOpen ] = useState(false); // 열림 , 닫힘
   const [ isLoading, setIsLoading ] = useState(false); // 로딩
   const selectRef = useRef<HTMLDivElement | null>(null);
+  // 키보드 제어
+  const [activeIndex, setActiveIndex] = useState(-1) // 활성화된 옵션 인덱스
+  const listRef = useRef<HTMLUListElement | null>(null);
+  const triggerRef = useRef<HTMLDivElement | null>(null);
 
   const selectedOption = options.find(opt => opt.value === value); // value
   const displayText = selectedOption?.label || placeholder; // 보이는 텍스트
+
+
+  //메뉴 열기
+  const openMenu = () => {
+    if (!disabled) {
+      setIsOpen(true);
+      // 현재 선택된 옵션의 인덱스로 설정
+      const currentIndex = options.findIndex(opt => opt.value === value);
+      setActiveIndex(currentIndex >= 0 ? currentIndex : 0);
+    }
+  };
+
+  // 메뉴 닫기
+  const close = () => {
+    setIsOpen(false);
+    setActiveIndex(-1);
+    triggerRef.current?.focus();
+  };
+
 
   const handleSelect = async (optionValue: string | number) => {
     setIsOpen(false); // 기본 false
@@ -56,6 +77,9 @@ const CustomSelect: React.FC<SelectProps> = ({
     if (onChange) {
       onChange(optionValue);
     }
+
+    // 트리거로 포커스 복귀
+    setTimeout(()=> triggerRef.current?.focus(), 0);
 
     // api 전송 (값이 있으면 전송)
     if(apiUrl){
@@ -83,10 +107,55 @@ const CustomSelect: React.FC<SelectProps> = ({
       }
     }
   };
+
   // focus를 벗어났을 때 실행되는 이벤트 핸들러
   const handleBlur = () => {
     if (onBlur){
       onBlur();
+    }
+  };
+
+  // 트리거 키보드 제어
+  const onTriggerKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if(e.key === "ArrowDown" || e.key === "ArrowUp"){
+      e.preventDefault();
+      openMenu();
+      setActiveIndex((idx)=> {
+        if(e.key === "ArrowDown") return Math.min(options.length -1, idx + 1);
+        return Math.max(0, idx -1);
+      });
+
+      setTimeout(() => listRef.current?.focus(), 0);
+    }else if(e.key === "Enter" || e.key === " "){
+
+      e.preventDefault();
+      isOpen ? close() : openMenu();
+      if (!isOpen) setTimeout(()=> listRef.current?.focus(), 0);
+
+    }else if(e.key === "Escape"){
+
+      close();
+    }
+  };
+
+  // 리스트 키보드 제어
+  const onListKeyDown: React.KeyboardEventHandler<HTMLUListElement> = (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((idx) => Math.min(options.length - 1, idx + 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((idx) => Math.max(0, idx - 1));
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (activeIndex >= 0 && activeIndex < options.length) {
+        handleSelect(options[activeIndex].value);
+      }
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      close();
+    } else if (e.key === "Tab") {
+      close();
     }
   };
 
@@ -96,18 +165,27 @@ const CustomSelect: React.FC<SelectProps> = ({
     const handleClickOutside = (event: MouseEvent) => {
         if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
             setIsOpen(false);
+            setActiveIndex(-1); // 인덱스 초기화
             handleBlur();
         }
     };
-    //
     if (isOpen) {
         document.addEventListener("mousedown", handleClickOutside);
     }
-    
     return () => {
         document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+
+  useEffect(()=>{
+    if (isOpen && activeIndex >= 0 && listRef.current){
+      const activeOption = listRef.current.children[activeIndex] as HTMLElement;
+      if (activeOption) {
+        activeOption.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+  }, [activeIndex, isOpen]);
 
   return (
       <div className={baseStyles.container}>
@@ -119,21 +197,24 @@ const CustomSelect: React.FC<SelectProps> = ({
           
           <div className={selectStyles.selectWrapper} ref={selectRef}>
               <div 
-                  className={`
-                    ${baseStyles.input} 
-                    ${selectStyles.selectInput} 
-                    ${error ? baseStyles.error : ''} 
-                    ${disabled ? baseStyles.disabled : ''}
-                    ${isOpen ? selectStyles.open : ''}
-                  `}
-                  onClick={() => !disabled && setIsOpen(!isOpen)}
-                  onBlur={handleBlur}
-                  tabIndex={disabled ? -1 : 0}
-                  role="button"
-                  aria-haspopup="listbox"
-                  aria-expanded={isOpen}
-                  aria-invalid={!!error}
-                  aria-describedby={error ? `${name}-error` : undefined}
+                ref={triggerRef} //ref 연결
+                className={`
+                  ${baseStyles.input} 
+                  ${selectStyles.selectInput} 
+                  ${error ? baseStyles.error : ''} 
+                  ${disabled ? baseStyles.disabled : ''}
+                  ${isOpen ? selectStyles.open : ''}
+                  borderFocus
+                `}
+                onClick={() => !disabled && (isOpen ? close() : openMenu())} // close 함수 사용
+                onKeyDown={onTriggerKeyDown}
+                onBlur={handleBlur}
+                tabIndex={disabled ? -1 : 0}
+                role="button"
+                aria-haspopup="listbox"
+                aria-expanded={isOpen}
+                aria-invalid={!!error}
+                aria-describedby={error ? `${name}-error` : undefined}
               >
                   <span className={value ? selectStyles.selectedText : selectStyles.placeholderText}>
                       {isLoading ? '로딩 중...' : displayText}
@@ -150,15 +231,26 @@ const CustomSelect: React.FC<SelectProps> = ({
               </div>
               
               {isOpen && !disabled && (
-                  <ul className={`${selectStyles.dropdown} scrollBox`} role="listbox">
-                      {options.map((option) => (
+                  <ul 
+                    ref={listRef}
+                    className={
+                      `${selectStyles.dropdown} 
+                      scrollBox`
+                    } 
+                    role="listbox" 
+                    tabIndex={-1}
+                    onKeyDown={onListKeyDown}
+                  >
+                      {options.map((option, index) => (
                           <li
                               key={option.value}
                               className={`
                                   ${selectStyles.option} 
                                   ${value === option.value ? selectStyles.selectedOption : ''}
+                                  ${activeIndex === index ? selectStyles.activeOption : ''}
                               `}
                               onClick={() => handleSelect(option.value)}
+                              onMouseEnter={()=> setActiveIndex(index)}
                               role="option"
                               aria-selected={value === option.value}
                           >
@@ -176,8 +268,6 @@ const CustomSelect: React.FC<SelectProps> = ({
           )}
       </div>
   );
-
-
 }
   
 

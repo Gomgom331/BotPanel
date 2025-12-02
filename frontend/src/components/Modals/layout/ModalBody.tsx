@@ -12,7 +12,7 @@ export const ModalBody: React.FC<ModalBodyProps> = ({
 }) => {
     return(
         <div className={styles.container}>
-            {children}
+            <p className="whiteSpace">{children}</p>
         </div>
     )
 }

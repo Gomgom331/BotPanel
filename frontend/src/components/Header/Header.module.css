@@ -37,7 +37,7 @@ header > ul{
 }
 
 /* 이미지 */
-.profileBox > .profileImg{
+.profileImgBox{
     width: 3.3rem;
     height: 3.3rem;
     border-radius: 50%;

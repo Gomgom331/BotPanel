@@ -10,12 +10,15 @@
       }
     },
     "logout":{
-      "confirm": "您要退出登录吗？"
+      "title": "退出登录",
+      "confirm": "您要退出登录吗？",
+      "warning": "退出登录后，当前正在处理的内容可能无法保存。\n是否继续？"
     },
 
     "signup": {
       "title": "注册"
     },
+
     "form": {
       "username": "用户名",
       "password": "密码",
@@ -38,10 +41,12 @@
       "company":"公司"
     },
 
-      "common": {
+    "common": {
       "loading": "加载中...",
       "seeMore":"查看更多",
-      "delete":"删除"
+      "delete":"删除",
+      "cancel": "取消",
+      "cancelAction": "取消"
     },
 
     "unit":{

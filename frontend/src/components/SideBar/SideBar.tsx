@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useLanguage } from "../../hooks/useLanguage ";
+import { useLanguage } from "../../hooks/useLanguage";
 import { useAuthActions } from "../../hooks/useAuthActions";
 
 import localStyle from "./SideBar.module.css";
@@ -13,8 +13,7 @@ import Notification from "../Notification/Notification";
 
 // 모달
 import { useModal } from "../../hooks/useModal"
-import { ConfirmModal } from "../Modals/presets/ConfirmModal";
-
+import LogoutModal from "../Modals/Modal/LogoutModal";
 
 type IconItem = {
     name: string;
@@ -27,16 +26,8 @@ type IconItem = {
 const SideBar:React.FC = () => {
 
     const [activeButton, setActiveButton] = useState<'first' | 'second'>('first'); //first가 기본값
-    const {t} = useLanguage();
-
-    // 로그아웃
-    const logoutModal = useModal();
-    const { logout } = useAuthActions();
-
-    const handleLogout = async () => {
-        await logout();
-        logoutModal.close();
-    };
+    const {t} = useLanguage(); // 언어
+    const logoutModal = useModal(); // 로그아웃
 
     // 사이드 바 아이콘 항목들
     const iconItems: IconItem[] = [
@@ -51,18 +42,11 @@ const SideBar:React.FC = () => {
 
     return(
         <>
-            <ConfirmModal
+            {/* 로그아웃 */}
+            <LogoutModal
                 isOpen={logoutModal.isOpen}
                 onClose={logoutModal.close}
-                title="로그아웃 하시겠습니까?"
-                iconName="logout"
-                positiveButtonLabel="로그아웃"
-                negativeButtonLabel="취소하기"
-                onPositiveClick={handleLogout}
-                onNegativeClick={logoutModal.close}
-            >
-                정말로 로그아웃하시겠습니까?
-            </ConfirmModal>
+            />
             <div className={localStyle.container}>
                 <aside className={localStyle.sidebar}>
                     <div className={localStyle.toggleButtonGroup}>
@@ -77,7 +61,7 @@ const SideBar:React.FC = () => {
                                         className={`
                                                 ${localStyle.toggleButton}
                                                 ${activeButton === 'first' ? localStyle.active : ''}
-                                                borderFocus
+                                                shadowFocus
                                         `}
                                     >
                                         <Icon
@@ -100,7 +84,7 @@ const SideBar:React.FC = () => {
                                         onClick={()=>setActiveButton('second')}
                                         className={`
                                             ${localStyle.bellButton} ${activeButton === 'second' ? localStyle.active : ''}
-                                            borderFocus
+                                            shadowFocus
                                         `}
                                     >
                                         <Icon
@@ -127,7 +111,7 @@ const SideBar:React.FC = () => {
             
                                 {item.link ? (
                                     <Link
-                                        className={`${localStyle.iconCircle} borderFocus`}
+                                        className={`${localStyle.iconCircle} shadowFocus`}
                                         to={item.link}
                                         aria-label={t(item.tooltip)}
                                     >
@@ -136,7 +120,7 @@ const SideBar:React.FC = () => {
                                 ) : (
                                     <button
                                         type="button"
-                                        className={`${localStyle.iconCircle} borderFocus`}
+                                        className={`${localStyle.iconCircle} shadowFocus`}
                                         aria-label={t(item.tooltip)}
                                         onClick={item.onClick}
                                     >

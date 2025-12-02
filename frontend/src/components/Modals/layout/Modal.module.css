@@ -21,12 +21,14 @@
     width: min(33.8462rem);
     display: flex;
     flex-direction: column;
-    gap: var(--base-padding);
+    gap: var(--gap-padding);
 }
 .closeBtn{
     position: absolute;
-    top: calc(0 + var(--xl-padding));
-    right: calc(0% + var(--xl-padding));
+    top: calc(0% + var(--xl-padding) - var(--gap-padding));
+    right: calc(0% + var(--xl-padding) - var(--gap-padding));
+    border-radius: var(--border-radius);
+    padding: var(--gap-padding);
 }
 
 /* .sm */
