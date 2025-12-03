@@ -27,6 +27,6 @@
     padding: 0rem 0.5rem;
     border-radius: var(--border-radius);
 }
-.listBox > li > a:hover{
-    color: var(--color-primary);
+.listBox > li:nth-child(2n){
+    font-size: 0.6rem;
 }

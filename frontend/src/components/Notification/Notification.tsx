@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "./Notification.module.css"
 
 import Icon from "../Icon/Icon"
+import Tooltip from "../Tooltip/Tooltip"
 import CustomSelect from "../Input/SelectField/SelectField"
 import NotificationItem from "./NotificationItem"
 
@@ -159,27 +160,32 @@ const Notification:React.FC = () => {
                             <h1>알림</h1>
                         </div>
                         {/* / titleBox */}
-                        <button 
-                            type="button"
-                            className={`
-                                ${style.addButton}
-                                borderFocus
-                            `}
+                        <Tooltip
+                            content={t('common.seeMore')}
+                            placement="right"
                         >
-                            <Icon
-                                name="plus"
-                                size={"1rem"}
-                            />
-                        </button>
+                            <button 
+                                type="button"
+                                className={`
+                                    ${style.addButton}
+                                    iconFocus
+                                `}
+                            >
+                                <Icon
+                                    name="plus"
+                                    size={"1rem"}
+                                />
+                            </button>
+                        </Tooltip>
                         {/* / addButton */}
                     </div>
                     {/* / titleContainer */}
                     <div className={style.selectContainer}>
                         <ul>
                             <li className={style.tagBox}>
-                                <button className={`${style.tag} textTag borderFocus`}>{t('filterTags.all')}&nbsp;<span className="">28</span>{t(`unit.count`)}</button>
-                                <button className={`${style.tag} textTag borderFocus`}>{t(`filterTags.unconfirmed`)}&nbsp;<span className="">4</span>{t(`unit.count`)}</button>
-                                <button className={`${style.tag} textTag borderFocus`}>{t(`filterTags.confirmed`)}&nbsp;<span className="">24</span>{t(`unit.count`)}</button>
+                                <button className={`${style.tag} textTag shadowFocus`}>{t('filterTags.all')}&nbsp;<span className="">28</span>{t(`unit.count`)}</button>
+                                <button className={`${style.tag} textTag shadowFocus`}>{t(`filterTags.unconfirmed`)}&nbsp;<span className="">4</span>{t(`unit.count`)}</button>
+                                <button className={`${style.tag} textTag shadowFocus`}>{t(`filterTags.confirmed`)}&nbsp;<span className="">24</span>{t(`unit.count`)}</button>
                             </li>
                             <li className={style.selectBox}>
                                 <CustomSelect

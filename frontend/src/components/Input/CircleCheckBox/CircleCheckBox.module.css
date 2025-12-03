@@ -98,3 +98,7 @@
     opacity: 1;
     border-color: var(--color-primary);
 }
+:global(.borderFocus):hover + .checkboxCircle::before {
+    opacity: 1;
+    border-color: var(--color-primary);
+}

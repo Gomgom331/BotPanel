@@ -185,7 +185,8 @@ h3{
 .whiteSpace{
     white-space: pre-line;
 }
-/* focus ------------------------------------ */
+
+/* focus & hover------------------------------------ */
 /* 버튼 */
 .borderFocus{
     outline: 0.1425rem solid var(--color-opacity);
@@ -195,6 +196,32 @@ h3{
     outline-offset: 0.1429rem !important;
     transition: 0.2s ease;
 }
+
+/* 아이콘 */
+.iconFocus{
+    transition: 0.2s ease;
+}
+.iconFocus > svg {
+    transition: fill 0.2s ease, background-color 0.2s ease;
+}
+.iconFocus:hover > svg {
+    color: var(--color-primary) !important;
+}
+.iconFocus:focus > svg {
+    color: var(--color-primary) !important;
+}
+
+/* 텍스트 */
+.textFocus{
+    transition: 0.2s ease;
+}
+.textFocus:focus{
+    color: var(--color-primary);
+}
+.textFocus:hover{
+    color: var(--color-primary);
+}
+
 /* 인풋 */
 .inputFocus{
     outline: 1.5px solid var(--color-opacity);
@@ -205,12 +232,19 @@ h3{
     background-color: var(--input-bg);
     transition: 0.2s ease;
 }
+
 /* 메뉴 */
 .menuFocus:focus{
     background-color: var(--color-primary) !important; /* slate-700-ish */
     color: #ffffff !important;
 }
+
 /* 동그라미 버튼 */
+.shadowFocus:hover{
+    box-shadow: var(--button-focus-shadow);
+    transition: 0.2s ease;
+}
+
 .shadowFocus:focus{
     box-shadow: var(--button-focus-shadow);
     transition: 0.2s ease;

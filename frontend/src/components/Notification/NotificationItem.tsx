@@ -71,7 +71,10 @@ const NotificationsItem:React.FC<NotificationItemProps> = ({
                                     onDelete?.(id);
                                 }}
                                 aria-label="알림 삭제"
-                                className={`borderFocus ${styles.deleteButton}`}
+                                className={`
+                                    iconFocus 
+                                    ${styles.deleteButton}
+                                `}
                             >
                                     <Icon 
                                         name="trash" 
@@ -106,7 +109,7 @@ const NotificationsItem:React.FC<NotificationItemProps> = ({
                                     e.stopPropagation(); // 아이템 클릭 이벤트 방지
                                     onMoreClick?.(id);
                                 }}
-                                className={`borderFocus ${styles.addButton}`}
+                                className={`iconFocus textFocus ${styles.addButton}`}
                             >
                                 {t("common.seeMore")}
                                 <Icon 
